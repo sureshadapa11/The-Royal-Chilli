@@ -1,6 +1,6 @@
 // ===== PRELOADER =====
 const hidePreloader = () => document.getElementById('preloader').classList.add('hidden');
-setTimeout(hidePreloader, 2500);
+setTimeout(hidePreloader, 4000);
 window.addEventListener('load', () => setTimeout(hidePreloader, 300));
 
 // ===== NAVBAR SCROLL =====
