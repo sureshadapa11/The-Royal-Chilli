@@ -312,7 +312,7 @@ input, select, textarea, button { font-family: inherit; }
 .dish-img { height: 180px; overflow: hidden; }
 .dish-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
 .dish-card:hover .dish-img img { transform: scale(1.08); }
-.dish-body { padding: 1.1rem; }
+.dish-body { padding: 1.1rem; display: flex; flex-direction: column; }
 .dish-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 0.5rem; margin-bottom: 0.4rem; }
 .dish-top h4 { font-size: 0.95rem; font-weight: 600; line-height: 1.3; }
 .price { color: var(--gold); font-weight: 700; font-size: 1rem; white-space: nowrap; font-family: 'Playfair Display', serif; }
@@ -545,22 +545,26 @@ input, select, textarea, button { font-family: inherit; }
 
 /* ===== CARD STEPPER ===== */
 .card-stepper {
-    display: flex; align-items: center; justify-content: space-between;
-    margin-top: 0.75rem; background: var(--bg3);
-    border: 1.5px solid var(--border); border-radius: 8px;
-    overflow: hidden;
+    display: inline-flex; align-items: center;
+    margin-top: 0.85rem;
+    background: #111; border-radius: 50px;
+    border: 1.5px solid rgba(255,255,255,0.08);
+    overflow: hidden; min-width: 110px;
 }
 .stepper-btn {
-    width: 36px; height: 34px; border: none; background: transparent;
-    color: var(--text2); font-size: 1.1rem; cursor: pointer;
+    width: 40px; height: 38px; border: none; background: transparent;
+    font-size: 1.15rem; font-weight: 700; cursor: pointer;
     transition: var(--transition); display: flex; align-items: center; justify-content: center;
 }
-.stepper-btn:hover { background: var(--red); color: white; }
+.stepper-btn.stepper-dec { color: var(--text2); }
+.stepper-btn.stepper-dec:hover { color: white; }
+.stepper-btn.stepper-inc { color: var(--gold); }
+.stepper-btn.stepper-inc:hover { color: var(--gold-light); }
 .stepper-dec { display: none; }
 .stepper-dec.visible { display: flex; }
 .stepper-label {
     flex: 1; text-align: center; font-size: 0.8rem; font-weight: 700;
-    color: var(--red); letter-spacing: 1px; user-select: none;
+    color: white; letter-spacing: 1.5px; user-select: none; padding: 0 0.25rem;
 }
 
 /* ===== CART OVERLAY ===== */
