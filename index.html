@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="The Royal Chilli - Authentic Indian Restaurant in London. Dil Se Desi, Taste Mein Royal.">
+    <title>The Royal Chilli | Dil Se Desi - Taste Mein Royal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="preloader-inner">
+            <div class="preloader-logo">🌶️</div>
+            <p class="preloader-name">The Royal Chilli</p>
+            <div class="preloader-bar"><div class="preloader-fill"></div></div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <a href="#home" class="nav-logo">
+                <span class="logo-chilli">🌶️</span>
+                <div class="logo-text">
+                    <span class="logo-main">The Royal Chilli</span>
+                    <span class="logo-tag">DIL SE DESI</span>
+                </div>
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home" class="nav-link active">Home</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#menu" class="nav-link">Menu</a></li>
+                <li><a href="#gallery" class="nav-link">Gallery</a></li>
+                <li><a href="#testimonials" class="nav-link">Reviews</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="nav-cta">
+                <a href="tel:02087973044" class="nav-phone"><i class="fas fa-phone"></i> 020 8797 3044</a>
+                <a href="#reservation" class="btn-nav-book">Book a Table</a>
+            </div>
+            <button class="hamburger" id="hamburger" aria-label="Menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+        <div class="mobile-menu" id="mobileMenu">
+            <ul>
+                <li><a href="#home" class="mob-link">Home</a></li>
+                <li><a href="#about" class="mob-link">About</a></li>
+                <li><a href="#menu" class="mob-link">Menu</a></li>
+                <li><a href="#gallery" class="mob-link">Gallery</a></li>
+                <li><a href="#testimonials" class="mob-link">Reviews</a></li>
+                <li><a href="#contact" class="mob-link">Contact</a></li>
+                <li><a href="#reservation" class="mob-link mob-book">Book a Table</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section id="home" class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <span class="hero-tag animate-up">Authentic Indian Cuisine · London</span>
+            <h1 class="hero-title animate-up delay-1">
+                <span class="line-1">Dil Se Desi</span>
+                <span class="title-sep"><span class="sep-line"></span><span class="sep-chilli">🌶️</span><span class="sep-line"></span></span>
+                <span class="line-2">Taste Mein Royal</span>
+            </h1>
+            <p class="hero-desc animate-up delay-2">Experience the rich flavours and traditions of authentic Indian cooking, crafted with love and passion in the heart of London.</p>
+            <div class="hero-actions animate-up delay-3">
+                <a href="#menu" class="btn-primary">Explore Menu <i class="fas fa-arrow-right"></i></a>
+                <a href="#reservation" class="btn-outline">Book a Table <i class="fas fa-calendar-alt"></i></a>
+            </div>
+        </div>
+        <div class="hero-scroll-hint">
+            <a href="#stats"><i class="fas fa-chevron-down"></i></a>
+        </div>
+        <div class="hero-badge">
+            <div class="badge-ring">
+                <span class="badge-est">Est.</span>
+                <span class="badge-yr">2020</span>
+                <span class="badge-loc">London</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats -->
+    <section id="stats" class="stats">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <i class="fas fa-utensils stat-icon"></i>
+                    <div class="stat-num" data-count="150">0</div>
+                    <div class="stat-label">Signature Dishes</div>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-smile stat-icon"></i>
+                    <div class="stat-num" data-count="10000">0</div>
+                    <div class="stat-label">Happy Customers</div>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-star stat-icon"></i>
+                    <div class="stat-num" data-count="5">0</div>
+                    <div class="stat-label">Years of Excellence</div>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-award stat-icon"></i>
+                    <div class="stat-num" data-count="12">0</div>
+                    <div class="stat-label">Expert Chefs</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About -->
+    <section id="about" class="about section">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-imgs reveal">
+                    <div class="about-img-main">
+                        <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=700&q=80" alt="Restaurant Interior" loading="lazy">
+                    </div>
+                    <div class="about-img-sm">
+                        <img src="https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=400&q=80" alt="Indian Food" loading="lazy">
+                    </div>
+                    <div class="about-exp">
+                        <span class="exp-n">5+</span>
+                        <span class="exp-t">Years of Royal Experience</span>
+                    </div>
+                </div>
+                <div class="about-content reveal delay-2">
+                    <p class="section-tag">Our Story</p>
+                    <h2 class="section-title">Where Every Dish Tells a Story of <span class="text-gold">Passion &amp; Heritage</span></h2>
+                    <p class="about-text">The Royal Chilli was born from a deep love for authentic Indian flavours and the age-old traditions of Indian cooking. We bring you the very best of South and North Indian cuisine, using the freshest ingredients and spices imported directly from India.</p>
+                    <p class="about-text">Our chefs, trained in the finest culinary traditions, create dishes that transport you straight to the bustling streets and royal kitchens of India — right here in London.</p>
+                    <div class="features-grid">
+                        <div class="feat"><div class="feat-icon"><i class="fas fa-mortar-pestle"></i></div><div><h4>Authentic Recipes</h4><p>Traditional family recipes passed down through generations</p></div></div>
+                        <div class="feat"><div class="feat-icon"><i class="fas fa-leaf"></i></div><div><h4>Fresh Ingredients</h4><p>Locally sourced produce and imported Indian spices</p></div></div>
+                        <div class="feat"><div class="feat-icon"><i class="fas fa-fire"></i></div><div><h4>Signature Spice Blends</h4><p>Unique spice mixes crafted by our master chefs</p></div></div>
+                        <div class="feat"><div class="feat-icon"><i class="fas fa-heart"></i></div><div><h4>Made With Love</h4><p>Every dish cooked with care, passion and dedication</p></div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu -->
+    <section id="menu" class="menu section">
+        <div class="container">
+            <div class="section-header reveal">
+                <p class="section-tag">Our Menu</p>
+                <h2 class="section-title">A Royal Feast <span class="text-gold">Awaits You</span></h2>
+                <p class="section-sub">From delicate starters to hearty mains — a celebration of India's diverse culinary heritage.</p>
+            </div>
+            <div class="tabs reveal">
+                <button class="tab active" data-tab="soups">Soups</button>
+                <button class="tab" data-tab="veg">Veg Starters</button>
+                <button class="tab" data-tab="nonveg">Non-Veg Starters</button>
+                <button class="tab" data-tab="tandoori">Tandoori</button>
+                <button class="tab" data-tab="mains">Mains</button>
+                <button class="tab" data-tab="biryani">Biryani</button>
+                <button class="tab" data-tab="breads">Breads</button>
+                <button class="tab" data-tab="specials">Specials</button>
+            </div>
+
+            <!-- Soups -->
+            <div class="tab-panel active" id="panel-soups">
+                <div class="menu-grid">
+                    <div class="dish-card"><div class="dish-img"><img src="https://images.unsplash.com/photo-1547592180-85f173990554?w=400&q=80" alt="Soup" loading="lazy"></div><div class="dish-body"><div class="dish-top"><h4>Veg Sweet Corn Soup</h4><span class="price">£4.95</span></div><p>Creamy corn soup with vegetables and aromatic herbs</p><span class="badge veg">🟢 Veg</span></div></div>
+                    <div class="dish-card"><div class="dish-img"><img src="https://images.unsplash.com/photo-1547592180-85f173990554?w=400&q=80" alt="Soup" loading="lazy"></div><div class="dish-body"><div class="dish-top"><h4>Chicken Corn Soup</h4><span class="price">£5.95</span></div><p>Rich chicken broth with sweet corn and spices</p><span class="badge nonveg">🔴 Non-Veg</span></div></div>
+                    <div class="dish-card"><div class="dish-img"><img src="https://images.unsplash.com/photo-1547592180-85f173990554?w=400&q=80" alt="Soup" loading="lazy"></div><div class="dish-body"><div class="dish-top"><h4>Prawns Corn Soup</h4><span class="price">£6.95</span></div><p>Delicate prawn and sweet corn in a savoury broth</p><span class="badge nonveg">🔴 Non-Veg</span></div></div>
+                    <div class="dish-card"><div class="dish-img"><img src="https://images.unsplash.com/photo-1547592180-85f173990554?w=400&q=80" alt="Soup" loading="lazy"></div><div class="dish-body"><div class="dish-top"><h4>Manchow Veg Soup</h4><span class="price">£4.95</span></div><p>Spicy Indo-Chinese soup with crispy fried noodles</p><span class="badge veg">🟢 Veg</span></div></div>
+                    <div class="dish-card"><div class="dish-img"><img src="https://images.unsplash.com/photo-1547592180-85f173990554?w=400&q=80" alt="Soup" loading="lazy"></div><div class="dish-body"><div class="dish-top"><h4>Manchow Chicken Soup</h4><span class="price">£5.95</span></div><p>Spicy chicken Manchow with crunchy noodles on top</p><span class="badge nonveg">🔴 Non-Veg</span></div></div>
+                    <div class="dish-card"><div class="dish-img"><img src="https://images.unsplash.com/photo-1547592180-85f173990554?w=400&q=80" alt="Soup" loading="lazy"></div><div class="dish-body"><div class="dish-top"><h4>Manchow Prawns Soup</h4><span class="price">£5.95</span></div><p>Spicy prawn Manchow soup with crispy noodles</p><span class="badge nonveg">🔴 Non-Veg</span></div></div>
+                    <div class="dish-card"><div class="dish-img"><img src="https://images.unsplash.com/photo-1547592180-85f173990554?w=400&q=80" alt="Soup" loading="lazy"></div><div class="dish-body"><div class="dish-top"><h4>Hot &amp; Sour Veg Soup</h4><span class="price">£4.95</span></div><p>Tangy and spicy vegetable soup with vinegar and chilli</p><span class="badge veg">🟢 Veg</span></div></div>
+                    <div class="dish-card"><div class="dish-img"><img src="https://images.unsplash.com/photo-1547592180-85f173990554?w=400&q=80" alt="Soup" loading="lazy"></div><div class="dish-body"><div class="dish-top"><h4>Hot &amp; Sour Chicken Soup</h4><span class="price">£5.95</span></div><p>Classic Indo-Chinese chicken hot &amp; sour soup</p><span class="badge nonveg">🔴 Non-Veg</span></div></div>
+                    <div class="dish-card"><div class="dish-img"><img src="https://images.unsplash.com/photo-1547592180-85f173990554?w=400&q=80" alt="Soup" loading="lazy"></div><div class="dish-body"><div class="dish-top"><h4>Hot &amp; Sour Prawns Soup</h4><span class="price">£6.95</span></div><p>Tangy prawn soup with hot and sour flavours</p><span class="badge nonveg">🔴 Non-Veg</span></div></div>
+                </div>
+            </div>
+
+            <!-- Veg Starters -->
+            <div class="tab-panel" id="panel-veg">
+                <div class="menu-grid">
+                    <div class="dish-card"><div class="dish-img"><img src="https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=400&q=80" alt="Pakoda" loading="lazy"></div><div class="dish-body"><div class="dish-top"><h4>Onion Pakoda</h4><span class="price">£5.95</span></div><p>Crispy golden onion fritters with spiced chickpea batter</p><span class="badge veg">🟢 Veg</span></div></div>
+                    <div class="dish-card"><div class="dish-img"><img src="https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=400&q=80" alt="Pakoda" loading="lazy"></div><div class="dish-body"><div class="dish-top"><h4>Palak Pakoda</h4><span class="price">£5.95</span></div><p>Crunchy spinach fritters seasoned with cumin and chilli</p><span class="badge veg">🟢 Veg</span></div></div>
+                    <div class="dish-card"><div class="dish-img"><img src="https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=400&q=80" alt="Cut Mirchi" loading="lazy"></div><div class="dish-body"><div class="dish-top"><h4>Cut Mirchi</h4><span class="price">£5.95</span></div><p>Fried green chillies stuffed with spiced potato filling</p><span class="badge veg">🟢 Veg</span></div></div>
+                    <div class="dish-card"><div class="dish-img"><img src="https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=400&q=80" alt="Mirchi Bajji" loading="lazy"></div><div class="dish-body"><div class="dish-top"><h4>Mirchi Bajji</h4><span class="price">£4.95</span></div><p>Whole green chillies in crispy besan batter, Andhra style</p><span class="badge veg">🟢 Veg</span></div></div>
+                    <div class="dish-card popular-dish"><div class="pop-tag">Popular</div><div class="dish-img"><img src="https://images.unsplash.com/photo-1596797038530-2c107229654b?w=400&q=80" alt="Crispy Corn" loading="lazy"></div><div class="dish-body"><div class="dish-top"><h4>Crispy Corn</h4><span class="price">£5.95</span></div><p>Crunchy fried corn kernels tossed in spices and herbs</p><span class="badge veg">🟢 Veg</span></div></div>
+                    <div class="dish-card"><div class="dish-img"><img src="https://images.unsplash.com/photo-1596797038530-2c107229654b?w=400&q=80" alt="Chilli Paneer" loading="lazy"></div><div class="dish-body"><div class="dish-top"><h4>Chilli Paneer</h4><span class="price">£8.95</span></div><p>Wok-tossed paneer cubes with peppers in Indo-Chinese sauce</p><span class="badge veg">🟢 Veg</span></div></div>
+                    <div class="dish-card"><div class="dish-img"><img src="https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=400&q=80" alt="Gobi Manchurian" loading="lazy"></div><div class="dish-body"><div class="dish-top"><h4>Gobi Manchurian</h4><span class="price">£8.95</span></div><p>Crispy cauliflower in spicy Manchurian sauce</p><span class="badge veg">🟢 Veg</span></div></div>
+                    <div class="dish-card"><div class="dish-img"><img src="https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=400&q=80" alt="Veg Manchurian" loading="lazy"></div><div class="dish-body"><div class="dish-top"><h4>Veg Manchurian</h4><span class="price">£7.95</span></div><p>Mixed vegetable balls in bold and tangy Manchurian gravy</p><span class="badge veg">🟢 Veg</span></div></div>
+                    <div class="dish-card"><div class="dish-img"><img src="https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=400&q=80" alt="Bhindi Kurkure" loading="lazy"></div><div class="dish-body"><div class="dish-top"><h4>Bhindi Kurkure</h4><span class="price">£7.95</span></div><p>Crispy salt and pepper okra — a Southern favourite</p><span class="badge veg">🟢 Veg</span></div></div>
+                    <div class="dish-card"><div class="dish-img"><img src="https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=400&q=80" alt="Chilli Garlic Mushroom" loading="lazy"></div><div class="dish-body"><div class="dish-top"><h4>Chilli Garlic Mushroom</h4><span class="price">£8.95</span></div><p>Mushrooms tossed in chilli garlic sauce with spring onions</p><span class="badge veg">🟢 Veg</span></div></div>
+                    <div class="dish-card"><div class="dish-img"><img src="https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=400&q=80" alt="Gobi 65" loading="lazy"></div><div class="dish-body"><div class="dish-top"><h4>Gobi 65</h4><span class="price">£8.95</span></div><p>Deep-fried cauliflower in spicy red marinade, Hyderabadi style</p><span class="badge veg">🟢 Veg</span></div></div>
+                </div>
+            </div>
+
+            <!-- Non-Veg Starters -->
+            <div class="tab-panel" id="panel-nonveg">
+                <div class="menu-grid">
+                    <div class="dish-card popular-dish"><div class="pop-tag">Popular</div><div class="dish-img"><img src="https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=400&q=80" alt="Chicken 65" loading="lazy"></div><div class="dish-body"><div class="dish-top"><h4>Chicken 65</h4><span class="price">£9.95</span></div><p>Spicy deep-fried chicken with classic Hyderabadi marinade</p><span class="badge nonveg">🔴 Non-Veg</span></div></div>
+                    <div class="dish-card"><div class="dish-img"><img src="https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=400&q=80" alt="Chilli Chicken" loading="lazy"></div><div class="dish-body"><div class="dish-top"><h4>Chilli Chicken</h4><span class="price">£9.95</span></div><p>Crispy chicken wok-tossed in spicy Indo-Chinese sauce</p><span class="badge nonveg">🔴 Non-Veg</span></div></div>
+                    <div class="dish-card"><div class="dish-img"><img src="https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=400&q=80" alt="Chicken Manchurian" loading="lazy"></div><div class="dish-body"><div class="dish-top"><h4>Chicken Manchurian</h4><span class="price">£9.95</span></div><p>Chicken balls in bold tangy Manchurian gravy</p><span class="badge nonveg">🔴 Non-Veg</span></div></div>
+                    <div class="dish-card"><div class="dish-img"><img src="https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=400&q=80" alt="Pepper Chicken" loading="lazy"></div><div class="dish-body"><div class="dish-top"><h4>Pepper Chicken</h4><span class="price">£9.95</span></div><p>Tender chicken dry-fried with black pepper and curry leaves</p><span class="badge nonveg">🔴 Non-Veg</span></div></div>
+                    <div class="dish-card"><div class="dish-img"><img src="https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=400&q=80" alt="Chicken Lollipop" loading="lazy"></div><div class="dish-body"><div class="dish-top"><h4>Chicken Lollipop (6 pcs)</h4><span class="price">£10.95</span></div><p>Marinated chicken wings in a spicy lollipop coating</p><span class="badge nonveg">🔴 Non-Veg</span></div></div>
+                    <div class="dish-card"><div class="dish-img"><img src="https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=400&q=80" alt="Prawn 65" loading="lazy"></div><div class="dish-body"><div class="dish-top"><h4>Prawn 65</h4><span class="price">£11.95</span></div><p>Crispy fried prawns with spicy red Andhra marinade</p><span class="badge nonveg">🔴 Non-Veg</span></div></div>
+                    <div class="dish-card"><div class="dish-img"><img src="https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=400&q=80" alt="Fish 65" loading="lazy"></div><div class="dish-body"><div class="dish-top"><h4>Fish 65</h4><span class="price">£10.95</span></div><p>Golden fried fish bites seasoned with aromatic spices</p><span class="badge nonveg">🔴 Non-Veg</span></div></div>
+                    <div class="dish-card"><div class="dish-img"><img src="https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=400&q=80" alt="Lamb Chops" loading="lazy"></div><div class="dish-body"><div class="dish-top"><h4>Lamb Chops (2 pcs)</h4><span class="price">£12.95</span></div><p>Marinated lamb chops grilled to perfection with spices</p><span class="badge nonveg">🔴 Non-Veg</span></div></div>
+                </div>
+            </div>
+
+            <!-- Tandoori -->
+            <div class="tab-panel" id="panel-tandoori">
+                <div class="menu-grid">
+                    <div class="dish-card popular-dish"><div class="pop-tag">Popular</div><div class="dish-img"><img src="https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=400&q=80" alt="Chicken Tikka" loading="lazy"></div><div class="dish-body"><div class="dish-top"><h4>Chicken Tikka</h4><span class="price">£10.95</span></div><p>Marinated chicken cubes grilled in clay tandoor oven</p><span class="badge nonveg">🔴 Non-Veg</span></div></div>
+                    <div class="dish-card"><div class="dish-img"><img src="https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=400&q=80" alt="Seekh Kebab" loading="lazy"></div><div class="dish-body"><div class="dish-top"><h4>Seekh Kebab (4 pcs)</h4><span class="price">£10.95</span></div><p>Minced lamb and herb kebabs cooked in the tandoor</p><span class="badge nonveg">🔴 Non-Veg</span></div></div>
+                    <div class="dish-card"><div class="dish-img"><img src="https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=400&q=80" alt="Tandoori Chicken" loading="lazy"></div><div class="dish-body"><div class="dish-top"><h4>Tandoori Chicken (Half)</h4><span class="price">£11.95</span></div><p>Classic tandoori chicken with yoghurt marinade</p><span class="badge nonveg">🔴 Non-Veg</span></div></div>
+                    <div class="dish-card"><div class="dish-img"><img src="https://images.unsplash.com/photo-1596797038530-2c107229654b?w=400&q=80" alt="Paneer Tikka" loading="lazy"></div><div class="dish-body"><div class="dish-top"><h4>Paneer Tikka</h4><span class="price">£9.95</span></div><p>Marinated paneer with peppers and onions from the tandoor</p><span class="badge veg">🟢 Veg</span></div></div>
+                    <div class="dish-card"><div class="dish-img"><img src="https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=400&q=80" alt="Mix Grill" loading="lazy"></div><div class="dish-body"><div class="dish-top"><h4>Mix Grill Platter</h4><span class="price">£14.95</span></div><p>Selection of tandoori items — perfect for sharing</p><span class="badge nonveg">🔴 Non-Veg</span></div></div>
+                    <div class="dish-card"><div class="dish-img"><img src="https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=400&q=80" alt="Reshmi Kebab" loading="lazy"></div><div class="dish-body"><div class="dish-top"><h4>Reshmi Kebab (4 pcs)</h4><span class="price">£11.95</span></div><p>Silky smooth chicken mince kebabs with cream and cashew</p><span class="badge nonveg">🔴 Non-Veg</span></div></div>
+                </div>
+            </div>
+
+            <!-- Mains -->
+            <div class="tab-panel" id="panel-mains">
+                <div class="menu-grid">
+                    <div class="dish-card popular-dish"><div class="pop-tag">Popular</div><div class="dish-img"><img src="https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?w=400&q=80" alt="Butter Chicken" loading="lazy"></div><div class="dish-body"><div class="dish-top"><h4>Butter Chicken</h4><span class="price">£13.95</span></div><p>Tender chicken in rich, creamy tomato butter sauce</p><span class="badge nonveg">🔴 Non-Veg</span></div></div>
+                    <div class="dish-card"><div class="dish-img"><img src="https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?w=400&q=80" alt="Chicken Tikka Masala" loading="lazy"></div><div class="dish-body"><div class="dish-top"><h4>Chicken Tikka Masala</h4><span class="price">£13.95</span></div><p>Grilled tikka in aromatic masala gravy</p><span class="badge nonveg">🔴 Non-Veg</span></div></div>
+                    <div class="dish-card"><div class="dish-img"><img src="https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?w=400&q=80" alt="Lamb Rogan Josh" loading="lazy"></div><div class="dish-body"><div class="dish-top"><h4>Lamb Rogan Josh</h4><span class="price">£14.95</span></div><p>Slow-cooked lamb in Kashmiri spiced tomato gravy</p><span class="badge nonveg">🔴 Non-Veg</span></div></div>
+                    <div class="dish-card"><div class="dish-img"><img src="https://images.unsplash.com/photo-1596797038530-2c107229654b?w=400&q=80" alt="Palak Paneer" loading="lazy"></div><div class="dish-body"><div class="dish-top"><h4>Palak Paneer</h4><span class="price">£11.95</span></div><p>Fresh paneer in smooth spiced spinach gravy</p><span class="badge veg">🟢 Veg</span></div></div>
+                    <div class="dish-card"><div class="dish-img"><img src="https://images.unsplash.com/photo-1596797038530-2c107229654b?w=400&q=80" alt="Paneer Butter Masala" loading="lazy"></div><div class="dish-body"><div class="dish-top"><h4>Paneer Butter Masala</h4><span class="price">£12.95</span></div><p>Soft paneer in creamy tomato butter sauce</p><span class="badge veg">🟢 Veg</span></div></div>
+                    <div class="dish-card"><div class="dish-img"><img src="https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?w=400&q=80" alt="Prawn Masala" loading="lazy"></div><div class="dish-body"><div class="dish-top"><h4>Prawn Masala</h4><span class="price">£14.95</span></div><p>Juicy prawns cooked in South Indian masala gravy</p><span class="badge nonveg">🔴 Non-Veg</span></div></div>
+                    <div class="dish-card"><div class="dish-img"><img src="https://images.unsplash.com/photo-1596797038530-2c107229654b?w=400&q=80" alt="Dal Makhani" loading="lazy"></div><div class="dish-body"><div class="dish-top"><h4>Dal Makhani</h4><span class="price">£10.95</span></div><p>Slow-cooked black lentils in creamy buttery sauce</p><span class="badge veg">🟢 Veg</span></div></div>
+                    <div class="dish-card"><div class="dish-img"><img src="https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?w=400&q=80" alt="Fish Curry" loading="lazy"></div><div class="dish-body"><div class="dish-top"><h4>Fish Curry</h4><span class="price">£13.95</span></div><p>Fresh fish fillets in tangy South Indian coconut curry</p><span class="badge nonveg">🔴 Non-Veg</span></div></div>
+                </div>
+            </div>
+
+            <!-- Biryani -->
+            <div class="tab-panel" id="panel-biryani">
+                <div class="menu-grid">
+                    <div class="dish-card popular-dish"><div class="pop-tag">Popular</div><div class="dish-img"><img src="https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=400&q=80" alt="Chicken Biryani" loading="lazy"></div><div class="dish-body"><div class="dish-top"><h4>Chicken Biryani</h4><span class="price">£13.95</span></div><p>Fragrant basmati layered with spiced chicken — Hyderabadi dum style</p><span class="badge nonveg">🔴 Non-Veg</span></div></div>
+                    <div class="dish-card"><div class="dish-img"><img src="https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=400&q=80" alt="Lamb Biryani" loading="lazy"></div><div class="dish-body"><div class="dish-top"><h4>Lamb Biryani</h4><span class="price">£14.95</span></div><p>Succulent lamb pieces with saffron-infused basmati rice</p><span class="badge nonveg">🔴 Non-Veg</span></div></div>
+                    <div class="dish-card"><div class="dish-img"><img src="https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=400&q=80" alt="Prawn Biryani" loading="lazy"></div><div class="dish-body"><div class="dish-top"><h4>Prawn Biryani</h4><span class="price">£15.95</span></div><p>King prawns with aromatic basmati in coastal spices</p><span class="badge nonveg">🔴 Non-Veg</span></div></div>
+                    <div class="dish-card"><div class="dish-img"><img src="https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=400&q=80" alt="Veg Biryani" loading="lazy"></div><div class="dish-body"><div class="dish-top"><h4>Veg Biryani</h4><span class="price">£11.95</span></div><p>Seasonal vegetables layered with fragrant basmati rice</p><span class="badge veg">🟢 Veg</span></div></div>
+                    <div class="dish-card"><div class="dish-img"><img src="https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=400&q=80" alt="Royal Mixed Biryani" loading="lazy"></div><div class="dish-body"><div class="dish-top"><h4>Royal Mixed Biryani</h4><span class="price">£15.95</span></div><p>Chicken, lamb and prawns together in royal dum biryani</p><span class="badge nonveg">🔴 Non-Veg</span></div></div>
+                </div>
+            </div>
+
+            <!-- Breads -->
+            <div class="tab-panel" id="panel-breads">
+                <div class="menu-grid">
+                    <div class="dish-card"><div class="dish-img"><img src="https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=400&q=80" alt="Plain Naan" loading="lazy"></div><div class="dish-body"><div class="dish-top"><h4>Plain Naan</h4><span class="price">£2.95</span></div><p>Soft leavened bread baked in clay tandoor oven</p><span class="badge veg">🟢 Veg</span></div></div>
+                    <div class="dish-card popular-dish"><div class="pop-tag">Popular</div><div class="dish-img"><img src="https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=400&q=80" alt="Garlic Naan" loading="lazy"></div><div class="dish-body"><div class="dish-top"><h4>Garlic Naan</h4><span class="price">£3.50</span></div><p>Tandoori naan brushed with garlic butter and coriander</p><span class="badge veg">🟢 Veg</span></div></div>
+                    <div class="dish-card"><div class="dish-img"><img src="https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=400&q=80" alt="Butter Naan" loading="lazy"></div><div class="dish-body"><div class="dish-top"><h4>Butter Naan</h4><span class="price">£3.25</span></div><p>Soft naan generously brushed with fresh butter</p><span class="badge veg">🟢 Veg</span></div></div>
+                    <div class="dish-card"><div class="dish-img"><img src="https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=400&q=80" alt="Peshwari Naan" loading="lazy"></div><div class="dish-body"><div class="dish-top"><h4>Peshwari Naan</h4><span class="price">£3.75</span></div><p>Sweet naan stuffed with almonds, coconut and sultanas</p><span class="badge veg">🟢 Veg</span></div></div>
+                    <div class="dish-card"><div class="dish-img"><img src="https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=400&q=80" alt="Paratha" loading="lazy"></div><div class="dish-body"><div class="dish-top"><h4>Paratha</h4><span class="price">£3.50</span></div><p>Flaky whole wheat layered flatbread cooked on tawa</p><span class="badge veg">🟢 Veg</span></div></div>
+                    <div class="dish-card"><div class="dish-img"><img src="https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=400&q=80" alt="Roti" loading="lazy"></div><div class="dish-body"><div class="dish-top"><h4>Roti</h4><span class="price">£2.50</span></div><p>Light whole wheat tandoori roti</p><span class="badge veg">🟢 Veg</span></div></div>
+                    <div class="dish-card"><div class="dish-img"><img src="https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=400&q=80" alt="Cheese Naan" loading="lazy"></div><div class="dish-body"><div class="dish-top"><h4>Cheese Naan</h4><span class="price">£3.95</span></div><p>Naan stuffed with melted cheese and fragrant herbs</p><span class="badge veg">🟢 Veg</span></div></div>
+                </div>
+            </div>
+
+            <!-- Specials -->
+            <div class="tab-panel" id="panel-specials">
+                <div class="menu-grid">
+                    <div class="dish-card popular-dish chef-special"><div class="pop-tag">Chef's Special</div><div class="dish-img"><img src="https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?w=400&q=80" alt="Royal Chilli Special" loading="lazy"></div><div class="dish-body"><div class="dish-top"><h4>Royal Chilli Special</h4><span class="price">£15.95</span></div><p>Our signature dish — chicken in our secret spice blend passed down by the head chef</p><span class="badge nonveg">🔴 Non-Veg</span></div></div>
+                    <div class="dish-card"><div class="dish-img"><img src="https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=400&q=80" alt="Royal Dum Biryani" loading="lazy"></div><div class="dish-body"><div class="dish-top"><h4>Royal Dum Biryani (For 2)</h4><span class="price">£17.95</span></div><p>Ultimate biryani with saffron, fried onions and exotic spices</p><span class="badge nonveg">🔴 Non-Veg</span></div></div>
+                    <div class="dish-card"><div class="dish-img"><img src="https://images.unsplash.com/photo-1596797038530-2c107229654b?w=400&q=80" alt="Royal Paneer Feast" loading="lazy"></div><div class="dish-body"><div class="dish-top"><h4>Royal Paneer Feast</h4><span class="price">£13.95</span></div><p>Paneer cubes in special royal masala, slow cooked to perfection</p><span class="badge veg">🟢 Veg</span></div></div>
+                    <div class="dish-card"><div class="dish-img"><img src="https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=400&q=80" alt="Chilli Feast Platter" loading="lazy"></div><div class="dish-body"><div class="dish-top"><h4>Chilli Feast Platter (For 2)</h4><span class="price">£24.95</span></div><p>Mixed grill, starters and curries — the ultimate Royal Chilli experience</p><span class="badge nonveg">🔴 Non-Veg</span></div></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery -->
+    <section id="gallery" class="gallery section">
+        <div class="container">
+            <div class="section-header reveal">
+                <p class="section-tag">Food Gallery</p>
+                <h2 class="section-title">A Feast for the <span class="text-gold">Eyes &amp; Soul</span></h2>
+            </div>
+            <div class="gallery-grid reveal">
+                <div class="g-item g-large"><img src="https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=800&q=80" alt="Indian Feast" loading="lazy"><div class="g-overlay"><span>Indian Feast</span></div></div>
+                <div class="g-item"><img src="https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=600&q=80" alt="Dum Biryani" loading="lazy"><div class="g-overlay"><span>Dum Biryani</span></div></div>
+                <div class="g-item"><img src="https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=600&q=80" alt="Fresh Naan" loading="lazy"><div class="g-overlay"><span>Fresh Naan</span></div></div>
+                <div class="g-item"><img src="https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?w=600&q=80" alt="Signature Curry" loading="lazy"><div class="g-overlay"><span>Signature Curry</span></div></div>
+                <div class="g-item g-tall"><img src="https://images.unsplash.com/photo-1552566626-52f8b828add9?w=600&q=80" alt="Royal Ambiance" loading="lazy"><div class="g-overlay"><span>Royal Ambiance</span></div></div>
+                <div class="g-item"><img src="https://images.unsplash.com/photo-1596797038530-2c107229654b?w=600&q=80" alt="Paneer Delight" loading="lazy"><div class="g-overlay"><span>Paneer Delight</span></div></div>
+                <div class="g-item"><img src="https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=600&q=80" alt="Crispy Starters" loading="lazy"><div class="g-overlay"><span>Crispy Starters</span></div></div>
+                <div class="g-item"><img src="https://images.unsplash.com/photo-1601050690597-df0568f70950?w=600&q=80" alt="Royal Desserts" loading="lazy"><div class="g-overlay"><span>Royal Desserts</span></div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section id="testimonials" class="testimonials section">
+        <div class="container">
+            <div class="section-header reveal">
+                <p class="section-tag">Guest Reviews</p>
+                <h2 class="section-title">What Our <span class="text-gold">Royal Guests</span> Say</h2>
+            </div>
+            <div class="slider-wrap reveal">
+                <div class="slider-track" id="sliderTrack">
+                    <div class="review-card"><div class="stars">★★★★★</div><p>"Absolutely incredible food! The Chicken 65 and Biryani are out of this world. You can taste the authenticity in every bite. Best Indian restaurant in London by far!"</p><div class="reviewer"><div class="avatar">A</div><div><strong>Aditya Sharma</strong><span>Google Review</span></div></div></div>
+                    <div class="review-card"><div class="stars">★★★★★</div><p>"The Royal Dum Biryani is a masterpiece. Warm and attentive service, beautiful ambiance, and food that tasted just like home in Hyderabad. Will be back every week!"</p><div class="reviewer"><div class="avatar">P</div><div><strong>Priya Patel</strong><span>Google Review</span></div></div></div>
+                    <div class="review-card"><div class="stars">★★★★★</div><p>"Been coming here for months and it never disappoints. The Butter Chicken and Garlic Naan are simply divine. Staff are always friendly and welcoming — love this place!"</p><div class="reviewer"><div class="avatar">M</div><div><strong>Mohammed Ali</strong><span>Google Review</span></div></div></div>
+                    <div class="review-card"><div class="stars">★★★★★</div><p>"Tried the Chilli Paneer and the Mixed Grill Platter — both phenomenal! The Royal Chilli truly lives up to its name. Highly recommend exploring the Specials menu."</p><div class="reviewer"><div class="avatar">S</div><div><strong>Sarah Johnson</strong><span>Google Review</span></div></div></div>
+                    <div class="review-card"><div class="stars">★★★★★</div><p>"The flavours are genuine and authentic. Spice levels are perfectly balanced. This has become our family's go-to restaurant for every celebration. Absolutely love it!"</p><div class="reviewer"><div class="avatar">R</div><div><strong>Ravi Kumar</strong><span>Google Review</span></div></div></div>
+                </div>
+                <div class="slider-nav">
+                    <button class="s-btn" id="prevBtn"><i class="fas fa-chevron-left"></i></button>
+                    <div class="s-dots" id="sliderDots"></div>
+                    <button class="s-btn" id="nextBtn"><i class="fas fa-chevron-right"></i></button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reservation -->
+    <section id="reservation" class="reservation section">
+        <div class="res-bg"></div>
+        <div class="container">
+            <div class="res-grid">
+                <div class="res-info reveal">
+                    <p class="section-tag">Reserve a Table</p>
+                    <h2 class="section-title">Book Your <span class="text-gold">Royal Experience</span></h2>
+                    <p>Whether it's a date night, family gathering or special celebration — we're here to make it truly memorable.</p>
+                    <div class="res-details">
+                        <div class="res-item"><i class="fas fa-clock"></i><div><h4>Opening Hours</h4><p>Sun–Thu &amp; Sat: 9:00 AM – 11:00 PM</p><p>Fri: 11:00 AM – 11:00 PM</p></div></div>
+                        <div class="res-item"><i class="fas fa-phone"></i><div><h4>Call to Reserve</h4><a href="tel:02087973044">020 8797 3044</a></div></div>
+                        <div class="res-item"><i class="fas fa-map-marker-alt"></i><div><h4>Find Us</h4><p>43 Kingsley Road, Hounslow<br>London, TW3 1PA</p></div></div>
+                    </div>
+                </div>
+                <div class="res-form-wrap reveal delay-2">
+                    <form class="res-form" id="resForm">
+                        <h3>Make a Reservation</h3>
+                        <div class="form-row">
+                            <div class="form-g"><label>Full Name</label><input type="text" placeholder="Your full name" required></div>
+                            <div class="form-g"><label>Phone Number</label><input type="tel" placeholder="+44 7xxx xxxxxx" required></div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-g"><label>Date</label><input type="date" required></div>
+                            <div class="form-g"><label>Time</label><input type="time" required></div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-g">
+                                <label>Guests</label>
+                                <select>
+                                    <option value="">Select guests</option>
+                                    <option>1 Guest</option><option>2 Guests</option><option>3 Guests</option>
+                                    <option>4 Guests</option><option>5 Guests</option><option>6 Guests</option>
+                                    <option>7+ Guests (Call us)</option>
+                                </select>
+                            </div>
+                            <div class="form-g">
+                                <label>Occasion</label>
+                                <select>
+                                    <option value="">Select occasion</option>
+                                    <option>Birthday</option><option>Anniversary</option><option>Business Dinner</option>
+                                    <option>Family Gathering</option><option>Date Night</option><option>Other</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-g full">
+                            <label>Special Requests</label>
+                            <textarea placeholder="Dietary requirements or special requests..." rows="3"></textarea>
+                        </div>
+                        <button type="submit" class="btn-submit"><i class="fas fa-calendar-check"></i> Confirm Reservation</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="contact section">
+        <div class="container">
+            <div class="section-header reveal">
+                <p class="section-tag">Find Us</p>
+                <h2 class="section-title">Visit Us in <span class="text-gold">London</span></h2>
+            </div>
+            <div class="contact-grid">
+                <div class="contact-map reveal">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2485.593!2d-0.3580133!3d51.4722309!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48760d00575f94db%3A0x374941cb29fce285!2sThe%20Royal%20Chilli!5e0!3m2!1sen!2suk!4v1718000000000!5m2!1sen!2suk" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+                <div class="contact-info reveal delay-2">
+                    <div class="c-card"><i class="fas fa-map-marker-alt"></i><div><h4>Address</h4><p>43 Kingsley Road<br>Hounslow, London<br>TW3 1PA</p></div></div>
+                    <div class="c-card"><i class="fas fa-phone"></i><div><h4>Phone</h4><a href="tel:02087973044">020 8797 3044</a></div></div>
+                    <div class="c-card"><i class="fas fa-clock"></i>
+                        <div><h4>Opening Hours</h4>
+                        <table class="hours-table">
+                            <tr><td>Mon – Thu</td><td>9:00 AM – 11:00 PM</td></tr>
+                            <tr><td>Friday</td><td>11:00 AM – 11:00 PM</td></tr>
+                            <tr><td>Saturday</td><td>9:00 AM – 11:00 PM</td></tr>
+                            <tr><td>Sunday</td><td>9:00 AM – 11:00 PM</td></tr>
+                        </table></div>
+                    </div>
+                    <div class="contact-social"><h4>Follow Us</h4>
+                        <div class="social-row">
+                            <a href="#" class="soc-btn fb"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" class="soc-btn ig"><i class="fab fa-instagram"></i></a>
+                            <a href="#" class="soc-btn tw"><i class="fab fa-x-twitter"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-top">
+            <div class="container">
+                <div class="footer-grid">
+                    <div class="f-brand">
+                        <div class="f-logo"><span>🌶️</span><div><strong>The Royal Chilli</strong><small>DIL SE DESI · TASTE MEIN ROYAL</small></div></div>
+                        <p>Bringing the rich flavours and warmth of authentic Indian cuisine to the heart of London.</p>
+                        <div class="social-row">
+                            <a href="#" class="soc-btn fb"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" class="soc-btn ig"><i class="fab fa-instagram"></i></a>
+                            <a href="#" class="soc-btn tw"><i class="fab fa-x-twitter"></i></a>
+                        </div>
+                    </div>
+                    <div class="f-col"><h4>Quick Links</h4><ul><li><a href="#home">Home</a></li><li><a href="#about">About Us</a></li><li><a href="#menu">Our Menu</a></li><li><a href="#gallery">Gallery</a></li><li><a href="#reservation">Reservations</a></li><li><a href="#contact">Contact</a></li></ul></div>
+                    <div class="f-col"><h4>Menu Highlights</h4><ul><li><a href="#menu">Royal Chilli Special</a></li><li><a href="#menu">Butter Chicken</a></li><li><a href="#menu">Chicken 65</a></li><li><a href="#menu">Tandoori Platter</a></li><li><a href="#menu">Chilli Paneer</a></li><li><a href="#menu">Royal Dum Biryani</a></li></ul></div>
+                    <div class="f-col f-contact"><h4>Contact Us</h4><p><i class="fas fa-map-marker-alt"></i> 43 Kingsley Road, Hounslow, London TW3 1PA</p><p><i class="fas fa-phone"></i> <a href="tel:02087973044">020 8797 3044</a></p><p><i class="fas fa-clock"></i> Open daily from 9:00 AM</p><a href="#reservation" class="btn-f-book">Book a Table</a></div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <p>&copy; 2025 The Royal Chilli. All rights reserved.</p>
+                <p>Made with <span style="color:#c0392b">❤️</span> in London</p>
+            </div>
+        </div>
+    </footer>
+
+    <button class="back-top" id="backTop"><i class="fas fa-arrow-up"></i></button>
+
+    <!-- Success Modal -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal">
+            <div class="modal-icon">✅</div>
+            <h3>Reservation Confirmed!</h3>
+            <p>Thank you! We'll call you shortly on the number provided to confirm your booking.</p>
+            <p class="modal-phone">Or call us: <a href="tel:02087973044">020 8797 3044</a></p>
+            <button class="modal-close" id="modalClose">Close</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
