@@ -424,8 +424,10 @@ updateCartUI();
 
 // ===== GRAND OPENING AUTO VIDEO =====
 const openingVideos = [
+    'video/mayor welcoming video.mp4',
     'video/mayor ribbon cutting video.mp4',
-    'video/mayor welcoming video.mp4'
+    'video/mayor walking into restaurent.mp4',
+    'video/mayor speech and founder speech.mp4'
 ];
 let openingIdx = 0;
 const openingVideo = document.getElementById('openingVideo');
