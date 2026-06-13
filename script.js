@@ -157,6 +157,17 @@ document.getElementById('backTop')?.addEventListener('click', () => {
 const dateInput = document.querySelector('input[type="date"]');
 if (dateInput) dateInput.setAttribute('min', new Date().toISOString().split('T')[0]);
 
+// ===== GALLERY VIEW MORE =====
+function toggleGallery() {
+    const hidden = document.querySelectorAll('.g-hidden');
+    const btn = document.getElementById('galleryMoreBtn');
+    const allVisible = [...hidden].every(el => el.classList.contains('g-visible'));
+    hidden.forEach(el => el.classList.toggle('g-visible', !allVisible));
+    btn.innerHTML = allVisible
+        ? '<i class="fas fa-images"></i> View More Photos'
+        : '<i class="fas fa-chevron-up"></i> Show Less';
+}
+
 // ===== WHATSAPP ORDERING SYSTEM =====
 const WA_NUMBER = '442087973044';
 let cart = [];

@@ -352,6 +352,17 @@ input, select, textarea, button { font-family: inherit; }
 }
 .g-item:hover .g-overlay { opacity: 1; }
 .g-overlay span { color: white; font-weight: 600; font-size: 0.95rem; }
+.g-hidden { display: none; }
+.g-hidden.g-visible { display: block; }
+.gallery-more-wrap { text-align: center; margin-top: 2.5rem; }
+.gallery-more-btn {
+    display: inline-flex; align-items: center; gap: 0.6rem;
+    padding: 0.85rem 2.2rem; background: transparent;
+    border: 2px solid var(--gold); color: var(--gold);
+    border-radius: 8px; font-size: 0.95rem; font-weight: 600;
+    cursor: pointer; transition: var(--transition); font-family: inherit;
+}
+.gallery-more-btn:hover { background: var(--gold); color: #000; transform: translateY(-2px); }
 
 /* ===== TESTIMONIALS ===== */
 .testimonials { background: var(--bg); }
