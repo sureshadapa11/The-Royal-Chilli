@@ -805,7 +805,8 @@ input, select, textarea, button { font-family: inherit; }
     .nav-tagline { font-size: 0.55rem; letter-spacing: 2px; }
 
     /* Hero */
-    .hero-content { padding: 1.25rem; }
+    .hero { align-items: flex-start; }
+    .hero-content { padding: 1.25rem; padding-top: calc(68px + 2rem); }
     .hero-tag { font-size: 0.65rem; letter-spacing: 1.5px; padding: 0.3rem 0.75rem; }
     .line-1, .line-2 { font-size: clamp(2rem, 9vw, 2.8rem); }
     .sep-logo { width: 64px; height: 64px; }
