@@ -92,24 +92,26 @@ input, select, textarea, button { font-family: inherit; }
 }
 .btn-nav-book:hover { background: var(--red-dark); transform: translateY(-1px); box-shadow: 0 8px 25px rgba(192,57,43,0.4); }
 
-.hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 4px; margin-left: auto; }
+.hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 4px; margin-left: auto; z-index: 1001; position: relative; }
 .hamburger span { display: block; width: 24px; height: 2px; background: var(--text); border-radius: 2px; transition: var(--transition); }
 .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
 .hamburger.open span:nth-child(2) { opacity: 0; }
 .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
 .mobile-menu {
-    display: none; background: rgba(13,13,13,0.98);
-    backdrop-filter: blur(20px);
-    border-top: 1px solid var(--border);
-    padding: 1rem 2rem;
-    max-height: 0; overflow: hidden; transition: max-height 0.4s ease;
+    display: none;
+    position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background: #0d0d0d;
+    z-index: 999;
+    flex-direction: column; align-items: center; justify-content: center;
+    opacity: 0; visibility: hidden;
+    transition: opacity 0.35s ease, visibility 0.35s ease;
 }
-.mobile-menu.open { max-height: 500px; }
-.mobile-menu ul { display: flex; flex-direction: column; gap: 0.25rem; }
-.mob-link { display: block; padding: 0.7rem 1rem; font-size: 0.95rem; color: var(--text2); border-radius: 8px; transition: var(--transition); }
+.mobile-menu.open { opacity: 1; visibility: visible; }
+.mobile-menu ul { display: flex; flex-direction: column; gap: 0.5rem; text-align: center; width: 100%; padding: 0 2rem; }
+.mob-link { display: block; padding: 1rem 1.5rem; font-size: 1.2rem; font-weight: 500; color: var(--text2); border-radius: 10px; transition: var(--transition); }
 .mob-link:hover { color: var(--text); background: var(--bg3); }
-.mob-book { background: var(--red); color: white !important; text-align: center; margin-top: 0.5rem; }
+.mob-book { background: var(--red); color: white !important; text-align: center; margin-top: 1rem; font-size: 1.1rem; }
 
 /* ===== HERO ===== */
 .hero {
@@ -537,7 +539,7 @@ input, select, textarea, button { font-family: inherit; }
     /* Navbar */
     .nav-links, .nav-cta { display: none; }
     .hamburger { display: flex; }
-    .mobile-menu { display: block; }
+    .mobile-menu { display: flex; }
 
     /* Hero */
     .hero-badge { display: none; }
