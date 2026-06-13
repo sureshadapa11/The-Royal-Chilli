@@ -506,6 +506,113 @@ input, select, textarea, button { font-family: inherit; }
 .back-top.visible { opacity: 1; visibility: visible; transform: translateY(0); }
 .back-top:hover { background: var(--red-dark); transform: translateY(-3px); }
 
+/* ===== FLOATING BUTTONS ===== */
+.float-btns {
+    position: fixed; bottom: 2rem; left: 2rem;
+    display: flex; flex-direction: column; gap: 0.75rem; z-index: 998;
+}
+.float-btn {
+    width: 56px; height: 56px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4rem; cursor: pointer; border: none;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+    transition: var(--transition); position: relative; text-decoration: none;
+}
+.float-phone { background: var(--red); color: white; }
+.float-phone:hover { background: var(--red-dark); transform: translateY(-3px); }
+.float-wa { background: #25d366; color: white; }
+.float-wa:hover { background: #1ebe5d; transform: translateY(-3px); }
+.cart-count {
+    position: absolute; top: -4px; right: -4px;
+    background: var(--gold); color: #000;
+    font-size: 0.7rem; font-weight: 700;
+    width: 20px; height: 20px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+}
+
+/* Add to Order button on dish cards */
+.add-btn {
+    display: block; width: 100%; margin-top: 0.6rem;
+    padding: 0.45rem; background: transparent;
+    border: 1.5px solid var(--red); color: var(--red);
+    border-radius: 6px; font-size: 0.78rem; font-weight: 600;
+    cursor: pointer; transition: var(--transition); text-align: center;
+}
+.add-btn:hover { background: var(--red); color: white; }
+.add-btn.added { background: var(--red); color: white; }
+
+/* ===== WHATSAPP PANEL ===== */
+.wa-backdrop {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.5);
+    z-index: 1099; opacity: 0; visibility: hidden;
+    transition: var(--transition); backdrop-filter: blur(3px);
+}
+.wa-backdrop.show { opacity: 1; visibility: visible; }
+.wa-panel {
+    position: fixed; bottom: 0; left: 0; right: 0;
+    max-width: 420px; margin: 0 auto;
+    background: #1a1a1a; border-radius: 20px 20px 0 0;
+    z-index: 1100; transform: translateY(100%);
+    transition: transform 0.4s cubic-bezier(0.4,0,0.2,1);
+    display: flex; flex-direction: column;
+    max-height: 85vh; overflow: hidden;
+    box-shadow: 0 -10px 40px rgba(0,0,0,0.5);
+    border-top: 2px solid #25d366;
+}
+.wa-panel.open { transform: translateY(0); }
+.wa-panel-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--border);
+    background: #25d366; border-radius: 20px 20px 0 0;
+}
+.wa-panel-title { display: flex; align-items: center; gap: 0.5rem; font-size: 1.1rem; font-weight: 700; color: white; }
+.wa-panel-title i { font-size: 1.4rem; }
+.wa-panel-close { background: rgba(255,255,255,0.2); border: none; color: white; width: 32px; height: 32px; border-radius: 50%; cursor: pointer; font-size: 1rem; display: flex; align-items: center; justify-content: center; transition: var(--transition); }
+.wa-panel-close:hover { background: rgba(255,255,255,0.35); }
+
+.wa-allergy { padding: 1rem 1.5rem; border-bottom: 1px solid var(--border); }
+.wa-allergy p { font-size: 0.85rem; color: var(--text2); margin-bottom: 0.75rem; }
+.allergy-btns { display: flex; gap: 0.5rem; }
+.allergy-btn { padding: 0.35rem 1.2rem; border-radius: 20px; border: 1.5px solid var(--border); background: transparent; color: var(--text2); font-size: 0.8rem; cursor: pointer; transition: var(--transition); }
+.allergy-btn.active { background: #25d366; border-color: #25d366; color: white; font-weight: 600; }
+.allergy-note { width: 100%; margin-top: 0.75rem; background: var(--bg3); border: 1.5px solid var(--border); color: var(--text); border-radius: 8px; padding: 0.6rem 0.8rem; font-size: 0.82rem; resize: none; height: 70px; }
+.allergy-note:focus { outline: none; border-color: #25d366; }
+
+.wa-items { flex: 1; overflow-y: auto; padding: 1rem 1.5rem; }
+.wa-empty { text-align: center; padding: 2rem 1rem; color: var(--text3); }
+.wa-empty i { font-size: 2.5rem; margin-bottom: 0.75rem; display: block; }
+.wa-empty p { font-size: 0.875rem; line-height: 1.6; }
+.wa-item-list { display: flex; flex-direction: column; gap: 0.75rem; }
+.wa-item {
+    display: flex; align-items: center; gap: 0.75rem;
+    background: var(--bg3); border-radius: 10px; padding: 0.75rem;
+    border: 1px solid var(--border);
+}
+.wa-item-name { flex: 1; font-size: 0.85rem; font-weight: 500; }
+.wa-item-price { font-size: 0.85rem; color: var(--gold); font-weight: 600; white-space: nowrap; }
+.wa-item-qty { display: flex; align-items: center; gap: 0.5rem; }
+.qty-btn { width: 26px; height: 26px; border-radius: 50%; border: 1.5px solid var(--border); background: transparent; color: var(--text); cursor: pointer; font-size: 1rem; display: flex; align-items: center; justify-content: center; transition: var(--transition); }
+.qty-btn:hover { border-color: #25d366; color: #25d366; }
+.qty-num { font-size: 0.85rem; font-weight: 600; min-width: 16px; text-align: center; }
+
+.wa-footer { padding: 1rem 1.5rem 1.5rem; border-top: 1px solid var(--border); }
+.wa-total { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.75rem; color: var(--text); display: flex; justify-content: space-between; }
+.wa-total span { color: var(--gold); font-family: 'Playfair Display', serif; font-size: 1.1rem; }
+.wa-send-btn {
+    width: 100%; padding: 0.9rem;
+    background: #25d366; color: white; border: none;
+    border-radius: 10px; font-size: 0.95rem; font-weight: 700;
+    cursor: pointer; transition: var(--transition);
+    display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+}
+.wa-send-btn:hover { background: #1ebe5d; transform: translateY(-1px); box-shadow: 0 8px 25px rgba(37,211,102,0.35); }
+.wa-send-btn:disabled { background: var(--bg3); color: var(--text3); cursor: not-allowed; transform: none; box-shadow: none; }
+
+@media (max-width: 600px) {
+    .float-btns { bottom: 1.5rem; left: 1.25rem; }
+    .float-btn { width: 50px; height: 50px; font-size: 1.2rem; }
+}
+
 /* ===== MODAL ===== */
 .modal-overlay {
     position: fixed; inset: 0; background: rgba(0,0,0,0.7);

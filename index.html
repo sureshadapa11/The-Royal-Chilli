@@ -441,6 +441,50 @@
 
     <button class="back-top" id="backTop"><i class="fas fa-arrow-up"></i></button>
 
+    <!-- Floating Buttons -->
+    <div class="float-btns">
+        <a href="tel:02087973044" class="float-btn float-phone" title="Call Us">
+            <i class="fas fa-phone"></i>
+        </a>
+        <button class="float-btn float-wa" id="waBtn" title="Order on WhatsApp">
+            <i class="fab fa-whatsapp"></i>
+            <span class="cart-count" id="cartCount" style="display:none">0</span>
+        </button>
+    </div>
+
+    <!-- WhatsApp Order Panel -->
+    <div class="wa-panel" id="waPanel">
+        <div class="wa-panel-header">
+            <div class="wa-panel-title">
+                <i class="fab fa-whatsapp"></i>
+                <span>Your Order</span>
+            </div>
+            <button class="wa-panel-close" id="waPanelClose"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="wa-allergy" id="waAllergy">
+            <p>Do you have any allergies or dietary requirements?</p>
+            <div class="allergy-btns">
+                <button class="allergy-btn" id="allergyYes">Yes</button>
+                <button class="allergy-btn active" id="allergyNo">No</button>
+            </div>
+            <textarea class="allergy-note" id="allergyNote" placeholder="Please describe your requirements..." style="display:none"></textarea>
+        </div>
+        <div class="wa-items" id="waItems">
+            <div class="wa-empty" id="waEmpty">
+                <i class="fas fa-shopping-bag"></i>
+                <p>No items added yet.<br>Browse the menu and tap <strong>+ Add</strong></p>
+            </div>
+            <ul class="wa-item-list" id="waItemList"></ul>
+        </div>
+        <div class="wa-footer">
+            <div class="wa-total">Total: <span id="waTotal">£0.00</span></div>
+            <button class="wa-send-btn" id="waSendBtn">
+                <i class="fab fa-whatsapp"></i> Send Order via WhatsApp
+            </button>
+        </div>
+    </div>
+    <div class="wa-backdrop" id="waBackdrop"></div>
+
     <!-- Success Modal -->
     <div class="modal-overlay" id="modalOverlay">
         <div class="modal">

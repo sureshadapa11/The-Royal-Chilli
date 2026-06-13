@@ -171,6 +171,156 @@ document.getElementById('backTop')?.addEventListener('click', () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 });
 
+// ===== WHATSAPP ORDER SYSTEM =====
+const WA_NUMBER = '442087973044';
+let cart = [];
+
+function getCartTotal() {
+    return cart.reduce((sum, item) => sum + item.price * item.qty, 0);
+}
+
+function renderCart() {
+    const list = document.getElementById('waItemList');
+    const empty = document.getElementById('waEmpty');
+    const count = document.getElementById('cartCount');
+    const total = document.getElementById('waTotal');
+    const sendBtn = document.getElementById('waSendBtn');
+
+    if (cart.length === 0) {
+        empty.style.display = 'block';
+        list.style.display = 'none';
+        count.style.display = 'none';
+        sendBtn.disabled = true;
+    } else {
+        empty.style.display = 'none';
+        list.style.display = 'flex';
+        const totalQty = cart.reduce((s, i) => s + i.qty, 0);
+        count.textContent = totalQty;
+        count.style.display = 'flex';
+        sendBtn.disabled = false;
+    }
+
+    list.innerHTML = cart.map((item, idx) => `
+        <li class="wa-item">
+            <span class="wa-item-name">${item.name}</span>
+            <div class="wa-item-qty">
+                <button class="qty-btn" onclick="changeQty(${idx}, -1)">−</button>
+                <span class="qty-num">${item.qty}</span>
+                <button class="qty-btn" onclick="changeQty(${idx}, 1)">+</button>
+            </div>
+            <span class="wa-item-price">£${(item.price * item.qty).toFixed(2)}</span>
+        </li>
+    `).join('');
+
+    total.textContent = '£' + getCartTotal().toFixed(2);
+}
+
+function changeQty(idx, delta) {
+    cart[idx].qty += delta;
+    if (cart[idx].qty <= 0) cart.splice(idx, 1);
+
+    // update add button state
+    updateAddBtns();
+    renderCart();
+}
+
+function updateAddBtns() {
+    document.querySelectorAll('.add-btn').forEach(btn => {
+        const name = btn.dataset.name;
+        const inCart = cart.find(i => i.name === name);
+        btn.textContent = inCart ? `✓ Added (${inCart.qty})` : '+ Add to Order';
+        btn.classList.toggle('added', !!inCart);
+    });
+}
+
+function addToCart(name, price) {
+    const existing = cart.find(i => i.name === name);
+    if (existing) {
+        existing.qty++;
+    } else {
+        cart.push({ name, price, qty: 1 });
+    }
+    updateAddBtns();
+    renderCart();
+
+    // flash the WA button
+    document.getElementById('waBtn').style.transform = 'scale(1.2)';
+    setTimeout(() => document.getElementById('waBtn').style.transform = '', 300);
+}
+
+// Inject Add buttons into all dish cards
+document.querySelectorAll('.dish-card').forEach(card => {
+    const nameEl = card.querySelector('.dish-top h4');
+    const priceEl = card.querySelector('.price');
+    if (!nameEl || !priceEl) return;
+
+    const name = nameEl.textContent.trim();
+    const priceText = priceEl.textContent.replace('£', '').trim();
+    const price = parseFloat(priceText);
+
+    const btn = document.createElement('button');
+    btn.className = 'add-btn';
+    btn.dataset.name = name;
+    btn.dataset.price = price;
+    btn.textContent = '+ Add to Order';
+    btn.addEventListener('click', () => addToCart(name, price));
+
+    card.querySelector('.dish-body').appendChild(btn);
+});
+
+// Panel open/close
+const waPanel = document.getElementById('waPanel');
+const waBackdrop = document.getElementById('waBackdrop');
+
+document.getElementById('waBtn').addEventListener('click', () => {
+    waPanel.classList.add('open');
+    waBackdrop.classList.add('show');
+    document.body.style.overflow = 'hidden';
+});
+
+function closeWaPanel() {
+    waPanel.classList.remove('open');
+    waBackdrop.classList.remove('show');
+    document.body.style.overflow = '';
+}
+
+document.getElementById('waPanelClose').addEventListener('click', closeWaPanel);
+waBackdrop.addEventListener('click', closeWaPanel);
+
+// Allergy toggle
+let allergyText = '';
+document.getElementById('allergyYes').addEventListener('click', () => {
+    document.getElementById('allergyYes').classList.add('active');
+    document.getElementById('allergyNo').classList.remove('active');
+    document.getElementById('allergyNote').style.display = 'block';
+});
+document.getElementById('allergyNo').addEventListener('click', () => {
+    document.getElementById('allergyNo').classList.add('active');
+    document.getElementById('allergyYes').classList.remove('active');
+    document.getElementById('allergyNote').style.display = 'none';
+    document.getElementById('allergyNote').value = '';
+});
+
+// Send via WhatsApp
+document.getElementById('waSendBtn').addEventListener('click', () => {
+    if (cart.length === 0) return;
+    const allergy = document.getElementById('allergyNote').value.trim();
+    const allergyActive = document.getElementById('allergyYes').classList.contains('active');
+
+    let msg = '🌶️ *Order from The Royal Chilli Website*\n\n';
+    msg += '*Items Ordered:*\n';
+    cart.forEach(item => {
+        msg += `• ${item.name} x${item.qty} — £${(item.price * item.qty).toFixed(2)}\n`;
+    });
+    msg += `\n*Total: £${getCartTotal().toFixed(2)}*`;
+    if (allergyActive && allergy) msg += `\n\n⚠️ *Dietary Requirements:* ${allergy}`;
+    msg += '\n\nPlease confirm my order. Thank you! 🙏';
+
+    window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
+});
+
+renderCart();
+
 // ===== SET MIN DATE FOR RESERVATION =====
 const dateInput = document.querySelector('input[type="date"]');
 if (dateInput) {
