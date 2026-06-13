@@ -181,7 +181,13 @@ document.querySelectorAll('.dish-card').forEach(card => {
         <span class="stepper-label">ADD</span>
         <button class="stepper-btn stepper-inc" onclick="stepInc(this)">+</button>
     `;
-    card.querySelector('.dish-body').appendChild(stepper);
+    const dishBody = card.querySelector('.dish-body');
+    const badge = dishBody.querySelector('.badge');
+    const row = document.createElement('div');
+    row.className = 'badge-stepper-row';
+    dishBody.appendChild(row);
+    if (badge) row.appendChild(badge);
+    row.appendChild(stepper);
 });
 
 function stepInc(btn) {
