@@ -155,7 +155,7 @@ input, select, textarea, button { font-family: inherit; }
 }
 .line-1, .line-2 {
     display: block;
-    font-size: clamp(3rem, 7vw, 5.5rem);
+    font-size: clamp(2.2rem, 5vw, 4rem);
     font-weight: 900; color: var(--text);
 }
 .line-2 { color: var(--gold); }
