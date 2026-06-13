@@ -421,3 +421,15 @@ document.getElementById('modalOverlay')?.addEventListener('click', e => {
 
 // Initial render
 updateCartUI();
+
+// ===== GRAND OPENING VIDEO SWITCHER =====
+function switchVideo(thumb, src, label) {
+    document.querySelectorAll('.v-thumb').forEach(t => t.classList.remove('active'));
+    thumb.classList.add('active');
+    const player = document.getElementById('mainPlayer');
+    const wasPlaying = !player.paused;
+    player.src = src;
+    document.getElementById('mainLabel').textContent = label;
+    player.load();
+    if (wasPlaying) player.play();
+}
