@@ -331,6 +331,25 @@ input, select, textarea, button { font-family: inherit; }
 }
 .chef-special .pop-tag { background: var(--red); color: white; }
 
+/* ===== MENU CARD ===== */
+.menu-card-wrap {
+    display: flex; flex-direction: column; align-items: center; gap: 1.5rem;
+    margin: 2rem 0 3rem;
+}
+.menu-card-img {
+    max-width: 520px; width: 100%;
+    border-radius: 12px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    border: 2px solid rgba(212,160,23,0.3);
+}
+.btn-download-menu {
+    display: inline-flex; align-items: center; gap: 0.6rem;
+    padding: 0.85rem 2rem; background: var(--gold);
+    color: #000; border-radius: 8px; font-size: 0.95rem; font-weight: 700;
+    transition: var(--transition); text-decoration: none;
+}
+.btn-download-menu:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 10px 30px rgba(212,160,23,0.4); }
+
 /* ===== GALLERY ===== */
 .gallery { background: var(--bg2); }
 .gallery-grid {
