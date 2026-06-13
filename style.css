@@ -525,7 +525,7 @@ input, select, textarea, button { font-family: inherit; }
 
 /* ===== FLOATING CART BUTTON ===== */
 .float-cart-btn {
-    position: fixed; bottom: 2rem; right: 2rem; z-index: 998;
+    position: fixed; bottom: 5.5rem; right: 2rem; z-index: 998;
     width: 60px; height: 60px; border-radius: 50%;
     background: #25d366; color: white; border: none;
     display: flex; align-items: center; justify-content: center;
@@ -667,7 +667,7 @@ input, select, textarea, button { font-family: inherit; }
 @media (max-width: 600px) {
     .float-contact { bottom: 1.5rem; left: 1rem; }
     .float-btn { width: 48px; height: 48px; font-size: 1.25rem; }
-    .float-cart-btn { bottom: 1.5rem; right: 1rem; width: 54px; height: 54px; font-size: 1.3rem; }
+    .float-cart-btn { bottom: 5rem; right: 1rem; width: 54px; height: 54px; font-size: 1.3rem; }
     .cart-drawer { width: 100vw; }
 }
 
@@ -766,6 +766,7 @@ input, select, textarea, button { font-family: inherit; }
     .hero-content { padding: 1.25rem; }
     .hero-tag { font-size: 0.65rem; letter-spacing: 1.5px; padding: 0.3rem 0.75rem; }
     .line-1, .line-2 { font-size: clamp(2rem, 9vw, 2.8rem); }
+    .sep-logo { width: 64px; height: 64px; }
     .hero-desc { font-size: 0.9rem; }
     .btn-primary, .btn-outline { padding: 0.75rem 1.4rem; font-size: 0.875rem; width: 100%; justify-content: center; }
     .hero-actions { flex-direction: column; align-items: center; gap: 0.75rem; }

@@ -371,11 +371,13 @@ function sendWhatsAppOrder() {
 document.getElementById('resForm')?.addEventListener('submit', e => {
     e.preventDefault();
     const form = e.target;
-    const name = form.querySelector('input[placeholder*="Name"], input[type="text"]')?.value.trim() || '';
-    const phone = form.querySelector('input[type="tel"], input[placeholder*="Phone"]')?.value.trim() || '';
+    const name = form.querySelector('input[type="text"]')?.value.trim() || '';
+    const phone = form.querySelector('input[type="tel"]')?.value.trim() || '';
     const date = form.querySelector('input[type="date"]')?.value || '';
-    const time = form.querySelector('input[type="time"], select')?.value || '';
-    const guests = form.querySelector('input[type="number"], select[name="guests"]')?.value || '';
+    const time = form.querySelector('input[type="time"]')?.value || '';
+    const selects = form.querySelectorAll('select');
+    const guests = selects[0]?.value || '';
+    const occasion = selects[1]?.value || '';
     const notes = form.querySelector('textarea')?.value.trim() || '';
 
     let msg = '🍽️ *Table Reservation — The Royal Chilli*\n\n';
@@ -384,7 +386,8 @@ document.getElementById('resForm')?.addEventListener('submit', e => {
     if (date) msg += `*Date:* ${date}\n`;
     if (time) msg += `*Time:* ${time}\n`;
     if (guests) msg += `*Guests:* ${guests}\n`;
-    if (notes) msg += `*Notes:* ${notes}\n`;
+    if (occasion) msg += `*Occasion:* ${occasion}\n`;
+    if (notes) msg += `*Special Requests:* ${notes}\n`;
     msg += '\nPlease confirm my reservation. Thank you!';
 
     window.open('https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent(msg), '_blank');
