@@ -422,14 +422,17 @@ document.getElementById('modalOverlay')?.addEventListener('click', e => {
 // Initial render
 updateCartUI();
 
-// ===== GRAND OPENING VIDEO SWITCHER =====
-function switchVideo(thumb, src, label) {
-    document.querySelectorAll('.v-thumb').forEach(t => t.classList.remove('active'));
-    thumb.classList.add('active');
-    const player = document.getElementById('mainPlayer');
-    const wasPlaying = !player.paused;
-    player.src = src;
-    document.getElementById('mainLabel').textContent = label;
-    player.load();
-    if (wasPlaying) player.play();
+// ===== GRAND OPENING AUTO VIDEO =====
+const openingVideos = [
+    'video/mayor ribbon cutting video.mp4',
+    'video/mayor welcoming video.mp4'
+];
+let openingIdx = 0;
+const openingVideo = document.getElementById('openingVideo');
+if (openingVideo) {
+    openingVideo.addEventListener('ended', () => {
+        openingIdx = (openingIdx + 1) % openingVideos.length;
+        openingVideo.src = openingVideos[openingIdx];
+        openingVideo.play();
+    });
 }

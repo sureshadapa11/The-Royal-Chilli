@@ -122,43 +122,14 @@
     </section>
 
     <!-- Grand Opening -->
-    <section id="opening" class="grand-opening section">
-        <div class="container">
-            <div class="section-header reveal">
-                <p class="section-tag">Grand Opening</p>
-                <h2 class="section-title">Honoured by the <span class="text-gold">Mayor of London</span></h2>
-                <p class="section-sub">A historic milestone as we opened our doors with the Mayor of London by our side.</p>
-            </div>
-            <div class="video-showcase reveal">
-                <div class="video-main">
-                    <video id="mainPlayer" controls preload="metadata">
-                        <source src="video/mayor welcoming video.mp4" type="video/mp4">
-                    </video>
-                    <div class="video-main-label" id="mainLabel">Mayor Welcoming</div>
-                </div>
-                <div class="video-thumbs">
-                    <div class="v-thumb active" onclick="switchVideo(this, 'video/mayor welcoming video.mp4', 'Mayor Welcoming')">
-                        <video preload="metadata" muted playsinline><source src="video/mayor welcoming video.mp4" type="video/mp4"></video>
-                        <div class="v-thumb-overlay"><i class="fas fa-play"></i></div>
-                        <span>Mayor Welcoming</span>
-                    </div>
-                    <div class="v-thumb" onclick="switchVideo(this, 'video/mayor speech and founder speech.mp4', 'Mayor &amp; Founder Speech')">
-                        <video preload="metadata" muted playsinline><source src="video/mayor speech and founder speech.mp4" type="video/mp4"></video>
-                        <div class="v-thumb-overlay"><i class="fas fa-play"></i></div>
-                        <span>Mayor &amp; Founder Speech</span>
-                    </div>
-                    <div class="v-thumb" onclick="switchVideo(this, 'video/mayor walking into restaurent.mp4', 'Mayor Walks In')">
-                        <video preload="metadata" muted playsinline><source src="video/mayor walking into restaurent.mp4" type="video/mp4"></video>
-                        <div class="v-thumb-overlay"><i class="fas fa-play"></i></div>
-                        <span>Mayor Walks In</span>
-                    </div>
-                    <div class="v-thumb" onclick="switchVideo(this, 'video/mayor ribbon cutting video.mp4', 'Ribbon Cutting')">
-                        <video preload="metadata" muted playsinline><source src="video/mayor ribbon cutting video.mp4" type="video/mp4"></video>
-                        <div class="v-thumb-overlay"><i class="fas fa-play"></i></div>
-                        <span>Ribbon Cutting</span>
-                    </div>
-                </div>
-            </div>
+    <section id="opening" class="opening-hero">
+        <video class="opening-video" id="openingVideo" autoplay muted playsinline>
+            <source src="video/mayor ribbon cutting video.mp4" type="video/mp4">
+        </video>
+        <div class="opening-overlay"></div>
+        <div class="opening-content">
+            <p class="opening-tag">Grand Opening</p>
+            <h2 class="opening-title">Honoured by the <span class="text-gold">Mayor of London</span></h2>
         </div>
     </section>
 
