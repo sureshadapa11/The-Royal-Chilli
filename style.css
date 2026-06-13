@@ -67,6 +67,9 @@ input, select, textarea, button { font-family: inherit; }
 }
 .nav-logo { display: flex; align-items: center; gap: 0.75rem; }
 .nav-logo-img { height: 58px; width: auto; object-fit: contain; display: block; border-radius: 8px; }
+.nav-logo-text { display: flex; flex-direction: column; justify-content: center; }
+.nav-name { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; color: var(--text); line-height: 1.2; }
+.nav-tagline { font-size: 0.6rem; letter-spacing: 3px; color: var(--gold); font-weight: 600; text-transform: uppercase; }
 
 .nav-links { display: flex; gap: 0.25rem; margin-left: auto; }
 .nav-link {
@@ -590,6 +593,8 @@ input, select, textarea, button { font-family: inherit; }
     /* Navbar */
     .nav-container { padding: 0 1rem; height: 68px; }
     .nav-logo-img { height: 46px; }
+    .nav-name { font-size: 0.95rem; }
+    .nav-tagline { font-size: 0.55rem; letter-spacing: 2px; }
 
     /* Hero */
     .hero-content { padding: 1.25rem; }
