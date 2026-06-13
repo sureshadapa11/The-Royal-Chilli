@@ -1,9 +1,7 @@
 // ===== PRELOADER =====
-window.addEventListener('load', () => {
-    setTimeout(() => {
-        document.getElementById('preloader').classList.add('hidden');
-    }, 1800);
-});
+const hidePreloader = () => document.getElementById('preloader').classList.add('hidden');
+setTimeout(hidePreloader, 2500);
+window.addEventListener('load', () => setTimeout(hidePreloader, 300));
 
 // ===== NAVBAR SCROLL =====
 const navbar = document.getElementById('navbar');
