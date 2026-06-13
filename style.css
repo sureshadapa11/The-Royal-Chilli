@@ -534,37 +534,129 @@ input, select, textarea, button { font-family: inherit; }
 }
 
 @media (max-width: 900px) {
+    /* Navbar */
     .nav-links, .nav-cta { display: none; }
     .hamburger { display: flex; }
     .mobile-menu { display: block; }
+
+    /* Hero */
     .hero-badge { display: none; }
-    .about-grid { grid-template-columns: 1fr; }
-    .about-imgs { order: -1; }
-    .about-img-sm { right: 1rem; bottom: -1rem; width: 160px; }
-    .about-exp { left: -0.5rem; }
+    .hero-tag { font-size: 0.7rem; letter-spacing: 2px; padding: 0.35rem 0.9rem; }
+
+    /* About */
+    .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .about-imgs { order: -1; padding-bottom: 3.5rem; padding-right: 0; }
+    .about-img-main img { height: 360px; }
+    .about-img-sm { right: 0.5rem; bottom: 0; width: 150px; }
+    .about-exp { left: 0.5rem; top: 1rem; }
     .features-grid { grid-template-columns: 1fr; }
+
+    /* Stats */
     .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 2rem; }
-    .gallery-grid { grid-template-columns: repeat(2, 1fr); }
-    .g-large { grid-column: span 1; grid-row: span 1; }
+
+    /* Gallery */
+    .gallery-grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 180px; }
+    .g-large { grid-column: span 2; grid-row: span 1; }
     .g-tall { grid-row: span 1; }
-    .res-grid { grid-template-columns: 1fr; gap: 3rem; }
+
+    /* Reservation */
+    .res-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .res-info { padding-top: 0; }
+
+    /* Contact */
     .contact-grid { grid-template-columns: 1fr; }
+    .contact-map iframe { height: 320px; }
+
+    /* Testimonials */
     .slider-track .review-card { min-width: calc(50% - 0.75rem); }
+
+    /* Footer */
     .footer-grid { grid-template-columns: 1fr 1fr; }
+    .footer-top { padding: 3rem 0 2rem; }
 }
 
 @media (max-width: 600px) {
-    .section { padding: 4rem 0; }
-    .nav-container { padding: 0 1rem; }
-    .hero-title .line-1, .hero-title .line-2 { font-size: 2.4rem; }
-    .stats-grid { grid-template-columns: repeat(2, 1fr); }
-    .gallery-grid { grid-template-columns: 1fr 1fr; grid-auto-rows: 160px; }
-    .review-card { min-width: 100% !important; }
-    .form-row { grid-template-columns: 1fr; }
-    .footer-grid { grid-template-columns: 1fr; }
-    .footer-bottom .container { flex-direction: column; text-align: center; }
-    .tabs { gap: 0.35rem; }
-    .tab { font-size: 0.75rem; padding: 0.4rem 0.9rem; }
+    /* General */
+    .section { padding: 3.5rem 0; }
+    .container { padding: 0 1.25rem; }
+    .section-title { font-size: 1.75rem; }
+
+    /* Preloader */
+    .preloader-logo img { width: min(280px, 80vw); }
+    .preloader-bar { width: 160px; }
+
+    /* Navbar */
+    .nav-container { padding: 0 1rem; height: 68px; }
+    .nav-logo-img { height: 46px; }
+
+    /* Hero */
+    .hero-content { padding: 1.25rem; }
+    .hero-tag { font-size: 0.65rem; letter-spacing: 1.5px; padding: 0.3rem 0.75rem; }
+    .line-1, .line-2 { font-size: clamp(2rem, 9vw, 2.8rem); }
+    .hero-desc { font-size: 0.9rem; }
+    .btn-primary, .btn-outline { padding: 0.75rem 1.4rem; font-size: 0.875rem; width: 100%; justify-content: center; }
+    .hero-actions { flex-direction: column; align-items: center; gap: 0.75rem; }
+
+    /* Stats */
+    .stats { padding: 3rem 0; }
+    .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+    .stat-num { font-size: 2.2rem; }
+    .stat-label { font-size: 0.75rem; }
+
+    /* About */
+    .about-img-main img { height: 260px; }
+    .about-img-sm { width: 120px; right: 0.25rem; }
+    .about-img-sm img { height: 110px; }
+    .about-exp { left: 0.25rem; padding: 0.75rem 0.9rem; }
+    .exp-n { font-size: 1.5rem; }
+    .exp-t { font-size: 0.6rem; max-width: 70px; }
+
+    /* Menu Tabs — horizontal scroll instead of wrap */
+    .tabs {
+        flex-wrap: nowrap; overflow-x: auto; justify-content: flex-start;
+        gap: 0.4rem; padding-bottom: 0.5rem;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+    }
+    .tabs::-webkit-scrollbar { display: none; }
+    .tab { font-size: 0.78rem; padding: 0.45rem 0.9rem; white-space: nowrap; flex-shrink: 0; }
     .menu-grid { grid-template-columns: 1fr; }
-    .res-form-wrap { padding: 1.5rem; }
+
+    /* Gallery */
+    .gallery-grid { grid-template-columns: 1fr 1fr; grid-auto-rows: 140px; gap: 0.6rem; }
+    .g-large { grid-column: span 2; }
+
+    /* Testimonials */
+    .review-card { min-width: 100% !important; padding: 1.5rem; }
+    .review-card p { font-size: 0.85rem; }
+
+    /* Reservation */
+    .res-form-wrap { padding: 1.25rem; }
+    .res-form h3 { font-size: 1.25rem; margin-bottom: 1.25rem; }
+    .form-row { grid-template-columns: 1fr; gap: 0.75rem; }
+
+    /* Contact */
+    .contact-map iframe { height: 260px; }
+    .hours-table td { font-size: 0.78rem; }
+    .hours-table td:first-child { min-width: 90px; }
+
+    /* Footer */
+    .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .f-brand { grid-column: auto; }
+    .f-logo-img { height: 70px; }
+    .footer-bottom .container { flex-direction: column; text-align: center; gap: 0.3rem; }
+
+    /* Back to top */
+    .back-top { bottom: 1.25rem; right: 1.25rem; width: 40px; height: 40px; }
+
+    /* Modal */
+    .modal { padding: 2rem 1.5rem; }
+}
+
+@media (max-width: 380px) {
+    .line-1, .line-2 { font-size: 1.8rem; }
+    .hero-tag { display: none; }
+    .stat-num { font-size: 1.9rem; }
+    .about-img-sm { display: none; }
+    .about-exp { left: 0; }
 }
