@@ -435,6 +435,7 @@ if (openingVideo) {
     openingVideo.addEventListener('ended', () => {
         openingIdx = (openingIdx + 1) % openingVideos.length;
         openingVideo.src = openingVideos[openingIdx];
-        openingVideo.play();
+        openingVideo.load();
+        openingVideo.play().catch(() => {});
     });
 }
