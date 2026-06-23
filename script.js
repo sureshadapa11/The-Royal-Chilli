@@ -439,3 +439,53 @@ if (openingVideo) {
         openingVideo.play().catch(() => {});
     });
 }
+
+// ===== PROMOTIONS SLIDER =====
+(function () {
+    const slides = Array.from(document.querySelectorAll('.promo-slide'));
+    const tabs = Array.from(document.querySelectorAll('.promo-tab'));
+    const dotsWrap = document.querySelector('.promo-dots');
+    if (!slides.length || !dotsWrap) return;
+
+    let current = 0;
+    let timer;
+
+    // Build dots
+    slides.forEach((_, i) => {
+        const d = document.createElement('button');
+        d.className = 'promo-dot' + (i === 0 ? ' active' : '');
+        d.setAttribute('aria-label', 'Go to slide ' + (i + 1));
+        d.addEventListener('click', () => goTo(i));
+        dotsWrap.appendChild(d);
+    });
+    const dots = Array.from(dotsWrap.querySelectorAll('.promo-dot'));
+
+    function goTo(index) {
+        slides[current].classList.remove('active');
+        dots[current].classList.remove('active');
+        current = (index + slides.length) % slides.length;
+        slides[current].classList.add('active');
+        dots[current].classList.add('active');
+        const group = slides[current].dataset.group;
+        tabs.forEach(t => t.classList.toggle('active', t.dataset.group === group));
+        resetTimer();
+    }
+
+    function resetTimer() {
+        clearInterval(timer);
+        timer = setInterval(() => goTo(current + 1), 4000);
+    }
+
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            const group = tab.dataset.group;
+            const idx = slides.findIndex(s => s.dataset.group === group);
+            if (idx !== -1) goTo(idx);
+        });
+    });
+
+    document.querySelector('.promo-prev')?.addEventListener('click', () => goTo(current - 1));
+    document.querySelector('.promo-next')?.addEventListener('click', () => goTo(current + 1));
+
+    resetTimer();
+})();
