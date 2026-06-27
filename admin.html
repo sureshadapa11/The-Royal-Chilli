@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Royal Chilli — Admin Portal</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{--gold:#d4a017;--gold2:#b8860b;--dark:#0d0d0d;--dark2:#161616;--dark3:#1e1e1e;--dark4:#252525;--border:#2e2e2e;--text:#e8e8e8;--text2:#999;--red:#c0392b;--green:#27ae60}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--dark);color:var(--text);min-height:100vh}
+
+/* LOGIN */
+#loginScreen{display:flex;align-items:center;justify-content:center;min-height:100vh;background:radial-gradient(ellipse at center,#1a1200 0%,#0d0d0d 70%)}
+.login-box{background:var(--dark3);border:1px solid var(--border);border-radius:16px;padding:48px 40px;width:100%;max-width:400px;text-align:center}
+.login-logo{width:90px;height:90px;border-radius:50%;background:var(--dark4);display:flex;align-items:center;justify-content:center;margin:0 auto 24px;font-size:36px;border:2px solid var(--gold)}
+.login-box h1{font-size:1.5rem;margin-bottom:4px;color:var(--gold)}
+.login-box p{color:var(--text2);font-size:.875rem;margin-bottom:32px}
+.login-box input{width:100%;background:var(--dark4);border:1px solid var(--border);border-radius:8px;padding:12px 16px;color:var(--text);font-size:1rem;outline:none;transition:.2s}
+.login-box input:focus{border-color:var(--gold)}
+.login-box button{width:100%;margin-top:16px;background:var(--gold);border:none;border-radius:8px;padding:13px;color:#000;font-weight:700;font-size:1rem;cursor:pointer;transition:.2s}
+.login-box button:hover{background:var(--gold2)}
+.login-err{color:var(--red);font-size:.8rem;margin-top:10px;display:none}
+
+/* LAYOUT */
+#adminApp{display:none;min-height:100vh}
+.admin-layout{display:flex;min-height:100vh}
+
+/* SIDEBAR */
+.sidebar{width:240px;background:var(--dark2);border-right:1px solid var(--border);display:flex;flex-direction:column;position:fixed;top:0;left:0;height:100vh;z-index:100;overflow-y:auto}
+.sidebar-logo{padding:20px 20px 16px;border-bottom:1px solid var(--border)}
+.sidebar-logo span{font-size:1rem;font-weight:700;color:var(--gold)}
+.sidebar-logo small{display:block;color:var(--text2);font-size:.7rem}
+.sidebar nav{flex:1;padding:12px 0}
+.nav-item{display:flex;align-items:center;gap:10px;padding:11px 20px;cursor:pointer;color:var(--text2);font-size:.875rem;transition:.15s;border-left:3px solid transparent}
+.nav-item:hover{background:var(--dark3);color:var(--text)}
+.nav-item.active{background:var(--dark3);color:var(--gold);border-left-color:var(--gold)}
+.nav-item i{width:16px;text-align:center;font-size:.85rem}
+.sidebar-footer{padding:16px 20px;border-top:1px solid var(--border)}
+.logout-btn{width:100%;background:none;border:1px solid var(--border);border-radius:6px;padding:8px;color:var(--text2);font-size:.8rem;cursor:pointer;transition:.15s}
+.logout-btn:hover{border-color:var(--red);color:var(--red)}
+
+/* TOPBAR */
+.main-area{margin-left:240px;flex:1;display:flex;flex-direction:column}
+.topbar{position:sticky;top:0;z-index:99;background:var(--dark2);border-bottom:1px solid var(--border);padding:12px 28px;display:flex;align-items:center;gap:10px}
+.topbar h2{flex:1;font-size:1rem;color:var(--text2);font-weight:500}
+.topbar h2 b{color:var(--text)}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:7px;font-size:.8rem;font-weight:600;cursor:pointer;border:none;transition:.15s}
+.btn-gold{background:var(--gold);color:#000}.btn-gold:hover{background:var(--gold2)}
+.btn-outline{background:none;border:1px solid var(--border);color:var(--text2)}.btn-outline:hover{border-color:var(--gold);color:var(--gold)}
+.btn-green{background:var(--green);color:#fff}.btn-green:hover{opacity:.85}
+.btn-red{background:var(--red);color:#fff}.btn-red:hover{opacity:.85}
+.save-indicator{font-size:.75rem;color:var(--green);opacity:0;transition:.3s}
+.save-indicator.show{opacity:1}
+
+/* CONTENT */
+.content{padding:28px;max-width:1100px}
+.section-panel{display:none}.section-panel.active{display:block}
+.panel-title{font-size:1.25rem;font-weight:700;margin-bottom:6px;color:var(--gold)}
+.panel-sub{color:var(--text2);font-size:.85rem;margin-bottom:24px}
+
+/* CARDS */
+.edit-card{background:var(--dark3);border:1px solid var(--border);border-radius:10px;padding:24px;margin-bottom:16px}
+.edit-card h3{font-size:.95rem;font-weight:600;margin-bottom:16px;color:var(--text);display:flex;align-items:center;gap:8px}
+.edit-card h3 i{color:var(--gold);font-size:.85rem}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.form-grid.cols-1{grid-template-columns:1fr}
+.form-grid.cols-3{grid-template-columns:1fr 1fr 1fr}
+.fg{display:flex;flex-direction:column;gap:5px}
+.fg.full{grid-column:1/-1}
+label{font-size:.75rem;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:.05em}
+input[type=text],input[type=url],input[type=password],textarea,select{background:var(--dark4);border:1px solid var(--border);border-radius:7px;padding:9px 12px;color:var(--text);font-size:.875rem;width:100%;outline:none;transition:.2s;font-family:inherit;resize:vertical}
+input:focus,textarea:focus,select:focus{border-color:var(--gold)}
+select option{background:var(--dark4)}
+input[type=checkbox]{width:16px;height:16px;accent-color:var(--gold);cursor:pointer}
+.img-preview{width:100%;height:100px;object-fit:cover;border-radius:6px;margin-top:6px;border:1px solid var(--border);background:var(--dark4);display:none}
+.img-preview.show{display:block}
+
+/* DISH EDITOR */
+.dish-block{background:var(--dark4);border:1px solid var(--border);border-radius:8px;padding:16px;margin-bottom:10px}
+.dish-block-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;cursor:pointer}
+.dish-block-header h4{font-size:.875rem;font-weight:600;display:flex;align-items:center;gap:8px}
+.dish-block-header h4 .badge-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.badge-dot.veg{background:var(--green)}.badge-dot.nonveg{background:var(--red)}.badge-dot.none{background:var(--text2)}
+.dish-block-body{display:none}
+.dish-block.open .dish-block-body{display:block}
+.collapse-icon{color:var(--text2);font-size:.75rem;transition:.2s}
+.dish-block.open .collapse-icon{transform:rotate(180deg)}
+
+/* PROMO EDITOR */
+.promo-block{background:var(--dark4);border:1px solid var(--border);border-radius:8px;padding:16px;margin-bottom:10px}
+.promo-block h4{font-size:.9rem;font-weight:600;margin-bottom:12px;color:var(--gold)}
+.slide-row{display:flex;align-items:center;gap:10px;margin-bottom:8px;background:var(--dark3);padding:8px;border-radius:6px}
+.slide-row span{font-size:.75rem;color:var(--text2);min-width:55px}
+.slide-row input{flex:1}
+.slide-img-thumb{width:40px;height:40px;object-fit:cover;border-radius:4px;border:1px solid var(--border);background:var(--dark);flex-shrink:0}
+
+/* GALLERY EDITOR */
+.gallery-admin-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
+.gallery-item-edit{background:var(--dark4);border:1px solid var(--border);border-radius:8px;overflow:hidden}
+.gallery-item-edit img{width:100%;height:120px;object-fit:cover;display:block;background:var(--dark3)}
+.gallery-item-edit .g-edit-body{padding:10px}
+.gallery-item-edit input{font-size:.8rem;padding:6px 8px;margin-bottom:6px}
+.g-toggle{display:flex;align-items:center;gap:6px;font-size:.75rem;color:var(--text2)}
+.g-toggle input{width:auto}
+
+/* REVIEWS EDITOR */
+.review-block{background:var(--dark4);border:1px solid var(--border);border-radius:8px;padding:16px;margin-bottom:10px}
+
+/* TABS */
+.cat-tabs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:20px}
+.cat-tab{padding:6px 14px;border-radius:6px;font-size:.75rem;font-weight:600;cursor:pointer;border:1px solid var(--border);color:var(--text2);background:none;transition:.15s}
+.cat-tab.active{background:var(--gold);color:#000;border-color:var(--gold)}
+
+/* TOAST */
+.toast{position:fixed;bottom:24px;right:24px;background:var(--green);color:#fff;padding:12px 20px;border-radius:8px;font-size:.875rem;font-weight:600;z-index:9999;transform:translateY(80px);opacity:0;transition:.3s;pointer-events:none}
+.toast.show{transform:translateY(0);opacity:1}
+.toast.error{background:var(--red)}
+
+@media(max-width:768px){
+  .sidebar{width:200px}
+  .main-area{margin-left:200px}
+  .form-grid{grid-template-columns:1fr}
+  .form-grid.cols-3{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="loginScreen">
+  <div class="login-box">
+    <div class="login-logo">🌶️</div>
+    <h1>The Royal Chilli</h1>
+    <p>Admin Portal — Enter password to continue</p>
+    <input type="password" id="pwdInput" placeholder="Password" onkeydown="if(event.key==='Enter')doLogin()">
+    <button onclick="doLogin()"><i class="fas fa-sign-in-alt"></i> Login</button>
+    <p class="login-err" id="loginErr">Incorrect password. Try again.</p>
+  </div>
+</div>
+
+<!-- ADMIN APP -->
+<div id="adminApp">
+  <div class="admin-layout">
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+      <div class="sidebar-logo">
+        <span>🌶️ Royal Chilli</span>
+        <small>Admin Portal</small>
+      </div>
+      <nav>
+        <div class="nav-item active" data-section="hero" onclick="showSection('hero',this)"><i class="fas fa-image"></i> Hero Banner</div>
+        <div class="nav-item" data-section="about" onclick="showSection('about',this)"><i class="fas fa-info-circle"></i> About</div>
+        <div class="nav-item" data-section="promotions" onclick="showSection('promotions',this)"><i class="fas fa-tags"></i> Promotions</div>
+        <div class="nav-item" data-section="menu" onclick="showSection('menu',this)"><i class="fas fa-utensils"></i> Menu</div>
+        <div class="nav-item" data-section="gallery" onclick="showSection('gallery',this)"><i class="fas fa-images"></i> Gallery</div>
+        <div class="nav-item" data-section="reviews" onclick="showSection('reviews',this)"><i class="fas fa-star"></i> Reviews</div>
+        <div class="nav-item" data-section="contact" onclick="showSection('contact',this)"><i class="fas fa-phone"></i> Contact & Hours</div>
+      </nav>
+      <div class="sidebar-footer">
+        <button class="logout-btn" onclick="doLogout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
+      </div>
+    </div>
+
+    <!-- MAIN -->
+    <div class="main-area">
+      <div class="topbar">
+        <h2 id="topbarTitle"><b>Hero Banner</b></h2>
+        <span class="save-indicator" id="saveIndicator"><i class="fas fa-check-circle"></i> Saved</span>
+        <button class="btn btn-gold" onclick="saveAll()"><i class="fas fa-save"></i> Save Changes</button>
+        <button class="btn btn-outline" onclick="exportJSON()"><i class="fas fa-download"></i> Export JSON</button>
+        <button class="btn btn-outline" onclick="document.getElementById('importFile').click()"><i class="fas fa-upload"></i> Import</button>
+        <button class="btn btn-outline" onclick="window.open('index.html','_blank')"><i class="fas fa-eye"></i> Preview Site</button>
+        <input type="file" id="importFile" accept=".json" style="display:none" onchange="importJSON(this)">
+      </div>
+
+      <div class="content">
+
+        <!-- HERO -->
+        <div class="section-panel active" id="sec-hero">
+          <div class="panel-title"><i class="fas fa-image"></i> Hero Banner</div>
+          <div class="panel-sub">Edit the main banner text that visitors see first on the website.</div>
+          <div class="edit-card">
+            <h3><i class="fas fa-text-width"></i> Banner Text</h3>
+            <div class="form-grid cols-1">
+              <div class="fg"><label>Top Tag Line</label><input type="text" id="hero_tag" placeholder="e.g. Authentic Indian Cuisine · London"></div>
+              <div class="fg"><label>Headline Line 1 (large text)</label><input type="text" id="hero_line1" placeholder="e.g. Dil Se Desi"></div>
+              <div class="fg"><label>Headline Line 2 (large text)</label><input type="text" id="hero_line2" placeholder="e.g. Taste Mein Royal"></div>
+              <div class="fg"><label>Description Paragraph</label><textarea id="hero_desc" rows="3" placeholder="Enter hero description..."></textarea></div>
+            </div>
+          </div>
+          <div class="edit-card">
+            <h3><i class="fas fa-photo-video"></i> Background Image</h3>
+            <div class="fg">
+              <label>Background Image URL (leave empty to use default)</label>
+              <input type="url" id="hero_bgImage" placeholder="https://... or gallery/g15.jpg" oninput="previewImg('hero_bgImage','heroBgPreview')">
+              <img class="img-preview" id="heroBgPreview" alt="Preview">
+            </div>
+            <p style="color:var(--text2);font-size:.78rem;margin-top:10px"><i class="fas fa-info-circle"></i> You can use any image URL, or a path like <code>gallery/g15.jpg</code> for images already in your project.</p>
+          </div>
+        </div>
+
+        <!-- ABOUT -->
+        <div class="section-panel" id="sec-about">
+          <div class="panel-title"><i class="fas fa-info-circle"></i> About Section</div>
+          <div class="panel-sub">Edit the "Our Story" section content.</div>
+          <div class="edit-card">
+            <h3><i class="fas fa-heading"></i> Section Title</h3>
+            <div class="form-grid">
+              <div class="fg"><label>Title (normal text)</label><input type="text" id="about_title" placeholder="Where Every Dish Tells a Story of"></div>
+              <div class="fg"><label>Title (gold highlighted text)</label><input type="text" id="about_titleGold" placeholder="Passion & Heritage"></div>
+            </div>
+          </div>
+          <div class="edit-card">
+            <h3><i class="fas fa-paragraph"></i> Story Text</h3>
+            <div class="form-grid cols-1">
+              <div class="fg"><label>Paragraph 1</label><textarea id="about_text1" rows="4"></textarea></div>
+              <div class="fg"><label>Paragraph 2</label><textarea id="about_text2" rows="4"></textarea></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PROMOTIONS -->
+        <div class="section-panel" id="sec-promotions">
+          <div class="panel-title"><i class="fas fa-tags"></i> Promotions</div>
+          <div class="panel-sub">Edit promotion tab names, subtitles, and slide images. Image paths can be filenames like <code>pptx_images/image4.png</code> or full URLs.</div>
+          <div id="promosEditor"></div>
+        </div>
+
+        <!-- MENU -->
+        <div class="section-panel" id="sec-menu">
+          <div class="panel-title"><i class="fas fa-utensils"></i> Menu</div>
+          <div class="panel-sub">Edit dish names, prices, descriptions and images. Click a dish to expand it.</div>
+          <div class="cat-tabs" id="menuCatTabs"></div>
+          <div id="menuEditor"></div>
+        </div>
+
+        <!-- GALLERY -->
+        <div class="section-panel" id="sec-gallery">
+          <div class="panel-title"><i class="fas fa-images"></i> Gallery</div>
+          <div class="panel-sub">Edit gallery photo captions and control which photos are visible on the website. Toggle "Hidden" to show/hide photos. Image paths reference files in the <code>gallery/</code> folder.</div>
+          <div class="gallery-admin-grid" id="galleryEditor"></div>
+        </div>
+
+        <!-- REVIEWS -->
+        <div class="section-panel" id="sec-reviews">
+          <div class="panel-title"><i class="fas fa-star"></i> Customer Reviews</div>
+          <div class="panel-sub">Edit the reviews shown in the testimonials slider.</div>
+          <div id="reviewsEditor"></div>
+        </div>
+
+        <!-- CONTACT -->
+        <div class="section-panel" id="sec-contact">
+          <div class="panel-title"><i class="fas fa-phone"></i> Contact & Opening Hours</div>
+          <div class="panel-sub">Edit phone number and opening hours shown across the website.</div>
+          <div class="edit-card">
+            <h3><i class="fas fa-phone"></i> Contact Details</h3>
+            <div class="form-grid">
+              <div class="fg"><label>Phone Number (display)</label><input type="text" id="contact_phone" placeholder="020 8797 3044"></div>
+              <div class="fg"><label>WhatsApp Number (digits only, with country code)</label><input type="text" id="contact_waNumber" placeholder="442087973044"></div>
+            </div>
+          </div>
+          <div class="edit-card">
+            <h3><i class="fas fa-clock"></i> Opening Hours</h3>
+            <div id="hoursEditor"></div>
+            <button class="btn btn-outline" style="margin-top:12px;font-size:.75rem" onclick="addHoursRow()"><i class="fas fa-plus"></i> Add Row</button>
+          </div>
+        </div>
+
+      </div><!-- /content -->
+    </div><!-- /main-area -->
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="content-loader.js"></script>
+<script>
+// ===== AUTH =====
+const ADMIN_PWD = 'royal2024';
+const STORAGE_KEY = window.RC_CONTENT ? window.RC_CONTENT.STORAGE_KEY : 'rc_content';
+const DEFAULTS = window.RC_CONTENT ? window.RC_CONTENT.DEFAULTS : {};
+
+function doLogin() {
+    const val = document.getElementById('pwdInput').value;
+    if (val === ADMIN_PWD) {
+        sessionStorage.setItem('rc_admin', '1');
+        document.getElementById('loginScreen').style.display = 'none';
+        document.getElementById('adminApp').style.display = 'block';
+        loadAdmin();
+    } else {
+        document.getElementById('loginErr').style.display = 'block';
+    }
+}
+function doLogout() {
+    sessionStorage.removeItem('rc_admin');
+    location.reload();
+}
+window.addEventListener('DOMContentLoaded', () => {
+    if (sessionStorage.getItem('rc_admin') === '1') {
+        document.getElementById('loginScreen').style.display = 'none';
+        document.getElementById('adminApp').style.display = 'block';
+        loadAdmin();
+    }
+});
+
+// ===== DATA =====
+let DATA = {};
+function loadAdmin() {
+    try {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        DATA = saved ? JSON.parse(saved) : JSON.parse(JSON.stringify(DEFAULTS));
+    } catch(e) {
+        DATA = JSON.parse(JSON.stringify(DEFAULTS));
+    }
+    renderAll();
+}
+
+function saveAll() {
+    collectAll();
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(DATA));
+    const ind = document.getElementById('saveIndicator');
+    ind.classList.add('show');
+    setTimeout(() => ind.classList.remove('show'), 2000);
+    showToast('Changes saved! Refresh the site to see them.', false);
+}
+
+function collectAll() {
+    // Hero
+    DATA.hero.tag = v('hero_tag');
+    DATA.hero.line1 = v('hero_line1');
+    DATA.hero.line2 = v('hero_line2');
+    DATA.hero.desc = v('hero_desc');
+    DATA.hero.bgImage = v('hero_bgImage');
+    // About
+    DATA.about.title = v('about_title');
+    DATA.about.titleGold = v('about_titleGold');
+    DATA.about.text1 = v('about_text1');
+    DATA.about.text2 = v('about_text2');
+    // Contact
+    DATA.contact.phone = v('contact_phone');
+    DATA.contact.waNumber = v('contact_waNumber');
+    collectHours();
+    collectPromos();
+    collectMenu();
+    collectGallery();
+    collectReviews();
+}
+
+function v(id) { const el = document.getElementById(id); return el ? el.value : ''; }
+function sv(id, val) { const el = document.getElementById(id); if (el) el.value = val || ''; }
+
+// ===== NAVIGATION =====
+const SECTION_TITLES = {hero:'Hero Banner',about:'About Section',promotions:'Promotions',menu:'Menu',gallery:'Gallery',reviews:'Reviews',contact:'Contact & Hours'};
+function showSection(name, el) {
+    document.querySelectorAll('.section-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+    document.getElementById('sec-' + name).classList.add('active');
+    el.classList.add('active');
+    document.getElementById('topbarTitle').innerHTML = '<b>' + SECTION_TITLES[name] + '</b>';
+}
+
+// ===== RENDER =====
+function renderAll() {
+    // Hero
+    sv('hero_tag', DATA.hero.tag);
+    sv('hero_line1', DATA.hero.line1);
+    sv('hero_line2', DATA.hero.line2);
+    sv('hero_desc', DATA.hero.desc);
+    sv('hero_bgImage', DATA.hero.bgImage);
+    if (DATA.hero.bgImage) previewImg('hero_bgImage','heroBgPreview');
+    // About
+    sv('about_title', DATA.about.title);
+    sv('about_titleGold', DATA.about.titleGold);
+    sv('about_text1', DATA.about.text1);
+    sv('about_text2', DATA.about.text2);
+    // Contact
+    sv('contact_phone', DATA.contact.phone);
+    sv('contact_waNumber', DATA.contact.waNumber);
+    renderHours();
+    renderPromos();
+    renderMenu();
+    renderGallery();
+    renderReviews();
+}
+
+// ===== HOURS =====
+function renderHours() {
+    const el = document.getElementById('hoursEditor');
+    el.innerHTML = '';
+    (DATA.contact.hours || []).forEach((h, i) => {
+        el.innerHTML += '<div class="form-grid" style="margin-bottom:10px" data-hi="'+i+'">' +
+            '<div class="fg"><label>Day</label><input type="text" id="hr_day_'+i+'" value="'+esc(h.day)+'"></div>' +
+            '<div class="fg"><label>Time</label><input type="text" id="hr_time_'+i+'" value="'+esc(h.time)+'"><button onclick="removeHoursRow('+i+')" style="background:none;border:none;color:var(--red);cursor:pointer;font-size:.75rem;margin-top:4px;text-align:left"><i class="fas fa-trash"></i> Remove</button></div>' +
+            '</div>';
+    });
+}
+function collectHours() {
+    DATA.contact.hours = [];
+    const rows = document.querySelectorAll('#hoursEditor [data-hi]');
+    rows.forEach(row => {
+        const i = row.dataset.hi;
+        DATA.contact.hours.push({ day: v('hr_day_'+i), time: v('hr_time_'+i) });
+    });
+}
+function addHoursRow() {
+    collectHours();
+    DATA.contact.hours.push({ day: '', time: '' });
+    renderHours();
+}
+function removeHoursRow(i) {
+    collectHours();
+    DATA.contact.hours.splice(i, 1);
+    renderHours();
+}
+
+// ===== PROMOTIONS =====
+function renderPromos() {
+    const el = document.getElementById('promosEditor');
+    el.innerHTML = '';
+    (DATA.promotions || []).forEach((p, pi) => {
+        const slidesHtml = (p.slides || []).map((s, si) =>
+            '<div class="slide-row">' +
+            '<span>Slide '+(si+1)+'</span>' +
+            '<img class="slide-img-thumb" id="pthumb_'+pi+'_'+si+'" src="'+esc(s.img)+'" onerror="this.style.opacity=0.2">' +
+            '<input type="text" id="pimg_'+pi+'_'+si+'" value="'+esc(s.img)+'" placeholder="Image path or URL" oninput="updatePromoThumb('+pi+','+si+')">' +
+            '</div>'
+        ).join('');
+        el.innerHTML += '<div class="promo-block">' +
+            '<h4><i class="'+esc(p.icon)+'"></i> Promotion '+(pi+1)+'</h4>' +
+            '<div class="form-grid" style="margin-bottom:14px">' +
+            '<div class="fg"><label>Tab Name</label><input type="text" id="pname_'+pi+'" value="'+esc(p.name)+'"></div>' +
+            '<div class="fg"><label>Subtitle / Time</label><input type="text" id="psub_'+pi+'" value="'+esc(p.sub)+'"></div>' +
+            '</div>' +
+            '<label style="font-size:.72rem;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:8px">Promotion Slides / Images</label>' +
+            slidesHtml +
+            '</div>';
+    });
+}
+function collectPromos() {
+    (DATA.promotions || []).forEach((p, pi) => {
+        p.name = v('pname_' + pi);
+        p.sub = v('psub_' + pi);
+        (p.slides || []).forEach((s, si) => {
+            s.img = v('pimg_' + pi + '_' + si);
+        });
+    });
+}
+function updatePromoThumb(pi, si) {
+    const val = v('pimg_' + pi + '_' + si);
+    const img = document.getElementById('pthumb_' + pi + '_' + si);
+    if (img) { img.src = val; img.style.opacity = '1'; }
+}
+
+// ===== MENU =====
+const CAT_LABELS = {
+    soups:'Soups & Sides', veg:'Veg Starters', nonveg:'Non-Veg Starters',
+    sizzlers:'Sizzlers & Platters', vegmain:'Veg Main', nonvegmain:'Non-Veg Main',
+    biryani:'Biryani', rice:'Rice & Noodles', breads:'Breads',
+    chefspecial:"Chef's Special", desserts:'Desserts'
+};
+let activeCat = 'soups';
+
+function renderMenu() {
+    const tabs = document.getElementById('menuCatTabs');
+    tabs.innerHTML = Object.keys(CAT_LABELS).map(k =>
+        '<button class="cat-tab'+(k===activeCat?' active':'')+'" onclick="switchCat(\''+k+'\')">'+CAT_LABELS[k]+'</button>'
+    ).join('');
+    renderMenuCat(activeCat);
+}
+function switchCat(cat) {
+    collectMenuCat(activeCat);
+    activeCat = cat;
+    document.querySelectorAll('.cat-tab').forEach(t => t.classList.toggle('active', t.textContent === CAT_LABELS[cat]));
+    renderMenuCat(cat);
+}
+function renderMenuCat(cat) {
+    const el = document.getElementById('menuEditor');
+    const dishes = (DATA.menu || {})[cat] || [];
+    el.innerHTML = dishes.map((d, i) => {
+        const dot = d.badge ? '<span class="badge-dot '+d.badge+'"></span>' : '<span class="badge-dot none"></span>';
+        return '<div class="dish-block" id="dblock_'+i+'">' +
+            '<div class="dish-block-header" onclick="toggleDish('+i+')">' +
+            '<h4>'+dot+' '+esc(d.name || 'Dish '+(i+1))+'</h4>' +
+            '<i class="fas fa-chevron-down collapse-icon"></i>' +
+            '</div>' +
+            '<div class="dish-block-body">' +
+            '<div class="form-grid">' +
+            '<div class="fg"><label>Dish Name</label><input type="text" id="d_name_'+i+'" value="'+esc(d.name)+'"></div>' +
+            '<div class="fg"><label>Price (e.g. £8.95)</label><input type="text" id="d_price_'+i+'" value="'+esc(d.price)+'"></div>' +
+            '<div class="fg full"><label>Description</label><textarea id="d_desc_'+i+'" rows="2">'+esc(d.desc)+'</textarea></div>' +
+            '<div class="fg full"><label>Image URL</label><input type="text" id="d_img_'+i+'" value="'+esc(d.img)+'" oninput="previewDishImg('+i+')"><img class="img-preview'+(d.img?' show':'')+'" id="d_imgprev_'+i+'" src="'+esc(d.img)+'" alt="preview"></div>' +
+            '<div class="fg"><label>Badge</label><select id="d_badge_'+i+'"><option value="">None</option><option value="veg"'+(d.badge==='veg'?' selected':'')+'>🟢 Veg</option><option value="nonveg"'+(d.badge==='nonveg'?' selected':'')+'>🔴 Non-Veg</option></select></div>' +
+            '<div class="fg"><label>Mark as Popular</label><div style="display:flex;align-items:center;gap:8px;margin-top:6px"><input type="checkbox" id="d_pop_'+i+'"'+(d.popular?' checked':'')+'> <span style="font-size:.8rem">Show "Popular" badge</span></div>' +
+            '<div style="margin-top:8px"><label>Badge Label</label><input type="text" id="d_poptag_'+i+'" value="'+esc(d.popularTag||'Popular')+'" placeholder="Popular / Signature / Must Try"></div></div>' +
+            '</div></div></div>';
+    }).join('');
+}
+function collectMenuCat(cat) {
+    const dishes = (DATA.menu || {})[cat] || [];
+    dishes.forEach((d, i) => {
+        d.name = v('d_name_' + i);
+        d.price = v('d_price_' + i);
+        d.desc = v('d_desc_' + i);
+        d.img = v('d_img_' + i);
+        d.badge = v('d_badge_' + i) || null;
+        d.popular = document.getElementById('d_pop_' + i)?.checked || false;
+        d.popularTag = v('d_poptag_' + i) || 'Popular';
+    });
+}
+function collectMenu() {
+    collectMenuCat(activeCat);
+}
+function toggleDish(i) {
+    const block = document.getElementById('dblock_' + i);
+    block.classList.toggle('open');
+}
+function previewDishImg(i) {
+    const val = v('d_img_' + i);
+    const img = document.getElementById('d_imgprev_' + i);
+    if (img) { img.src = val; img.classList.toggle('show', !!val); }
+}
+
+// ===== GALLERY =====
+function renderGallery() {
+    const el = document.getElementById('galleryEditor');
+    el.innerHTML = (DATA.gallery || []).map((item, i) => {
+        return '<div class="gallery-item-edit">' +
+            '<img src="'+esc(item.src)+'" alt="'+esc(item.name)+'" onerror="this.style.opacity=0.2" id="gthumb_'+i+'">' +
+            '<div class="g-edit-body">' +
+            '<input type="text" id="g_src_'+i+'" value="'+esc(item.src)+'" placeholder="gallery/filename.jpg" oninput="updateGalleryThumb('+i+')">' +
+            '<input type="text" id="g_name_'+i+'" value="'+esc(item.name)+'" placeholder="Caption">' +
+            '<div class="g-toggle"><input type="checkbox" id="g_hidden_'+i+'"'+(item.hidden?' checked':'')+'> <label for="g_hidden_'+i+'">Hidden (not shown)</label></div>' +
+            '</div></div>';
+    }).join('');
+}
+function collectGallery() {
+    DATA.gallery = (DATA.gallery || []).map((item, i) => ({
+        src: v('g_src_' + i),
+        name: v('g_name_' + i),
+        large: item.large || false,
+        hidden: document.getElementById('g_hidden_' + i)?.checked || false
+    }));
+}
+function updateGalleryThumb(i) {
+    const img = document.getElementById('gthumb_' + i);
+    if (img) { img.src = v('g_src_' + i); img.style.opacity = '1'; }
+}
+
+// ===== REVIEWS =====
+function renderReviews() {
+    const el = document.getElementById('reviewsEditor');
+    el.innerHTML = (DATA.testimonials || []).map((r, i) =>
+        '<div class="review-block edit-card">' +
+        '<h3><i class="fas fa-user-circle"></i> Review '+(i+1)+'</h3>' +
+        '<div class="form-grid">' +
+        '<div class="fg"><label>Reviewer Name</label><input type="text" id="r_name_'+i+'" value="'+esc(r.name)+'"></div>' +
+        '<div class="fg"><label>Platform</label><input type="text" id="r_plat_'+i+'" value="'+esc(r.platform||'Google Review')+'"></div>' +
+        '<div class="fg full"><label>Review Text</label><textarea id="r_text_'+i+'" rows="3">'+esc(r.text)+'</textarea></div>' +
+        '<div class="fg"><label>Stars (1-5)</label><input type="text" id="r_stars_'+i+'" value="'+esc(r.stars||5)+'" style="width:80px"></div>' +
+        '</div></div>'
+    ).join('');
+}
+function collectReviews() {
+    DATA.testimonials = (DATA.testimonials || []).map((r, i) => ({
+        name: v('r_name_' + i),
+        platform: v('r_plat_' + i),
+        text: v('r_text_' + i),
+        stars: parseInt(v('r_stars_' + i)) || 5
+    }));
+}
+
+// ===== EXPORT / IMPORT =====
+function exportJSON() {
+    collectAll();
+    const blob = new Blob([JSON.stringify(DATA, null, 2)], {type:'application/json'});
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'content.json';
+    a.click();
+    showToast('content.json downloaded — upload it to your GitHub repository.');
+}
+function importJSON(input) {
+    const file = input.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = e => {
+        try {
+            DATA = JSON.parse(e.target.result);
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(DATA));
+            renderAll();
+            showToast('Content imported successfully!');
+        } catch(err) {
+            showToast('Invalid JSON file.', true);
+        }
+    };
+    reader.readAsText(file);
+    input.value = '';
+}
+
+// ===== UTILS =====
+function esc(str) {
+    if (str === null || str === undefined) return '';
+    return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+function previewImg(inputId, previewId) {
+    const val = v(inputId);
+    const img = document.getElementById(previewId);
+    if (!img) return;
+    if (val) { img.src = val; img.classList.add('show'); }
+    else img.classList.remove('show');
+}
+function showToast(msg, isError) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.className = 'toast show' + (isError ? ' error' : '');
+    setTimeout(() => t.className = 'toast', 3000);
+}
+</script>
+</body>
+</html>

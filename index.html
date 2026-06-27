@@ -42,7 +42,7 @@
                 <li><a href="#contact" class="nav-link">Contact</a></li>
             </ul>
             <div class="nav-cta">
-                <a href="tel:02087973044" class="nav-phone"><i class="fas fa-phone"></i> 020 8797 3044</a>
+                <a href="tel:02087973044" class="nav-phone" data-rc-phone><i class="fas fa-phone"></i> 020 8797 3044</a>
                 <a href="#reservation" class="btn-nav-book">Book a Table</a>
             </div>
             <button class="hamburger" id="hamburger" aria-label="Menu">
@@ -71,13 +71,13 @@
         <div class="hero-bg"></div>
         <div class="hero-overlay"></div>
         <div class="hero-content">
-            <span class="hero-tag animate-up">Authentic Indian Cuisine · London</span>
+            <span class="hero-tag animate-up" id="heroTag">Authentic Indian Cuisine · London</span>
             <h1 class="hero-title animate-up delay-1">
-                <span class="line-1">Dil Se Desi</span>
+                <span class="line-1" id="heroLine1">Dil Se Desi</span>
                 <span class="title-sep"><span class="sep-line"></span><span class="sep-icon"><img src="logo2.png" alt="The Royal Chilli" class="sep-logo" loading="lazy"></span><span class="sep-line"></span></span>
-                <span class="line-2">Taste Mein Royal</span>
+                <span class="line-2" id="heroLine2">Taste Mein Royal</span>
             </h1>
-            <p class="hero-desc animate-up delay-2">Experience the rich flavours and traditions of authentic Indian cooking, crafted with love and passion in the heart of London.</p>
+            <p class="hero-desc animate-up delay-2" id="heroDesc">Experience the rich flavours and traditions of authentic Indian cooking, crafted with love and passion in the heart of London.</p>
             <div class="hero-actions animate-up delay-3">
                 <a href="#menu" class="btn-primary">Explore Menu <i class="fas fa-arrow-right"></i></a>
                 <a href="#reservation" class="btn-outline">Book a Table <i class="fas fa-calendar-alt"></i></a>
@@ -151,9 +151,9 @@
                 </div>
                 <div class="about-content reveal delay-2">
                     <p class="section-tag">Our Story</p>
-                    <h2 class="section-title">Where Every Dish Tells a Story of <span class="text-gold">Passion &amp; Heritage</span></h2>
-                    <p class="about-text">The Royal Chilli was born from a deep love for authentic Indian flavours and the age-old traditions of Indian cooking. We bring you the very best of South and North Indian cuisine, using the freshest ingredients and spices imported directly from India.</p>
-                    <p class="about-text">Our chefs, trained in the finest culinary traditions, create dishes that transport you straight to the bustling streets and royal kitchens of India — right here in London.</p>
+                    <h2 class="section-title" id="aboutTitle">Where Every Dish Tells a Story of <span class="text-gold">Passion &amp; Heritage</span></h2>
+                    <p class="about-text" id="aboutText1">The Royal Chilli was born from a deep love for authentic Indian flavours and the age-old traditions of Indian cooking. We bring you the very best of South and North Indian cuisine, using the freshest ingredients and spices imported directly from India.</p>
+                    <p class="about-text" id="aboutText2">Our chefs, trained in the finest culinary traditions, create dishes that transport you straight to the bustling streets and royal kitchens of India — right here in London.</p>
                     <div class="features-grid">
                         <div class="feat"><div class="feat-icon"><i class="fas fa-mortar-pestle"></i></div><div><h4>Authentic Recipes</h4><p>Traditional family recipes passed down through generations</p></div></div>
                         <div class="feat"><div class="feat-icon"><i class="fas fa-leaf"></i></div><div><h4>Fresh Ingredients</h4><p>Locally sourced produce and imported Indian spices</p></div></div>
@@ -571,8 +571,8 @@
                     <h2 class="section-title">Book Your <span class="text-gold">Royal Experience</span></h2>
                     <p>Whether it's a date night, family gathering or special celebration — we're here to make it truly memorable.</p>
                     <div class="res-details">
-                        <div class="res-item"><i class="fas fa-clock"></i><div><h4>Opening Hours</h4><p>Sun–Thu &amp; Sat: 9:00 AM – 11:00 PM</p><p>Fri: 11:00 AM – 11:00 PM</p></div></div>
-                        <div class="res-item"><i class="fas fa-phone"></i><div><h4>Call to Reserve</h4><a href="tel:02087973044">020 8797 3044</a></div></div>
+                        <div class="res-item"><i class="fas fa-clock"></i><div><h4>Opening Hours</h4><div id="resHours"><p>Sun–Thu &amp; Sat: 9:00 AM – 11:00 PM</p><p>Fri: 11:00 AM – 11:00 PM</p></div></div></div>
+                        <div class="res-item"><i class="fas fa-phone"></i><div><h4>Call to Reserve</h4><a href="tel:02087973044" data-rc-phone>020 8797 3044</a></div></div>
                         <div class="res-item"><i class="fas fa-map-marker-alt"></i><div><h4>Find Us</h4><p>43 Kingsley Road, Hounslow<br>London, TW3 1PA</p></div></div>
                     </div>
                 </div>
@@ -630,10 +630,10 @@
                 </div>
                 <div class="contact-info reveal delay-2">
                     <div class="c-card"><i class="fas fa-map-marker-alt"></i><div><h4>Address</h4><p>43 Kingsley Road<br>Hounslow, London<br>TW3 1PA</p></div></div>
-                    <div class="c-card"><i class="fas fa-phone"></i><div><h4>Phone</h4><a href="tel:02087973044">020 8797 3044</a></div></div>
+                    <div class="c-card"><i class="fas fa-phone"></i><div><h4>Phone</h4><a href="tel:02087973044" data-rc-phone>020 8797 3044</a></div></div>
                     <div class="c-card"><i class="fas fa-clock"></i>
                         <div><h4>Opening Hours</h4>
-                        <table class="hours-table">
+                        <table class="hours-table" id="hoursTable">
                             <tr><td>Mon – Thu</td><td>9:00 AM – 11:00 PM</td></tr>
                             <tr><td>Friday</td><td>11:00 AM – 11:00 PM</td></tr>
                             <tr><td>Saturday</td><td>9:00 AM – 11:00 PM</td></tr>
@@ -742,5 +742,6 @@
     </div>
 
     <script src="script.js"></script>
+    <script src="content-loader.js"></script>
 </body>
 </html>
