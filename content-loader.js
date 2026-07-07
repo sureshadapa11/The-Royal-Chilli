@@ -370,15 +370,62 @@
         if (typeof startAuto === 'function') startAuto();
     }
 
+    function applyStats(stats) {
+        stats.forEach(function(s, i) {
+            var numEl = document.getElementById('statNum' + i);
+            var lblEl = document.getElementById('statLabel' + i);
+            if (numEl) numEl.setAttribute('data-count', s.count);
+            if (lblEl) lblEl.textContent = s.label;
+        });
+    }
+
+    function applyOpening(opening) {
+        var vid = document.getElementById('openingVideo');
+        if (vid && opening.videoUrl) { vid.src = opening.videoUrl; }
+    }
+
+    function applyReservation(res) {
+        var tag = document.getElementById('resTag'); if (tag) tag.textContent = res.tag;
+        var title = document.getElementById('resTitle'); if (title) title.textContent = res.title;
+        var gold = document.getElementById('resTitleGold'); if (gold) gold.textContent = res.titleGold;
+        var desc = document.getElementById('resDesc'); if (desc) desc.textContent = res.desc;
+    }
+
+    function applyContactExtra(contact) {
+        if (contact.address) {
+            document.querySelectorAll('[data-rc-address]').forEach(function(el) { el.innerHTML = contact.address.replace(/,\s*/g, '<br>'); });
+        }
+        if (contact.mapEmbed) {
+            var map = document.getElementById('contactMap');
+            if (map) map.src = contact.mapEmbed;
+        }
+        if (contact.social) {
+            document.querySelectorAll('[data-rc-social]').forEach(function(el) {
+                var key = el.getAttribute('data-rc-social');
+                if (contact.social[key]) el.href = contact.social[key];
+            });
+        }
+    }
+
+    function applyFooter(footer) {
+        var tag = document.getElementById('footerTagline'); if (tag) tag.textContent = footer.tagline;
+        var copy = document.getElementById('footerCopyright'); if (copy) copy.textContent = footer.copyright;
+    }
+
     function applyContent(c) {
         if (!c) return;
         applyHero(c.hero || DEFAULTS.hero);
         applyAbout(c.about || DEFAULTS.about);
         applyContact(c.contact || DEFAULTS.contact);
+        applyContactExtra(c.contact || DEFAULTS.contact);
         applyPromotions(c.promotions || DEFAULTS.promotions);
         applyMenu(c.menu || DEFAULTS.menu);
         applyGallery(c.gallery || DEFAULTS.gallery);
         applyTestimonials(c.testimonials || DEFAULTS.testimonials);
+        if (c.stats) applyStats(c.stats);
+        if (c.opening) applyOpening(c.opening);
+        if (c.reservation) applyReservation(c.reservation);
+        if (c.footer) applyFooter(c.footer);
     }
 
     window.addEventListener('load', function () {
@@ -397,6 +444,19 @@
                 applyContent(getContent());
             });
     });
+
+    DEFAULTS.stats = [
+        {count:150,label:'Signature Dishes'},
+        {count:10000,label:'Happy Customers'},
+        {count:5,label:'Years of Excellence'},
+        {count:12,label:'Expert Chefs'}
+    ];
+    DEFAULTS.opening = { videoUrl: 'video/mayor welcoming video.mp4' };
+    DEFAULTS.reservation = { tag:'Reserve a Table', title:'Book Your', titleGold:'Royal Experience', desc:"Whether it's a date night, family gathering or special celebration — we're here to make it truly memorable." };
+    DEFAULTS.contact.address = '43 Kingsley Road, Hounslow, London, TW3 1PA';
+    DEFAULTS.contact.mapEmbed = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2485.593!2d-0.3580133!3d51.4722309!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48760d00575f94db%3A0x374941cb29fce285!2sThe%20Royal%20Chilli!5e0!3m2!1sen!2suk!4v1718000000000!5m2!1sen!2suk';
+    DEFAULTS.contact.social = { facebook:'#', instagram:'https://www.instagram.com/the_royal_chilli?igsh=MW12MTVzY2p0ZmUycw==', twitter:'#' };
+    DEFAULTS.footer = { tagline:'Bringing the rich flavours and warmth of authentic Indian cuisine to the heart of London.', copyright:'© 2025 The Royal Chilli. All rights reserved.' };
 
     window.RC_CONTENT = { STORAGE_KEY: STORAGE_KEY, DEFAULTS: DEFAULTS };
 })();

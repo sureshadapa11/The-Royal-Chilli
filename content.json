@@ -20,7 +20,14 @@
       { "day": "Friday", "time": "11:00 AM – 11:00 PM" },
       { "day": "Saturday", "time": "9:00 AM – 11:00 PM" },
       { "day": "Sunday", "time": "9:00 AM – 11:00 PM" }
-    ]
+    ],
+    "address": "43 Kingsley Road, Hounslow, London, TW3 1PA",
+    "mapEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2485.593!2d-0.3580133!3d51.4722309!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48760d00575f94db%3A0x374941cb29fce285!2sThe%20Royal%20Chilli!5e0!3m2!1sen!2suk!4v1718000000000!5m2!1sen!2suk",
+    "social": {
+      "facebook": "#",
+      "instagram": "https://www.instagram.com/the_royal_chilli?igsh=MW12MTVzY2p0ZmUycw==",
+      "twitter": "#"
+    }
   },
   "promotions": [
     { "name": "Breakfast Deals", "icon": "fas fa-sun", "sub": "Mon–Fri · 7AM–11:30AM", "slides": [
@@ -223,5 +230,24 @@
     { "name": "Mohammed Ali", "text": "\"Been coming here for months and it never disappoints. The Butter Chicken and Garlic Naan are simply divine. Staff are always friendly and welcoming — love this place!\"", "stars": 5, "platform": "Google Review" },
     { "name": "Sarah Johnson", "text": "\"Tried the Chilli Paneer and the Mixed Grill Platter — both phenomenal! The Royal Chilli truly lives up to its name. Highly recommend exploring the Specials menu.\"", "stars": 5, "platform": "Google Review" },
     { "name": "Ravi Kumar", "text": "\"The flavours are genuine and authentic. Spice levels are perfectly balanced. This has become our family's go-to restaurant for every celebration. Absolutely love it!\"", "stars": 5, "platform": "Google Review" }
-  ]
+  ],
+  "stats": [
+    { "count": 150, "label": "Signature Dishes" },
+    { "count": 10000, "label": "Happy Customers" },
+    { "count": 5, "label": "Years of Excellence" },
+    { "count": 12, "label": "Expert Chefs" }
+  ],
+  "opening": {
+    "videoUrl": "video/mayor welcoming video.mp4"
+  },
+  "reservation": {
+    "tag": "Reserve a Table",
+    "title": "Book Your",
+    "titleGold": "Royal Experience",
+    "desc": "Whether it's a date night, family gathering or special celebration — we're here to make it truly memorable."
+  },
+  "footer": {
+    "tagline": "Bringing the rich flavours and warmth of authentic Indian cuisine to the heart of London.",
+    "copyright": "© 2025 The Royal Chilli. All rights reserved."
+  }
 }
