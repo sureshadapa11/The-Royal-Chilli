@@ -75,6 +75,10 @@ select option{background:var(--dark4)}
 input[type=checkbox]{width:16px;height:16px;accent-color:var(--gold);cursor:pointer}
 .img-preview{width:100%;height:100px;object-fit:cover;border-radius:6px;margin-top:6px;border:1px solid var(--border);background:var(--dark4);display:none}
 .img-preview.show{display:block}
+.img-field-wrap{display:flex;gap:6px;align-items:center}
+.img-field-wrap input{flex:1}
+.btn-upload{background:var(--dark3);border:1px solid var(--border);border-radius:6px;padding:8px 10px;color:var(--text2);font-size:.75rem;cursor:pointer;white-space:nowrap;transition:.15s;flex-shrink:0;display:inline-flex;align-items:center;gap:5px}
+.btn-upload:hover{border-color:var(--gold);color:var(--gold)}
 
 /* DISH EDITOR */
 .dish-block{background:var(--dark4);border:1px solid var(--border);border-radius:8px;padding:16px;margin-bottom:10px}
@@ -215,11 +219,13 @@ input[type=checkbox]{width:16px;height:16px;accent-color:var(--gold);cursor:poin
           <div class="edit-card">
             <h3><i class="fas fa-photo-video"></i> Background Image</h3>
             <div class="fg">
-              <label>Background Image URL (leave empty to use default)</label>
-              <input type="url" id="hero_bgImage" placeholder="https://... or gallery/g15.jpg" oninput="previewImg('hero_bgImage','heroBgPreview')">
+              <label>Background Image</label>
+              <div class="img-field-wrap">
+                <input type="url" id="hero_bgImage" placeholder="https://... or gallery/g15.jpg" oninput="previewImg('hero_bgImage','heroBgPreview')">
+                <button class="btn-upload" onclick="triggerImageUpload('hero_bgImage','heroBgPreview')"><i class="fas fa-upload"></i> Upload</button>
+              </div>
               <img class="img-preview" id="heroBgPreview" alt="Preview">
             </div>
-            <p style="color:var(--text2);font-size:.78rem;margin-top:10px"><i class="fas fa-info-circle"></i> You can use any image URL, or a path like <code>gallery/g15.jpg</code> for images already in your project.</p>
           </div>
         </div>
 
@@ -261,7 +267,10 @@ input[type=checkbox]{width:16px;height:16px;accent-color:var(--gold);cursor:poin
         <!-- GALLERY -->
         <div class="section-panel" id="sec-gallery">
           <div class="panel-title"><i class="fas fa-images"></i> Gallery</div>
-          <div class="panel-sub">Edit gallery photo captions and control which photos are visible on the website. Toggle "Hidden" to show/hide photos. Image paths reference files in the <code>gallery/</code> folder.</div>
+          <div class="panel-sub">Upload photos from your device or edit image paths. Toggle "Hidden" to show/hide photos.</div>
+          <div style="margin-bottom:16px">
+            <button class="btn btn-gold" onclick="triggerAddGalleryImage()"><i class="fas fa-plus"></i> Add New Photo</button>
+          </div>
           <div class="gallery-admin-grid" id="galleryEditor"></div>
         </div>
 
@@ -555,6 +564,7 @@ function renderPromos() {
             '<span>Slide '+(si+1)+'</span>' +
             '<img class="slide-img-thumb" id="pthumb_'+pi+'_'+si+'" src="'+esc(s.img)+'" onerror="this.style.opacity=0.2">' +
             '<input type="text" id="pimg_'+pi+'_'+si+'" value="'+esc(s.img)+'" placeholder="Image path or URL" oninput="updatePromoThumb('+pi+','+si+')">' +
+            '<button class="btn-upload" onclick="triggerImageUpload(\'pimg_'+pi+'_'+si+'\',\'pthumb_'+pi+'_'+si+'\')" title="Upload from device"><i class="fas fa-upload"></i></button>' +
             '</div>'
         ).join('');
         el.innerHTML += '<div class="promo-block">' +
@@ -620,7 +630,7 @@ function renderMenuCat(cat) {
             '<div class="fg"><label>Dish Name</label><input type="text" id="d_name_'+i+'" value="'+esc(d.name)+'"></div>' +
             '<div class="fg"><label>Price (e.g. £8.95)</label><input type="text" id="d_price_'+i+'" value="'+esc(d.price)+'"></div>' +
             '<div class="fg full"><label>Description</label><textarea id="d_desc_'+i+'" rows="2">'+esc(d.desc)+'</textarea></div>' +
-            '<div class="fg full"><label>Image URL</label><input type="text" id="d_img_'+i+'" value="'+esc(d.img)+'" oninput="previewDishImg('+i+')"><img class="img-preview'+(d.img?' show':'')+'" id="d_imgprev_'+i+'" src="'+esc(d.img)+'" alt="preview"></div>' +
+            '<div class="fg full"><label>Dish Image</label><div class="img-field-wrap"><input type="text" id="d_img_'+i+'" value="'+esc(d.img)+'" oninput="previewDishImg('+i+')" placeholder="gallery/filename.jpg or URL"><button class="btn-upload" onclick="triggerImageUpload(\'d_img_'+i+'\',\'d_imgprev_'+i+'\')"><i class="fas fa-upload"></i> Upload</button></div><img class="img-preview'+(d.img?' show':'')+'" id="d_imgprev_'+i+'" src="'+esc(d.img)+'" alt="preview"></div>' +
             '<div class="fg"><label>Badge</label><select id="d_badge_'+i+'"><option value="">None</option><option value="veg"'+(d.badge==='veg'?' selected':'')+'>🟢 Veg</option><option value="nonveg"'+(d.badge==='nonveg'?' selected':'')+'>🔴 Non-Veg</option></select></div>' +
             '<div class="fg"><label>Mark as Popular</label><div style="display:flex;align-items:center;gap:8px;margin-top:6px"><input type="checkbox" id="d_pop_'+i+'"'+(d.popular?' checked':'')+'> <span style="font-size:.8rem">Show "Popular" badge</span></div>' +
             '<div style="margin-top:8px"><label>Badge Label</label><input type="text" id="d_poptag_'+i+'" value="'+esc(d.popularTag||'Popular')+'" placeholder="Popular / Signature / Must Try"></div></div>' +
@@ -659,7 +669,10 @@ function renderGallery() {
         return '<div class="gallery-item-edit">' +
             '<img src="'+esc(item.src)+'" alt="'+esc(item.name)+'" onerror="this.style.opacity=0.2" id="gthumb_'+i+'">' +
             '<div class="g-edit-body">' +
+            '<div class="img-field-wrap" style="margin-bottom:6px">' +
             '<input type="text" id="g_src_'+i+'" value="'+esc(item.src)+'" placeholder="gallery/filename.jpg" oninput="updateGalleryThumb('+i+')">' +
+            '<button class="btn-upload" onclick="triggerImageUpload(\'g_src_'+i+'\',\'gthumb_'+i+'\')" title="Upload from device"><i class="fas fa-upload"></i></button>' +
+            '</div>' +
             '<input type="text" id="g_name_'+i+'" value="'+esc(item.name)+'" placeholder="Caption">' +
             '<div class="g-toggle"><input type="checkbox" id="g_hidden_'+i+'"'+(item.hidden?' checked':'')+'> <label for="g_hidden_'+i+'">Hidden (not shown)</label></div>' +
             '</div></div>';
@@ -868,6 +881,94 @@ function setPublishStatus(type, html) {
     el.className = 'publish-status ' + type;
     el.innerHTML = html;
 }
+
+// ===== IMAGE UPLOAD =====
+let _uploadTarget = null;
+
+function triggerImageUpload(inputId, thumbId) {
+    _uploadTarget = { inputId, thumbId, newGallery: false };
+    document.getElementById('imgUploadInput').value = '';
+    document.getElementById('imgUploadInput').click();
+}
+
+function triggerAddGalleryImage() {
+    collectGallery();
+    _uploadTarget = { inputId: null, thumbId: null, newGallery: true };
+    document.getElementById('imgUploadInput').value = '';
+    document.getElementById('imgUploadInput').click();
+}
+
+document.getElementById('imgUploadInput').addEventListener('change', async function() {
+    const file = this.files[0];
+    if (!file || !_uploadTarget) return;
+    const target = _uploadTarget;
+    _uploadTarget = null;
+
+    const token = localStorage.getItem('rc_gh_token');
+    const repo = localStorage.getItem('rc_gh_repo') || 'sureshadapa11/The-Royal-Chilli';
+    if (!token) {
+        showToast('Set your GitHub token via "Publish to Live Site" first.', true);
+        return;
+    }
+
+    showToast('Uploading image — please wait...');
+
+    try {
+        const path = await uploadFileToGitHub(file, repo, token);
+
+        if (target.newGallery) {
+            DATA.gallery.push({ src: path, name: file.name.replace(/\.[^.]+$/, '').replace(/_/g,' '), large: false, hidden: false });
+            renderGallery();
+            showToast('Photo added to gallery! Save & Publish to make it live.');
+        } else {
+            const input = document.getElementById(target.inputId);
+            if (input) {
+                input.value = path;
+                input.dispatchEvent(new Event('input'));
+            }
+            if (target.thumbId) {
+                const img = document.getElementById(target.thumbId);
+                if (img) { img.src = path; img.style.opacity = '1'; img.classList.add('show'); }
+            }
+            showToast('Image uploaded! Save & Publish to make it live.');
+        }
+    } catch(err) {
+        showToast('Upload failed: ' + err.message, true);
+    }
+});
+
+async function uploadFileToGitHub(file, repo, token) {
+    const base64 = await fileToBase64(file);
+    const safeName = Date.now() + '_' + file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
+    const path = 'gallery/' + safeName;
+    const url = 'https://api.github.com/repos/' + repo + '/contents/' + path;
+    const headers = {
+        'Authorization': 'Bearer ' + token,
+        'Accept': 'application/vnd.github.v3+json',
+        'Content-Type': 'application/json'
+    };
+    const putRes = await fetch(url, {
+        method: 'PUT',
+        headers,
+        body: JSON.stringify({ message: 'Upload image via admin portal', content: base64 })
+    });
+    if (!putRes.ok) {
+        const err = await putRes.json();
+        throw new Error(err.message || 'GitHub upload failed: ' + putRes.status);
+    }
+    return path;
+}
+
+function fileToBase64(file) {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = e => resolve(e.target.result.split(',')[1]);
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+    });
+}
 </script>
+
+<input type="file" id="imgUploadInput" accept="image/*" style="display:none">
 </body>
 </html>
