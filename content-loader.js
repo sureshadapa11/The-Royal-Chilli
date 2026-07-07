@@ -370,9 +370,7 @@
         if (typeof startAuto === 'function') startAuto();
     }
 
-    window.addEventListener('load', function () {
-        if (!document.getElementById('heroTag')) return; // only run on main site
-        const c = getContent();
+    function applyContent(c) {
         if (!c) return;
         applyHero(c.hero || DEFAULTS.hero);
         applyAbout(c.about || DEFAULTS.about);
@@ -381,6 +379,23 @@
         applyMenu(c.menu || DEFAULTS.menu);
         applyGallery(c.gallery || DEFAULTS.gallery);
         applyTestimonials(c.testimonials || DEFAULTS.testimonials);
+    }
+
+    window.addEventListener('load', function () {
+        if (!document.getElementById('heroTag')) return; // only run on main site
+        // Try fetching published content.json first; fall back to localStorage/defaults
+        fetch('content.json?v=' + Date.now())
+            .then(function (r) { return r.ok ? r.json() : null; })
+            .then(function (published) {
+                // localStorage draft overrides published (only used in admin preview mode)
+                const draft = localStorage.getItem('rc_admin_preview') === '1'
+                    ? getContent()
+                    : null;
+                applyContent(draft || published || getContent());
+            })
+            .catch(function () {
+                applyContent(getContent());
+            });
     });
 
     window.RC_CONTENT = { STORAGE_KEY: STORAGE_KEY, DEFAULTS: DEFAULTS };

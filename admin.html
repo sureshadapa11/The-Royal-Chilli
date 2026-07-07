@@ -117,6 +117,23 @@ input[type=checkbox]{width:16px;height:16px;accent-color:var(--gold);cursor:poin
 .toast.show{transform:translateY(0);opacity:1}
 .toast.error{background:var(--red)}
 
+/* PUBLISH MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:1000;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:.2s}
+.modal-overlay.open{opacity:1;pointer-events:all}
+.modal-box{background:var(--dark3);border:1px solid var(--border);border-radius:14px;padding:32px;width:100%;max-width:480px;box-shadow:0 20px 60px rgba(0,0,0,0.5)}
+.modal-box h2{font-size:1.1rem;font-weight:700;color:var(--gold);margin-bottom:6px}
+.modal-box p{color:var(--text2);font-size:.82rem;margin-bottom:20px;line-height:1.6}
+.modal-box .fg{margin-bottom:12px}
+.publish-status{margin-top:16px;font-size:.82rem;padding:10px 14px;border-radius:7px;display:none}
+.publish-status.info{background:rgba(212,160,23,0.12);color:var(--gold);display:block}
+.publish-status.success{background:rgba(39,174,96,0.12);color:var(--green);display:block}
+.publish-status.error{background:rgba(192,57,43,0.12);color:var(--red);display:block}
+.btn-publish{background:linear-gradient(135deg,#c0392b,#d4a017);color:#fff;font-size:.9rem;padding:12px 24px;border-radius:8px;border:none;cursor:pointer;font-weight:700;width:100%;margin-top:8px;transition:.2s}
+.btn-publish:hover{opacity:.88}
+.btn-publish:disabled{opacity:.4;cursor:not-allowed}
+.modal-close{position:absolute;top:16px;right:16px;background:none;border:none;color:var(--text2);font-size:1.2rem;cursor:pointer;padding:4px 8px}
+.modal-box{position:relative}
+
 @media(max-width:768px){
   .sidebar{width:200px}
   .main-area{margin-left:200px}
@@ -172,6 +189,7 @@ input[type=checkbox]{width:16px;height:16px;accent-color:var(--gold);cursor:poin
         <button class="btn btn-outline" onclick="exportJSON()"><i class="fas fa-download"></i> Export JSON</button>
         <button class="btn btn-outline" onclick="document.getElementById('importFile').click()"><i class="fas fa-upload"></i> Import</button>
         <button class="btn btn-outline" onclick="window.open('index.html','_blank')"><i class="fas fa-eye"></i> Preview Site</button>
+        <button class="btn btn-gold" onclick="openPublishModal()" style="background:linear-gradient(135deg,#c0392b,#d4a017);color:#fff"><i class="fas fa-rocket"></i> Publish to Live Site</button>
         <input type="file" id="importFile" accept=".json" style="display:none" onchange="importJSON(this)">
       </div>
 
@@ -274,6 +292,33 @@ input[type=checkbox]{width:16px;height:16px;accent-color:var(--gold);cursor:poin
 </div>
 
 <div class="toast" id="toast"></div>
+
+<!-- PUBLISH MODAL -->
+<div class="modal-overlay" id="publishModal">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closePublishModal()"><i class="fas fa-times"></i></button>
+    <h2><i class="fas fa-rocket"></i> Publish to Live Site</h2>
+    <p>This saves your changes directly to GitHub. Vercel will automatically redeploy your site — changes go live in about 30 seconds.</p>
+    <div class="fg">
+      <label>GitHub Personal Access Token</label>
+      <input type="password" id="ghToken" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" value="">
+      <small style="color:var(--text2);font-size:.72rem;margin-top:4px;display:block">
+        <i class="fas fa-info-circle"></i> Create one at GitHub → Settings → Developer Settings → Personal Access Tokens → Fine-grained tokens. Grant <b>Contents: Read &amp; Write</b> for this repo.
+      </small>
+    </div>
+    <div class="fg">
+      <label>GitHub Repo (owner/repo)</label>
+      <input type="text" id="ghRepo" placeholder="sureshadapa11/The-Royal-Chilli" value="sureshadapa11/The-Royal-Chilli">
+    </div>
+    <div class="publish-status" id="publishStatus"></div>
+    <button class="btn-publish" id="publishBtn" onclick="doPublish()">
+      <i class="fas fa-rocket"></i> Save &amp; Publish Now
+    </button>
+    <div style="margin-top:12px;text-align:center">
+      <small style="color:var(--text2);font-size:.72rem">Your token is stored only in this browser and never sent anywhere except GitHub.</small>
+    </div>
+  </div>
+</div>
 
 <script src="content-loader.js"></script>
 <script>
@@ -616,6 +661,85 @@ function showToast(msg, isError) {
     t.textContent = msg;
     t.className = 'toast show' + (isError ? ' error' : '');
     setTimeout(() => t.className = 'toast', 3000);
+}
+
+// ===== PUBLISH TO GITHUB =====
+function openPublishModal() {
+    collectAll();
+    const saved = localStorage.getItem('rc_gh_token') || '';
+    const savedRepo = localStorage.getItem('rc_gh_repo') || 'sureshadapa11/The-Royal-Chilli';
+    document.getElementById('ghToken').value = saved;
+    document.getElementById('ghRepo').value = savedRepo;
+    document.getElementById('publishStatus').className = 'publish-status';
+    document.getElementById('publishStatus').textContent = '';
+    document.getElementById('publishBtn').disabled = false;
+    document.getElementById('publishModal').classList.add('open');
+}
+function closePublishModal() {
+    document.getElementById('publishModal').classList.remove('open');
+}
+document.getElementById('publishModal').addEventListener('click', function(e) {
+    if (e.target === this) closePublishModal();
+});
+
+async function doPublish() {
+    const token = document.getElementById('ghToken').value.trim();
+    const repo = document.getElementById('ghRepo').value.trim();
+    const statusEl = document.getElementById('publishStatus');
+    const btn = document.getElementById('publishBtn');
+
+    if (!token) { setPublishStatus('error', 'Please enter your GitHub Personal Access Token.'); return; }
+    if (!repo || !repo.includes('/')) { setPublishStatus('error', 'Please enter a valid repo in the format owner/repo.'); return; }
+
+    localStorage.setItem('rc_gh_token', token);
+    localStorage.setItem('rc_gh_repo', repo);
+
+    btn.disabled = true;
+    setPublishStatus('info', '⏳ Connecting to GitHub...');
+
+    try {
+        // 1. Get current file SHA (required for update)
+        const getUrl = 'https://api.github.com/repos/' + repo + '/contents/content.json';
+        const headers = { 'Authorization': 'Bearer ' + token, 'Accept': 'application/vnd.github.v3+json', 'Content-Type': 'application/json' };
+
+        setPublishStatus('info', '⏳ Fetching current file from GitHub...');
+        const getRes = await fetch(getUrl, { headers });
+        let sha = null;
+        if (getRes.ok) {
+            const fileData = await getRes.json();
+            sha = fileData.sha;
+        } else if (getRes.status !== 404) {
+            const err = await getRes.json();
+            throw new Error(err.message || 'GitHub API error: ' + getRes.status);
+        }
+
+        // 2. Encode content
+        const content = JSON.stringify(DATA, null, 2);
+        const encoded = btoa(unescape(encodeURIComponent(content)));
+
+        // 3. Push to GitHub
+        setPublishStatus('info', '⏳ Publishing to GitHub...');
+        const body = { message: 'Update content via admin portal', content: encoded };
+        if (sha) body.sha = sha;
+
+        const putRes = await fetch(getUrl, { method: 'PUT', headers, body: JSON.stringify(body) });
+        if (!putRes.ok) {
+            const err = await putRes.json();
+            throw new Error(err.message || 'Failed to publish: ' + putRes.status);
+        }
+
+        setPublishStatus('success', '✅ Published! Your site will be live in ~30 seconds. <a href="https://the-royal-chilli.vercel.app" target="_blank" style="color:var(--green)">Open live site →</a>');
+        showToast('Published to GitHub! Vercel is deploying now.');
+    } catch (err) {
+        setPublishStatus('error', '❌ ' + err.message);
+        btn.disabled = false;
+    }
+}
+
+function setPublishStatus(type, html) {
+    const el = document.getElementById('publishStatus');
+    el.className = 'publish-status ' + type;
+    el.innerHTML = html;
 }
 </script>
 </body>
