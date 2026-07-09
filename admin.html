@@ -619,11 +619,14 @@ function updatePromoThumb(pi, si) {
 
 // ===== MENU =====
 const CAT_LABELS = {
-    soups:'Soups', veg:'Veg Starters', nonveg:'Non-Veg Starters',
-    tandoori:'Tandoori Specials', vegcurry:'Vegetarian Curries', nonvegcurry:'Non-Veg Curries',
-    rice:'Fried Rice & Noodles', breads:'Breads', desserts:'Desserts & Hot Drinks'
+    royalveg:"Royal's Veg Specials", soups:'Soups', appetisers:'Appetisers',
+    vegstarters:'Veg Starters', vegmains:'Veg Mains', vegcombos:'Veg Combos',
+    royalnonveg:"Royal's Non-Veg Specials", nonvegstarters:'Non-Veg Starters',
+    nonvegmains:'Non-Veg Mains', nonvegcombos:'Non-Veg Combos',
+    biryanis:'Biryanis', royalcombos:'Royal Combos',
+    ricenoodles:'Rice & Noodles', breads:'Breads', ricesides:'Rice & Sides', desserts:'Desserts'
 };
-let activeCat = 'soups';
+let activeCat = 'royalveg';
 
 function renderMenu() {
     const tabs = document.getElementById('menuCatTabs');
