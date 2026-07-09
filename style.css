@@ -972,6 +972,48 @@ input, select, textarea, button { font-family: inherit; }
 }
 .modal-close:hover { background: var(--red-dark); }
 
+/* ===== ORDER TYPE MODAL ===== */
+.ot-modal-overlay {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.75);
+    z-index: 9999; display: flex; align-items: center; justify-content: center;
+    opacity: 0; visibility: hidden; transition: opacity 0.25s ease, visibility 0.25s ease;
+    backdrop-filter: blur(8px); padding: 1rem;
+}
+.ot-modal-overlay.open { opacity: 1; visibility: visible; }
+.ot-modal {
+    background: var(--bg2); border: 1px solid var(--border);
+    border-radius: 20px; padding: 2rem 2rem 2.5rem;
+    max-width: 420px; width: 100%; text-align: center; position: relative;
+    transform: translateY(24px) scale(0.97); transition: transform 0.25s ease;
+    box-shadow: 0 24px 80px rgba(0,0,0,0.6);
+}
+.ot-modal-overlay.open .ot-modal { transform: translateY(0) scale(1); }
+.ot-close {
+    position: absolute; top: 1rem; right: 1rem;
+    width: 32px; height: 32px; border-radius: 50%; border: none;
+    background: rgba(255,255,255,0.07); color: var(--text2);
+    cursor: pointer; font-size: 0.9rem; display: flex; align-items: center; justify-content: center;
+    transition: var(--transition);
+}
+.ot-close:hover { background: var(--red); color: white; }
+.ot-icon { font-size: 2.5rem; color: var(--gold); margin-bottom: 0.75rem; }
+.ot-title { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; margin-bottom: 0.4rem; }
+.ot-sub { font-size: 0.83rem; color: var(--text2); margin-bottom: 1.5rem; }
+.ot-btns { display: flex; gap: 1rem; }
+.ot-btn {
+    flex: 1; padding: 1.2rem 0.75rem; border: 2px solid var(--border);
+    border-radius: 14px; background: var(--card); color: var(--text);
+    cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 0.4rem;
+    transition: var(--transition);
+}
+.ot-btn i { font-size: 1.6rem; }
+.ot-btn span { font-size: 1rem; font-weight: 700; }
+.ot-btn small { font-size: 0.72rem; color: var(--text2); }
+.ot-delivery:hover, .ot-delivery.active { border-color: var(--red); background: rgba(192,57,43,0.12); color: white; }
+.ot-delivery:hover i, .ot-delivery.active i { color: var(--red); }
+.ot-collection:hover, .ot-collection.active { border-color: #2d9c5e; background: rgba(45,156,94,0.12); color: white; }
+.ot-collection:hover i, .ot-collection.active i { color: #2d9c5e; }
+
 /* ===== PDF MENU MODAL ===== */
 .pdf-modal-overlay {
     position: fixed; inset: 0; background: rgba(0,0,0,0.85);

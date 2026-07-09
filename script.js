@@ -388,7 +388,15 @@ function renderCartDrawer() {
     const allergyYes = document.getElementById('allergyYes');
     const allergyNo = document.getElementById('allergyNo');
     const hasAnswer = allergyYes.classList.contains('selected') || allergyNo.classList.contains('selected');
-    document.getElementById('orderTypeBtns').style.display = hasAnswer ? 'block' : 'none';
+    const otDiv = document.getElementById('orderTypeBtns');
+    otDiv.style.display = hasAnswer ? 'block' : 'none';
+    // Pre-highlight chosen order type
+    if (hasAnswer) {
+        const saved = sessionStorage.getItem('rc_order_type');
+        otDiv.querySelectorAll('.cart-ot-btn').forEach(b => b.style.opacity = '1');
+        if (saved === 'delivery') otDiv.querySelector('.cart-ot-btn[data-type="delivery"]')?.style.setProperty('outline', '2px solid white');
+        if (saved === 'collection') otDiv.querySelector('.cart-ot-btn[data-type="collection"]')?.style.setProperty('outline', '2px solid white');
+    }
 }
 
 function saveCartNote(name, val) {
@@ -459,6 +467,7 @@ function selectAllergy(choice) {
 
 // Proceed to checkout with chosen order type
 function goToCheckout(type) {
+    if (!type) type = sessionStorage.getItem('rc_order_type') || 'delivery';
     if (!Object.keys(cart).length) return;
 
     // Snapshot any cooking notes from open textareas
@@ -477,6 +486,35 @@ function goToCheckout(type) {
     sessionStorage.removeItem('rc_order_scheduled');
 
     window.location.href = 'checkout.html';
+}
+
+// ===== ORDER TYPE MODAL =====
+function openOrderModal(e) {
+    if (e) e.preventDefault();
+    // Close mobile menu if open
+    document.getElementById('mobileMenu')?.classList.remove('open');
+    document.getElementById('hamburger')?.classList.remove('open');
+    // Highlight current selection if already set
+    const current = sessionStorage.getItem('rc_order_type');
+    document.querySelectorAll('.ot-btn').forEach(b => b.classList.remove('active'));
+    if (current === 'delivery') document.querySelector('.ot-delivery')?.classList.add('active');
+    if (current === 'collection') document.querySelector('.ot-collection')?.classList.add('active');
+    document.getElementById('otModalOverlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeOrderModal(e) {
+    if (e && e.target !== document.getElementById('otModalOverlay')) return;
+    document.getElementById('otModalOverlay').classList.remove('open');
+    document.body.style.overflow = '';
+}
+
+function chooseOrderType(type) {
+    sessionStorage.setItem('rc_order_type', type);
+    document.getElementById('otModalOverlay').classList.remove('open');
+    document.body.style.overflow = '';
+    // Scroll to menu section
+    document.getElementById('menu')?.scrollIntoView({ behavior: 'smooth' });
 }
 
 // ===== PDF MENU MODAL =====

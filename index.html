@@ -114,14 +114,14 @@
             </a>
             <ul class="nav-links" id="navLinks">
                 <li><a href="#home" class="nav-link active">Home</a></li>
-                <li><a href="order.html" class="nav-link nav-order-now">Order Now</a></li>
+                <li><a href="#" class="nav-link nav-order-now" onclick="openOrderModal(event)">Order Now</a></li>
                 <li><a href="#reservation" class="nav-link">Dine-In</a></li>
                 <li><a href="#menu" class="nav-link">Menu</a></li>
                 <li><a href="#about" class="nav-link">About</a></li>
             </ul>
             <div class="nav-cta">
                 <a href="tel:02087973044" class="nav-phone" data-rc-phone><i class="fas fa-phone"></i> 020 8797 3044</a>
-                <a href="order.html" class="btn-nav-book">Order Now</a>
+                <a href="#" class="btn-nav-book" onclick="openOrderModal(event)">Order Now</a>
             </div>
             <button class="hamburger" id="hamburger" aria-label="Menu">
                 <span></span><span></span><span></span>
@@ -133,7 +133,7 @@
     <div class="mobile-menu" id="mobileMenu">
         <ul>
             <li><a href="#home" class="mob-link">Home</a></li>
-            <li><a href="order.html" class="mob-link mob-order">Order Now</a></li>
+            <li><a href="#" class="mob-link mob-order" onclick="openOrderModal(event)">Order Now</a></li>
             <li><a href="#reservation" class="mob-link">Dine-In</a></li>
             <li><a href="#menu" class="mob-link">Menu</a></li>
             <li><a href="#about" class="mob-link">About</a></li>
@@ -654,10 +654,10 @@
             <div id="orderTypeBtns" style="display:none">
                 <p class="cart-allergy-question" style="margin-top:0.8rem">How would you like your order?</p>
                 <div style="display:flex;gap:0.6rem;margin-top:0.4rem">
-                    <button class="cart-ot-btn" style="background:var(--red)" onclick="goToCheckout('delivery')">
+                    <button class="cart-ot-btn" data-type="delivery" style="background:var(--red)" onclick="goToCheckout('delivery')">
                         <i class="fas fa-motorcycle"></i> Delivery
                     </button>
-                    <button class="cart-ot-btn" style="background:#2d7a4f" onclick="goToCheckout('collection')">
+                    <button class="cart-ot-btn" data-type="collection" style="background:#2d7a4f" onclick="goToCheckout('collection')">
                         <i class="fas fa-store"></i> Collection
                     </button>
                 </div>
@@ -676,6 +676,28 @@
             <h3>Booking Sent!</h3>
             <p>WhatsApp opened with your booking details. We'll confirm your reservation shortly!</p>
             <button class="modal-close" id="modalClose">Close</button>
+        </div>
+    </div>
+
+    <!-- Order Type Modal -->
+    <div class="ot-modal-overlay" id="otModalOverlay" onclick="closeOrderModal(event)">
+        <div class="ot-modal">
+            <button class="ot-close" onclick="closeOrderModal()"><i class="fas fa-times"></i></button>
+            <div class="ot-icon"><i class="fas fa-shopping-bag"></i></div>
+            <h3 class="ot-title">How would you like your order?</h3>
+            <p class="ot-sub">Choose below then browse the menu</p>
+            <div class="ot-btns">
+                <button class="ot-btn ot-delivery" onclick="chooseOrderType('delivery')">
+                    <i class="fas fa-motorcycle"></i>
+                    <span>Delivery</span>
+                    <small>We come to you</small>
+                </button>
+                <button class="ot-btn ot-collection" onclick="chooseOrderType('collection')">
+                    <i class="fas fa-store"></i>
+                    <span>Collection</span>
+                    <small>Pick up at restaurant</small>
+                </button>
+            </div>
         </div>
     </div>
 
