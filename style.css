@@ -2,20 +2,20 @@
 :root {
     --red: #c0392b;
     --red-dark: #96281b;
-    --gold: #a0720a;
-    --gold-light: #d4960e;
-    --bg: #fdf6ec;
-    --bg2: #f8ede0;
-    --bg3: #f0e4cf;
-    --card: #ffffff;
-    --card2: #fdf8f2;
-    --text: #1a0f08;
-    --text2: #6b4530;
-    --text3: #a07850;
-    --border: rgba(0,0,0,0.1);
+    --gold: #d4a017;
+    --gold-light: #f0c040;
+    --bg: #0d0d0d;
+    --bg2: #111111;
+    --bg3: #161616;
+    --card: #1a1a1a;
+    --card2: #222222;
+    --text: #f0ebe3;
+    --text2: #b0a090;
+    --text3: #6b5e52;
+    --border: rgba(255,255,255,0.07);
     --nav-h: 80px;
     --radius: 12px;
-    --shadow: 0 20px 60px rgba(0,0,0,0.1);
+    --shadow: 0 20px 60px rgba(0,0,0,0.4);
     --transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -800,8 +800,8 @@ input, select, textarea, button { font-family: inherit; }
 /* ===== CARD STEPPER ===== */
 .card-stepper {
     display: inline-flex; align-items: center;
-    background: #1a0f08; border-radius: 50px;
-    border: 1.5px solid rgba(0,0,0,0.2);
+    background: #111; border-radius: 50px;
+    border: 1.5px solid rgba(255,255,255,0.1);
     overflow: hidden; min-width: 100px;
 }
 .stepper-btn {
@@ -912,7 +912,7 @@ input, select, textarea, button { font-family: inherit; }
 }
 .cart-note-input:focus { outline: none; border-color: #25d366; }
 .item-cooking-note {
-    width: 100%; background: rgba(0,0,0,0.04); border: 1px solid var(--border);
+    width: 100%; background: rgba(255,255,255,0.04); border: 1px solid var(--border);
     color: var(--text2); border-radius: 8px; padding: 0.45rem 0.7rem;
     font-size: 0.78rem; font-family: inherit; resize: none;
     margin-top: 0.35rem; box-sizing: border-box;
