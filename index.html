@@ -511,17 +511,17 @@
                     <form class="res-form" id="resForm">
                         <h3>Make a Reservation</h3>
                         <div class="form-row">
-                            <div class="form-g"><label>Full Name</label><input type="text" placeholder="Your full name" required></div>
-                            <div class="form-g"><label>Phone Number</label><input type="tel" placeholder="+44 7xxx xxxxxx" required></div>
+                            <div class="form-g"><label>Full Name</label><input id="res-name" type="text" placeholder="Your full name" required></div>
+                            <div class="form-g"><label>Phone Number</label><input id="res-phone" type="tel" placeholder="+44 7xxx xxxxxx" required></div>
                         </div>
                         <div class="form-row">
-                            <div class="form-g"><label>Date</label><input type="date" required></div>
-                            <div class="form-g"><label>Time</label><input type="time" required></div>
+                            <div class="form-g"><label>Date</label><input id="res-date" type="date" required></div>
+                            <div class="form-g"><label>Time</label><input id="res-time" type="time" required></div>
                         </div>
                         <div class="form-row">
                             <div class="form-g">
                                 <label>Guests</label>
-                                <select>
+                                <select id="res-guests">
                                     <option value="">Select guests</option>
                                     <option>1 Guest</option><option>2 Guests</option><option>3 Guests</option>
                                     <option>4 Guests</option><option>5 Guests</option><option>6 Guests</option>
@@ -530,7 +530,7 @@
                             </div>
                             <div class="form-g">
                                 <label>Occasion</label>
-                                <select>
+                                <select id="res-occasion">
                                     <option value="">Select occasion</option>
                                     <option>Birthday</option><option>Anniversary</option><option>Business Dinner</option>
                                     <option>Family Gathering</option><option>Date Night</option><option>Other</option>
@@ -539,9 +539,9 @@
                         </div>
                         <div class="form-g full">
                             <label>Special Requests</label>
-                            <textarea placeholder="Dietary requirements or special requests..." rows="3"></textarea>
+                            <textarea id="res-notes" placeholder="Dietary requirements or special requests..." rows="3"></textarea>
                         </div>
-                        <button type="submit" class="btn-submit"><i class="fas fa-calendar-check"></i> Confirm Reservation</button>
+                        <button type="submit" class="btn-submit" id="resSubmitBtn"><i class="fas fa-calendar-check"></i> Confirm Reservation</button>
                     </form>
                 </div>
             </div>

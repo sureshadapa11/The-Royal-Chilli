@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reservations | The Royal Chilli Reception</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+    :root {
+        --red:#c0392b; --red-dark:#96281b; --green:#2d7a4f;
+        --gold:#d4a017; --amber:#f39c12;
+        --bg:#0d0d0d; --bg2:#111; --bg3:#161616;
+        --card:#1a1a1a; --card2:#222;
+        --text:#f0ebe3; --text2:#b0a090; --text3:#6b5e52;
+        --border:rgba(255,255,255,0.07);
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+    a{text-decoration:none;color:inherit}
+
+    /* ── TOP BAR ── */
+    .topbar{
+        background:var(--bg2);border-bottom:1px solid var(--border);
+        padding:0.9rem 1.5rem;
+        display:flex;align-items:center;justify-content:space-between;
+        position:sticky;top:0;z-index:100;
+    }
+    .topbar-left{display:flex;align-items:center;gap:12px}
+    .topbar-logo{height:38px;width:auto}
+    .topbar-title{font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--gold)}
+    .topbar-sub{font-size:0.7rem;color:var(--text3);margin-top:1px}
+    .topbar-right{display:flex;align-items:center;gap:1rem}
+    .live-clock{font-size:1.4rem;font-weight:600;color:var(--text);letter-spacing:0.05em}
+    .live-date{font-size:0.72rem;color:var(--text2);text-align:right}
+    .refresh-btn{
+        padding:7px 14px;border-radius:8px;border:1px solid var(--border);
+        background:var(--card);color:var(--text2);font-size:0.78rem;
+        cursor:pointer;display:flex;align-items:center;gap:6px;
+        transition:all 0.2s;font-family:'Poppins',sans-serif;
+    }
+    .refresh-btn:hover{border-color:var(--gold);color:var(--gold)}
+    .auto-badge{
+        font-size:0.65rem;background:rgba(45,122,79,0.2);color:#6d8;
+        border:1px solid rgba(45,122,79,0.3);padding:3px 8px;border-radius:10px;
+    }
+
+    /* ── STATS ROW ── */
+    .stats-row{
+        display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;
+        padding:1.2rem 1.5rem;border-bottom:1px solid var(--border);
+        background:var(--bg3);
+    }
+    .stat-card{
+        background:var(--card);border:1px solid var(--border);
+        border-radius:12px;padding:0.9rem 1.2rem;
+        display:flex;align-items:center;gap:12px;
+    }
+    .stat-icon{width:42px;height:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0}
+    .si-today{background:rgba(192,57,43,0.15);color:var(--red)}
+    .si-pending{background:rgba(243,156,18,0.15);color:var(--amber)}
+    .si-confirmed{background:rgba(45,122,79,0.15);color:#6d8}
+    .si-total{background:rgba(212,160,23,0.15);color:var(--gold)}
+    .stat-info{}
+    .stat-num{font-size:1.6rem;font-weight:700;line-height:1}
+    .stat-label{font-size:0.7rem;color:var(--text2);margin-top:2px}
+
+    /* ── MAIN CONTENT ── */
+    .main{padding:1.2rem 1.5rem;display:flex;flex-direction:column;gap:1.5rem}
+
+    /* TODAY SECTION */
+    .section-title{
+        display:flex;align-items:center;gap:10px;
+        font-family:'Playfair Display',serif;font-size:1.1rem;
+        margin-bottom:0.9rem;
+    }
+    .section-title i{color:var(--red);font-size:0.95rem}
+    .section-title .count-pill{
+        font-family:'Poppins',sans-serif;font-size:0.7rem;font-weight:600;
+        background:var(--red);color:#fff;padding:2px 9px;border-radius:10px;
+    }
+
+    /* TODAY CARDS GRID */
+    .today-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:0.9rem}
+    .booking-card{
+        background:var(--card);border:1px solid var(--border);
+        border-radius:14px;padding:1.1rem;
+        display:flex;flex-direction:column;gap:10px;
+        transition:border-color 0.2s;
+    }
+    .booking-card:hover{border-color:rgba(255,255,255,0.15)}
+    .booking-card.status-confirmed{border-left:3px solid #2d7a4f}
+    .booking-card.status-pending{border-left:3px solid var(--amber)}
+    .booking-card.status-cancelled{border-left:3px solid var(--text3);opacity:0.55}
+
+    .bc-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}
+    .bc-name{font-size:1rem;font-weight:600}
+    .bc-time-big{
+        font-size:1.4rem;font-weight:700;color:var(--gold);
+        font-family:'Playfair Display',serif;line-height:1;
+        text-align:right;flex-shrink:0;
+    }
+    .bc-details{display:flex;flex-direction:column;gap:4px}
+    .bc-row{display:flex;align-items:center;gap:7px;font-size:0.78rem;color:var(--text2)}
+    .bc-row i{width:14px;text-align:center;color:var(--text3);font-size:0.72rem;flex-shrink:0}
+    .bc-notes{
+        font-size:0.74rem;color:var(--text2);
+        background:var(--bg2);border-radius:7px;padding:6px 9px;
+        border:1px solid var(--border);
+        font-style:italic;
+    }
+    .bc-footer{display:flex;align-items:center;justify-content:space-between;gap:6px}
+    .status-badge{
+        font-size:0.65rem;font-weight:600;letter-spacing:0.06em;
+        padding:3px 9px;border-radius:10px;text-transform:uppercase;
+    }
+    .sb-pending  {background:rgba(243,156,18,0.15);color:var(--amber);border:1px solid rgba(243,156,18,0.3)}
+    .sb-confirmed{background:rgba(45,122,79,0.15);color:#6d8;border:1px solid rgba(45,122,79,0.3)}
+    .sb-cancelled{background:rgba(107,94,82,0.15);color:var(--text3);border:1px solid var(--border)}
+    .bc-actions{display:flex;gap:5px}
+    .bc-btn{
+        padding:5px 10px;border-radius:6px;border:1px solid var(--border);
+        background:var(--card2);color:var(--text2);font-size:0.7rem;
+        cursor:pointer;transition:all 0.2s;font-family:'Poppins',sans-serif;
+    }
+    .bc-btn.confirm:hover{background:rgba(45,122,79,0.2);border-color:#2d7a4f;color:#6d8}
+    .bc-btn.cancel:hover{background:rgba(192,57,43,0.15);border-color:var(--red);color:#e88}
+    .bc-btn.call{color:var(--gold)}
+    .bc-btn.call:hover{background:rgba(212,160,23,0.1);border-color:var(--gold)}
+
+    /* UPCOMING TABLE */
+    .table-wrap{overflow-x:auto}
+    table{width:100%;border-collapse:collapse}
+    th{
+        padding:0.65rem 1rem;text-align:left;font-size:0.72rem;
+        font-weight:600;letter-spacing:0.08em;text-transform:uppercase;
+        color:var(--text3);border-bottom:1px solid var(--border);
+        background:var(--bg3);
+    }
+    td{
+        padding:0.8rem 1rem;font-size:0.84rem;
+        border-bottom:1px solid var(--border);
+        vertical-align:middle;
+    }
+    tr:hover td{background:rgba(255,255,255,0.02)}
+    tr.status-cancelled td{opacity:0.45}
+    .td-time{font-weight:600;color:var(--gold);font-size:0.9rem;white-space:nowrap}
+    .td-name{font-weight:500}
+    .td-phone a{color:var(--text2);transition:color 0.2s}
+    .td-phone a:hover{color:var(--gold)}
+    .td-actions{display:flex;gap:5px}
+
+    /* EMPTY STATE */
+    .empty-state{
+        text-align:center;padding:3rem 1rem;
+        color:var(--text3);
+    }
+    .empty-state i{font-size:2.5rem;margin-bottom:0.8rem;display:block;color:var(--border)}
+    .empty-state p{font-size:0.88rem}
+
+    /* LOADING */
+    .loading{text-align:center;padding:2rem;color:var(--text3);font-size:0.88rem}
+    .spin{animation:spin 1s linear infinite;display:inline-block}
+    @keyframes spin{to{transform:rotate(360deg)}}
+
+    /* TOAST */
+    .toast{
+        position:fixed;bottom:1.5rem;right:1.5rem;
+        background:var(--card2);border:1px solid var(--border);border-radius:10px;
+        padding:0.75rem 1.2rem;font-size:0.82rem;color:var(--text);
+        box-shadow:0 8px 24px rgba(0,0,0,0.4);
+        transform:translateY(20px);opacity:0;transition:all 0.3s;pointer-events:none;
+        z-index:999;
+    }
+    .toast.show{transform:translateY(0);opacity:1}
+    .toast.success{border-color:rgba(45,122,79,0.5);color:#6d8}
+    .toast.error{border-color:rgba(192,57,43,0.5);color:#e88}
+
+    @media(max-width:600px){
+        .stats-row{grid-template-columns:1fr 1fr}
+        .topbar-right .live-clock{font-size:1rem}
+        .today-grid{grid-template-columns:1fr}
+    }
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+    <div class="topbar-left">
+        <img src="logo2.png" alt="The Royal Chilli" class="topbar-logo">
+        <div>
+            <div class="topbar-title">Reservations</div>
+            <div class="topbar-sub">Reception Dashboard</div>
+        </div>
+    </div>
+    <div class="topbar-right">
+        <div>
+            <div class="live-clock" id="liveClock">--:--</div>
+            <div class="live-date" id="liveDate">--</div>
+        </div>
+        <span class="auto-badge"><i class="fas fa-circle" style="font-size:0.5rem;margin-right:4px"></i>Live</span>
+        <button class="refresh-btn" onclick="loadReservations()"><i class="fas fa-sync-alt"></i> Refresh</button>
+    </div>
+</div>
+
+<!-- STATS ROW -->
+<div class="stats-row">
+    <div class="stat-card">
+        <div class="stat-icon si-today"><i class="fas fa-calendar-day"></i></div>
+        <div class="stat-info"><div class="stat-num" id="statToday">—</div><div class="stat-label">Today's Bookings</div></div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon si-pending"><i class="fas fa-clock"></i></div>
+        <div class="stat-info"><div class="stat-num" id="statPending">—</div><div class="stat-label">Pending Today</div></div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon si-confirmed"><i class="fas fa-check-circle"></i></div>
+        <div class="stat-info"><div class="stat-num" id="statConfirmed">—</div><div class="stat-label">Confirmed Today</div></div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon si-total"><i class="fas fa-users"></i></div>
+        <div class="stat-info"><div class="stat-num" id="statGuests">—</div><div class="stat-label">Guests Today</div></div>
+    </div>
+</div>
+
+<div class="main">
+
+    <!-- TODAY'S BOOKINGS -->
+    <div>
+        <div class="section-title">
+            <i class="fas fa-utensils"></i>
+            Today's Bookings
+            <span class="count-pill" id="todayCount">0</span>
+        </div>
+        <div class="today-grid" id="todayGrid">
+            <div class="loading"><i class="fas fa-circle-notch spin"></i> Loading...</div>
+        </div>
+    </div>
+
+    <!-- UPCOMING BOOKINGS -->
+    <div>
+        <div class="section-title">
+            <i class="fas fa-calendar-alt"></i>
+            Upcoming Bookings
+            <span class="count-pill" id="upcomingCount">0</span>
+        </div>
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Name</th>
+                        <th>Guests</th>
+                        <th>Phone</th>
+                        <th>Occasion</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="upcomingBody">
+                    <tr><td colspan="8" class="loading"><i class="fas fa-circle-notch spin"></i> Loading...</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const REPO_RAW  = 'https://raw.githubusercontent.com/sureshadapa11/The-Royal-Chilli/main/reservations.json';
+const API_UPDATE = '/api/update-reservation';
+let allReservations = [];
+
+// ── CLOCK ──
+function updateClock() {
+    const now = new Date();
+    document.getElementById('liveClock').textContent =
+        now.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
+    document.getElementById('liveDate').textContent =
+        now.toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+}
+setInterval(updateClock, 1000);
+updateClock();
+
+// ── HELPERS ──
+function todayStr() {
+    return new Date().toISOString().split('T')[0];
+}
+function fmtDate(d) {
+    return new Date(d + 'T00:00:00').toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short' });
+}
+function fmtTime(t) {
+    if (!t) return '—';
+    const [h, m] = t.split(':');
+    const hr = parseInt(h);
+    return (hr % 12 || 12) + ':' + m + (hr < 12 ? ' AM' : ' PM');
+}
+function guestNum(g) {
+    if (!g) return 0;
+    const n = parseInt(g);
+    return isNaN(n) ? 0 : n;
+}
+function statusBadge(s) {
+    const map = { pending: 'sb-pending', confirmed: 'sb-confirmed', cancelled: 'sb-cancelled' };
+    return `<span class="status-badge ${map[s]||'sb-pending'}">${s||'pending'}</span>`;
+}
+
+// ── LOAD ──
+async function loadReservations() {
+    try {
+        const res  = await fetch(REPO_RAW + '?t=' + Date.now());
+        allReservations = await res.json();
+    } catch(e) {
+        allReservations = [];
+    }
+    render();
+}
+
+// ── RENDER ──
+function render() {
+    const today    = todayStr();
+    const todayRes = allReservations.filter(r => r.date === today && r.status !== 'cancelled')
+                                    .sort((a,b) => a.time.localeCompare(b.time));
+    const upcoming = allReservations.filter(r => r.date > today && r.status !== 'cancelled')
+                                    .sort((a,b) => a.date === b.date ? a.time.localeCompare(b.time) : a.date.localeCompare(b.date));
+
+    // Stats
+    const totalGuests = todayRes.reduce((s,r) => s + guestNum(r.guests), 0);
+    document.getElementById('statToday').textContent     = todayRes.length;
+    document.getElementById('statPending').textContent   = todayRes.filter(r => r.status === 'pending').length;
+    document.getElementById('statConfirmed').textContent = todayRes.filter(r => r.status === 'confirmed').length;
+    document.getElementById('statGuests').textContent    = totalGuests || '—';
+    document.getElementById('todayCount').textContent    = todayRes.length;
+    document.getElementById('upcomingCount').textContent = upcoming.length;
+
+    // Today cards
+    const todayGrid = document.getElementById('todayGrid');
+    if (!todayRes.length) {
+        todayGrid.innerHTML = '<div class="empty-state"><i class="fas fa-calendar-day"></i><p>No bookings for today yet</p></div>';
+    } else {
+        todayGrid.innerHTML = todayRes.map(r => `
+            <div class="booking-card status-${r.status||'pending'}">
+                <div class="bc-top">
+                    <div class="bc-name">${r.name}</div>
+                    <div class="bc-time-big">${fmtTime(r.time)}</div>
+                </div>
+                <div class="bc-details">
+                    ${r.guests   ? `<div class="bc-row"><i class="fas fa-users"></i>${r.guests}</div>` : ''}
+                    ${r.phone    ? `<div class="bc-row"><i class="fas fa-phone"></i>${r.phone}</div>` : ''}
+                    ${r.occasion ? `<div class="bc-row"><i class="fas fa-star"></i>${r.occasion}</div>` : ''}
+                </div>
+                ${r.notes ? `<div class="bc-notes"><i class="fas fa-sticky-note" style="margin-right:5px;color:var(--gold)"></i>${r.notes}</div>` : ''}
+                <div class="bc-footer">
+                    ${statusBadge(r.status)}
+                    <div class="bc-actions">
+                        ${r.phone ? `<button class="bc-btn call" onclick="window.open('tel:${r.phone}')"><i class="fas fa-phone"></i></button>` : ''}
+                        ${r.status !== 'confirmed' ? `<button class="bc-btn confirm" onclick="updateStatus('${r.id}','confirmed')">Confirm</button>` : ''}
+                        ${r.status !== 'cancelled' ? `<button class="bc-btn cancel"  onclick="updateStatus('${r.id}','cancelled')">Cancel</button>` : ''}
+                    </div>
+                </div>
+            </div>`).join('');
+    }
+
+    // Upcoming table
+    const tbody = document.getElementById('upcomingBody');
+    if (!upcoming.length) {
+        tbody.innerHTML = `<tr><td colspan="8"><div class="empty-state" style="padding:1.5rem"><i class="fas fa-calendar-alt" style="font-size:1.5rem;margin-bottom:0.5rem"></i><p>No upcoming bookings</p></div></td></tr>`;
+    } else {
+        tbody.innerHTML = upcoming.map(r => `
+            <tr class="status-${r.status||'pending'}">
+                <td>${fmtDate(r.date)}</td>
+                <td class="td-time">${fmtTime(r.time)}</td>
+                <td class="td-name">${r.name}</td>
+                <td>${r.guests || '—'}</td>
+                <td class="td-phone">${r.phone ? `<a href="tel:${r.phone}">${r.phone}</a>` : '—'}</td>
+                <td>${r.occasion || '—'}</td>
+                <td>${statusBadge(r.status)}</td>
+                <td>
+                    <div class="td-actions">
+                        ${r.status !== 'confirmed' ? `<button class="bc-btn confirm" onclick="updateStatus('${r.id}','confirmed')">Confirm</button>` : ''}
+                        ${r.status !== 'cancelled' ? `<button class="bc-btn cancel"  onclick="updateStatus('${r.id}','cancelled')">Cancel</button>` : ''}
+                    </div>
+                </td>
+            </tr>`).join('');
+    }
+}
+
+// ── UPDATE STATUS ──
+async function updateStatus(id, newStatus) {
+    const booking = allReservations.find(r => r.id === id);
+    if (!booking) return;
+    booking.status = newStatus;
+    render();
+
+    try {
+        const res = await fetch('/api/update-reservation', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ id, status: newStatus })
+        });
+        if (res.ok) {
+            showToast(newStatus === 'confirmed' ? '✅ Booking confirmed' : '❌ Booking cancelled', newStatus === 'confirmed' ? 'success' : 'error');
+        }
+    } catch(e) {
+        showToast('Could not update — check connection', 'error');
+    }
+}
+
+// ── TOAST ──
+function showToast(msg, type = '') {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.className = 'toast show ' + type;
+    setTimeout(() => t.className = 'toast', 3000);
+}
+
+// ── INIT ──
+loadReservations();
+setInterval(loadReservations, 30000); // auto-refresh every 30s
+</script>
+</body>
+</html>

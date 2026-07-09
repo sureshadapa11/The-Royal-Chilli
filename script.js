@@ -461,30 +461,47 @@ function sendWhatsAppOrder() {
     window.open('https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent(msg), '_blank');
 }
 
-// ===== RESERVATION FORM → WHATSAPP =====
-document.getElementById('resForm')?.addEventListener('submit', e => {
+// ===== RESERVATION FORM =====
+document.getElementById('resForm')?.addEventListener('submit', async e => {
     e.preventDefault();
-    const form = e.target;
-    const name = form.querySelector('input[type="text"]')?.value.trim() || '';
-    const phone = form.querySelector('input[type="tel"]')?.value.trim() || '';
-    const date = form.querySelector('input[type="date"]')?.value || '';
-    const time = form.querySelector('input[type="time"]')?.value || '';
-    const selects = form.querySelectorAll('select');
-    const guests = selects[0]?.value || '';
-    const occasion = selects[1]?.value || '';
-    const notes = form.querySelector('textarea')?.value.trim() || '';
+    const name     = document.getElementById('res-name')?.value.trim() || '';
+    const phone    = document.getElementById('res-phone')?.value.trim() || '';
+    const date     = document.getElementById('res-date')?.value || '';
+    const time     = document.getElementById('res-time')?.value || '';
+    const guests   = document.getElementById('res-guests')?.value || '';
+    const occasion = document.getElementById('res-occasion')?.value || '';
+    const notes    = document.getElementById('res-notes')?.value.trim() || '';
 
-    let msg = '🍽️ *Table Reservation — The Royal Chilli*\n\n';
-    if (name) msg += `*Name:* ${name}\n`;
-    if (phone) msg += `*Phone:* ${phone}\n`;
-    if (date) msg += `*Date:* ${date}\n`;
-    if (time) msg += `*Time:* ${time}\n`;
-    if (guests) msg += `*Guests:* ${guests}\n`;
+    const btn = document.getElementById('resSubmitBtn');
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
+
+    // Save to reservations.json via API
+    try {
+        await fetch('/api/save-reservation', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name, phone, date, time, guests, occasion, notes })
+        });
+    } catch(err) {
+        console.warn('Reservation API unavailable, WhatsApp fallback used.');
+    }
+
+    // Also send WhatsApp notification to restaurant
+    let msg = '🍽️ *New Table Reservation — The Royal Chilli*\n\n';
+    if (name)     msg += `*Name:* ${name}\n`;
+    if (phone)    msg += `*Phone:* ${phone}\n`;
+    if (date)     msg += `*Date:* ${new Date(date).toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long',year:'numeric'})}\n`;
+    if (time)     msg += `*Time:* ${time}\n`;
+    if (guests)   msg += `*Guests:* ${guests}\n`;
     if (occasion) msg += `*Occasion:* ${occasion}\n`;
-    if (notes) msg += `*Special Requests:* ${notes}\n`;
-    msg += '\nPlease confirm my reservation. Thank you!';
+    if (notes)    msg += `*Special Requests:* ${notes}\n`;
+    msg += '\n_Booking confirmed via website_';
 
     window.open('https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent(msg), '_blank');
+
+    btn.disabled = false;
+    btn.innerHTML = '<i class="fas fa-calendar-check"></i> Confirm Reservation';
     document.getElementById('modalOverlay').classList.add('show');
 });
 
