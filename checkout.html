@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout | The Royal Chilli</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        :root{
+            --red:#c0392b;--red-dark:#96281b;--green:#2d7a4f;
+            --gold:#d4a017;--gold-light:#f0c040;
+            --bg:#0d0d0d;--bg2:#111111;--bg3:#161616;
+            --card:#1a1a1a;--card2:#222222;
+            --text:#f0ebe3;--text2:#b0a090;--text3:#6b5e52;
+            --border:rgba(255,255,255,0.07);
+            --nav-h:64px;--radius:12px;
+            --transition:all 0.3s cubic-bezier(0.4,0,0.2,1);
+        }
+        *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+        html{font-size:16px;scroll-behavior:smooth}
+        body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+        a{text-decoration:none;color:inherit}
+        ul{list-style:none}
+        button{font-family:inherit;cursor:pointer;border:none}
+        input,select,textarea{font-family:inherit}
+
+        /* NAV */
+        #navbar{
+            position:fixed;top:0;left:0;right:0;z-index:900;height:var(--nav-h);
+            background:rgba(10,10,10,0.97);backdrop-filter:blur(20px);
+            border-bottom:1px solid var(--border);
+        }
+        .nav-container{max-width:1100px;margin:0 auto;padding:0 1.2rem;height:100%;display:flex;align-items:center;gap:1.2rem}
+        .nav-back{display:flex;align-items:center;gap:7px;font-size:0.82rem;color:var(--text2);transition:var(--transition)}
+        .nav-back:hover{color:var(--gold)}
+        .nav-logo{display:flex;align-items:center;gap:0.6rem}
+        .nav-logo img{height:36px;width:auto}
+        .nav-name{font-family:'Playfair Display',serif;font-size:0.92rem;font-weight:700;color:var(--gold)}
+        .nav-tagline{font-size:0.58rem;color:var(--text2)}
+        .nav-logo-text{display:flex;flex-direction:column;line-height:1.2}
+
+        /* STEPS */
+        .steps-bar{
+            position:sticky;top:var(--nav-h);z-index:80;
+            background:var(--bg2);border-bottom:1px solid var(--border);
+            padding:0.75rem 1.2rem;
+        }
+        .steps{display:flex;align-items:center;justify-content:center;gap:0;max-width:500px;margin:0 auto}
+        .step{display:flex;align-items:center;gap:6px;font-size:0.75rem;font-weight:500;color:var(--text3)}
+        .step.active{color:var(--text)}
+        .step.done{color:var(--green)}
+        .step-dot{width:26px;height:26px;border-radius:50%;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:0.7rem;font-weight:700;flex-shrink:0;transition:var(--transition)}
+        .step.active .step-dot{border-color:var(--red);background:var(--red);color:#fff}
+        .step.done .step-dot{border-color:var(--green);background:var(--green);color:#fff}
+        .step-line{flex:1;height:1px;background:var(--border);margin:0 6px}
+        .step.done + .step-line{background:var(--green)}
+
+        /* LAYOUT */
+        .checkout-wrap{
+            max-width:1100px;margin:0 auto;
+            padding:calc(var(--nav-h) + 60px) 1.2rem 4rem;
+            display:grid;grid-template-columns:1fr 380px;gap:2rem;align-items:start;
+        }
+
+        /* FORM COLUMN */
+        .form-col{}
+        .form-section{
+            background:var(--card);border:1px solid var(--border);
+            border-radius:16px;padding:1.5rem;margin-bottom:1.2rem;
+        }
+        .form-section-title{
+            display:flex;align-items:center;gap:10px;
+            font-family:'Playfair Display',serif;font-size:1.05rem;
+            margin-bottom:1.2rem;padding-bottom:0.8rem;border-bottom:1px solid var(--border);
+        }
+        .form-section-title i{color:var(--red);width:20px;text-align:center}
+
+        /* ORDER TYPE TOGGLE */
+        .type-toggle{display:flex;gap:8px;margin-bottom:1.2rem}
+        .type-tab{
+            flex:1;padding:0.7rem;border-radius:10px;border:1px solid var(--border);
+            background:var(--card2);color:var(--text2);font-size:0.85rem;font-weight:500;
+            transition:var(--transition);display:flex;align-items:center;justify-content:center;gap:7px;
+        }
+        .type-tab.active{background:var(--red);border-color:var(--red);color:#fff}
+        .type-tab i{font-size:0.9rem}
+
+        /* FIELDS */
+        .fg{display:grid;gap:0.9rem}
+        .fg.cols2{grid-template-columns:1fr 1fr}
+        .field label{display:block;font-size:0.75rem;font-weight:600;color:var(--text2);margin-bottom:5px;text-transform:uppercase;letter-spacing:0.06em}
+        .field input,.field select,.field textarea{
+            width:100%;padding:0.8rem 1rem;
+            background:var(--bg2);border:1px solid var(--border);
+            border-radius:10px;color:var(--text);font-size:0.9rem;outline:none;
+            transition:var(--transition);
+        }
+        .field input:focus,.field select:focus,.field textarea:focus{border-color:var(--red);box-shadow:0 0 0 3px rgba(192,57,43,0.1)}
+        .field input.error,.field select.error{border-color:#e74c3c}
+        .field select option{background:var(--bg2)}
+        .field textarea{resize:vertical;min-height:80px}
+        .field-hint{font-size:0.72rem;color:var(--text3);margin-top:4px}
+        .field-err{font-size:0.72rem;color:#e74c3c;margin-top:4px;display:none}
+        .field-err.show{display:block}
+
+        /* SCHEDULE INFO BOX */
+        .sched-info{
+            display:flex;align-items:center;gap:10px;
+            padding:0.9rem 1rem;background:rgba(212,160,23,0.08);
+            border:1px solid rgba(212,160,23,0.25);border-radius:10px;
+            font-size:0.84rem;color:var(--gold);margin-bottom:1rem;
+        }
+        .sched-info i{font-size:1rem;flex-shrink:0}
+
+        /* DELIVERY HIDDEN */
+        .delivery-only{display:block}
+        .collection-only{display:none}
+        body.collection .delivery-only{display:none}
+        body.collection .collection-only{display:block}
+
+        /* ORDER SUMMARY COLUMN */
+        .summary-col{position:sticky;top:calc(var(--nav-h) + 56px)}
+        .summary-box{
+            background:var(--card);border:1px solid var(--border);
+            border-radius:16px;overflow:hidden;
+        }
+        .summary-head{
+            padding:1.2rem 1.5rem;border-bottom:1px solid var(--border);
+            display:flex;align-items:center;justify-content:space-between;
+        }
+        .summary-head h3{font-family:'Playfair Display',serif;font-size:1rem}
+        .summary-head a{font-size:0.78rem;color:var(--red)}
+        .summary-head a:hover{text-decoration:underline}
+        .summary-items{padding:1rem 1.5rem;display:flex;flex-direction:column;gap:0.7rem;max-height:320px;overflow-y:auto}
+        .sum-item{display:flex;align-items:center;gap:10px}
+        .sum-item-img{width:44px;height:44px;object-fit:cover;border-radius:7px;background:var(--bg3);flex-shrink:0}
+        .sum-item-info{flex:1;min-width:0}
+        .sum-item-name{font-size:0.82rem;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+        .sum-item-qty{font-size:0.72rem;color:var(--text2)}
+        .sum-item-price{font-size:0.85rem;font-weight:600;color:var(--gold);flex-shrink:0}
+        .summary-divider{height:1px;background:var(--border);margin:0 1.5rem}
+        .summary-totals{padding:1rem 1.5rem}
+        .tot-row{display:flex;justify-content:space-between;font-size:0.84rem;margin-bottom:0.5rem;color:var(--text2)}
+        .tot-row.grand{font-size:1rem;font-weight:700;color:var(--text);margin-top:0.7rem;padding-top:0.7rem;border-top:1px solid var(--border)}
+        .tot-row.grand span:last-child{color:var(--gold)}
+
+        /* PAY BUTTON */
+        .pay-section{padding:0 1.5rem 1.5rem}
+        .btn-pay{
+            width:100%;padding:1.1rem;background:var(--red);color:#fff;
+            border-radius:12px;font-size:1rem;font-weight:700;
+            display:flex;align-items:center;justify-content:center;gap:10px;
+            transition:var(--transition);
+        }
+        .btn-pay:hover{background:var(--red-dark);transform:translateY(-1px);box-shadow:0 10px 30px rgba(192,57,43,0.45)}
+        .btn-pay:disabled{opacity:0.45;cursor:not-allowed;transform:none;box-shadow:none}
+        .secure-note{text-align:center;font-size:0.7rem;color:var(--text3);margin-top:8px;display:flex;align-items:center;justify-content:center;gap:5px}
+        .secure-note i{color:var(--green)}
+
+        /* RESPONSIVE */
+        @media(max-width:800px){
+            .checkout-wrap{grid-template-columns:1fr;padding-top:calc(var(--nav-h) + 55px)}
+            .summary-col{position:static;order:-1}
+            .fg.cols2{grid-template-columns:1fr}
+            .summary-items{max-height:200px}
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+    <div class="nav-container">
+        <a href="menu-order.html" class="nav-back"><i class="fas fa-arrow-left"></i> Back to Menu</a>
+        <a href="index.html" class="nav-logo">
+            <img src="logo2.png" alt="The Royal Chilli">
+            <div class="nav-logo-text">
+                <span class="nav-name">The Royal Chilli</span>
+                <span class="nav-tagline">Dil Se Desi</span>
+            </div>
+        </a>
+    </div>
+</nav>
+
+<!-- STEPS BAR -->
+<div class="steps-bar">
+    <div class="steps">
+        <div class="step done" id="step1">
+            <div class="step-dot"><i class="fas fa-check"></i></div>
+            <span>Menu</span>
+        </div>
+        <div class="step-line"></div>
+        <div class="step active" id="step2">
+            <div class="step-dot">2</div>
+            <span>Details</span>
+        </div>
+        <div class="step-line"></div>
+        <div class="step" id="step3">
+            <div class="step-dot">3</div>
+            <span>Payment</span>
+        </div>
+    </div>
+</div>
+
+<div class="checkout-wrap">
+
+    <!-- FORM COLUMN -->
+    <div class="form-col">
+
+        <!-- ORDER TYPE -->
+        <div class="form-section">
+            <div class="form-section-title"><i class="fas fa-utensils"></i> Order Type</div>
+            <div class="type-toggle">
+                <button class="type-tab" id="tabDelivery" onclick="setType('delivery')">
+                    <i class="fas fa-motorcycle"></i> Delivery
+                </button>
+                <button class="type-tab" id="tabCollection" onclick="setType('collection')">
+                    <i class="fas fa-shopping-bag"></i> Collection
+                </button>
+            </div>
+            <div id="schedInfoBox" class="sched-info" style="display:none">
+                <i class="fas fa-clock"></i>
+                <span id="schedInfoText"></span>
+            </div>
+        </div>
+
+        <!-- CONTACT DETAILS -->
+        <div class="form-section">
+            <div class="form-section-title"><i class="fas fa-user"></i> Your Details</div>
+            <div class="fg cols2">
+                <div class="field">
+                    <label>First Name *</label>
+                    <input type="text" id="firstName" placeholder="e.g. Priya" autocomplete="given-name">
+                    <div class="field-err" id="err-firstName">Required</div>
+                </div>
+                <div class="field">
+                    <label>Last Name *</label>
+                    <input type="text" id="lastName" placeholder="e.g. Sharma" autocomplete="family-name">
+                    <div class="field-err" id="err-lastName">Required</div>
+                </div>
+                <div class="field">
+                    <label>Phone Number *</label>
+                    <input type="tel" id="phone" placeholder="e.g. 07700 900000" autocomplete="tel">
+                    <div class="field-err" id="err-phone">Enter a valid UK phone number</div>
+                </div>
+                <div class="field">
+                    <label>Email Address</label>
+                    <input type="email" id="email" placeholder="for order confirmation" autocomplete="email">
+                    <div class="field-err" id="err-email">Enter a valid email</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- DELIVERY ADDRESS -->
+        <div class="form-section delivery-only">
+            <div class="form-section-title"><i class="fas fa-map-marker-alt"></i> Delivery Address</div>
+            <div class="fg">
+                <div class="field">
+                    <label>Address Line 1 *</label>
+                    <input type="text" id="addr1" placeholder="House number and street name" autocomplete="address-line1">
+                    <div class="field-err" id="err-addr1">Required</div>
+                </div>
+                <div class="field">
+                    <label>Address Line 2</label>
+                    <input type="text" id="addr2" placeholder="Flat, apartment, etc. (optional)" autocomplete="address-line2">
+                </div>
+                <div class="fg cols2">
+                    <div class="field">
+                        <label>City *</label>
+                        <input type="text" id="city" placeholder="e.g. Hounslow" autocomplete="address-level2">
+                        <div class="field-err" id="err-city">Required</div>
+                    </div>
+                    <div class="field">
+                        <label>Postcode *</label>
+                        <input type="text" id="postcode" placeholder="e.g. TW3 1PA" autocomplete="postal-code" style="text-transform:uppercase">
+                        <div class="field-err" id="err-postcode">Enter a valid UK postcode</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- COLLECTION INFO -->
+        <div class="form-section collection-only">
+            <div class="form-section-title"><i class="fas fa-store"></i> Collection Details</div>
+            <div style="padding:0.8rem 1rem;background:var(--bg3);border-radius:10px;border:1px solid var(--border);margin-bottom:1rem;font-size:0.85rem;line-height:1.6;color:var(--text2)">
+                <strong style="color:var(--text);display:block;margin-bottom:4px"><i class="fas fa-map-marker-alt" style="color:var(--red);margin-right:6px"></i>The Royal Chilli</strong>
+                43 Kingsley Road, Hounslow, London, TW3 1PA<br>
+                <span style="color:var(--gold)"><i class="fas fa-clock" style="margin-right:4px"></i>Ready in approximately 20–30 minutes</span>
+            </div>
+            <div class="field">
+                <label>Your Postcode *</label>
+                <input type="text" id="collPostcode" placeholder="e.g. TW3 2AB" style="text-transform:uppercase">
+                <div class="field-err" id="err-collPostcode">Enter your postcode</div>
+                <div class="field-hint">So we know you're in our area</div>
+            </div>
+        </div>
+
+        <!-- SPECIAL INSTRUCTIONS -->
+        <div class="form-section">
+            <div class="form-section-title"><i class="fas fa-comment-alt"></i> Special Instructions</div>
+            <div class="field">
+                <label>Notes for the kitchen (optional)</label>
+                <textarea id="notes" placeholder="e.g. No nuts, extra spicy, ring doorbell on arrival…"></textarea>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ORDER SUMMARY COLUMN -->
+    <div class="summary-col">
+        <div class="summary-box">
+            <div class="summary-head">
+                <h3><i class="fas fa-receipt" style="color:var(--red);margin-right:8px"></i>Order Summary</h3>
+                <a href="menu-order.html">Edit</a>
+            </div>
+            <div class="summary-items" id="summaryItems"></div>
+            <div class="summary-divider"></div>
+            <div class="summary-totals">
+                <div class="tot-row"><span>Subtotal</span><span id="totSubtotal">£0.00</span></div>
+                <div class="tot-row delivery-only"><span>Delivery fee</span><span id="totDelivery">£2.99</span></div>
+                <div class="tot-row"><span>Service charge</span><span id="totService">£0.00</span></div>
+                <div class="tot-row grand"><span>Total</span><span id="totGrand">£0.00</span></div>
+            </div>
+            <div class="pay-section">
+                <button class="btn-pay" id="btnPay" onclick="proceedToPayment()">
+                    <i class="fas fa-lock"></i> Pay <span id="payAmount">£0.00</span>
+                </button>
+                <div class="secure-note"><i class="fas fa-shield-alt"></i> Secure payment via SumUp</div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+// ===== LOAD ORDER CONTEXT =====
+let orderType = sessionStorage.getItem('rc_order_type') || 'delivery';
+const isScheduled = sessionStorage.getItem('rc_order_scheduled') === 'true';
+const schedDate = sessionStorage.getItem('rc_order_date') || '';
+const schedTime = sessionStorage.getItem('rc_order_time') || '';
+let cart = {};
+try { cart = JSON.parse(sessionStorage.getItem('rc_cart') || '{}'); } catch(e) {}
+
+const DELIVERY_FEE = 2.99;
+const SERVICE_PCT = 0; // 0% for now, easy to change
+
+// ===== INIT =====
+function init() {
+    // Redirect if empty cart
+    if (!Object.keys(cart).length) {
+        window.location.href = 'menu-order.html';
+        return;
+    }
+    setType(orderType, true);
+    renderSummary();
+
+    // Schedule info
+    if (isScheduled && (schedDate || schedTime)) {
+        const d = schedDate ? new Date(schedDate).toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long'}) : '';
+        document.getElementById('schedInfoText').textContent =
+            'Scheduled ' + (orderType === 'delivery' ? 'delivery' : 'collection') +
+            (d ? ' on ' + d : '') + (schedTime ? ' at ' + schedTime : '');
+        document.getElementById('schedInfoBox').style.display = 'flex';
+    }
+
+    // Postcode auto-uppercase
+    ['postcode','collPostcode'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.addEventListener('input', () => { el.value = el.value.toUpperCase(); });
+    });
+}
+
+// ===== ORDER TYPE =====
+function setType(type, skipSave) {
+    orderType = type;
+    if (!skipSave) sessionStorage.setItem('rc_order_type', type);
+    document.body.className = type;
+    document.getElementById('tabDelivery').classList.toggle('active', type === 'delivery');
+    document.getElementById('tabCollection').classList.toggle('active', type === 'collection');
+    recalcTotals();
+}
+
+// ===== RENDER SUMMARY =====
+function cartSubtotal() {
+    return Object.values(cart).reduce((s,i) => s + i.priceNum * i.qty, 0);
+}
+function fmt(n) { return '£' + n.toFixed(2); }
+
+function recalcTotals() {
+    const sub = cartSubtotal();
+    const delivery = orderType === 'delivery' ? DELIVERY_FEE : 0;
+    const service = sub * SERVICE_PCT;
+    const grand = sub + delivery + service;
+
+    document.getElementById('totSubtotal').textContent = fmt(sub);
+    document.getElementById('totDelivery').textContent = fmt(delivery);
+    document.getElementById('totService').textContent = fmt(service);
+    document.getElementById('totGrand').textContent = fmt(grand);
+    document.getElementById('payAmount').textContent = fmt(grand);
+}
+
+function renderSummary() {
+    const el = document.getElementById('summaryItems');
+    el.innerHTML = Object.values(cart).map(item => `
+        <div class="sum-item">
+            <img class="sum-item-img" src="${item.img}" alt="${item.name}" onerror="this.style.display='none'">
+            <div class="sum-item-info">
+                <div class="sum-item-name">${item.name}</div>
+                <div class="sum-item-qty">x${item.qty}</div>
+            </div>
+            <span class="sum-item-price">${fmt(item.priceNum * item.qty)}</span>
+        </div>`).join('');
+    recalcTotals();
+}
+
+// ===== VALIDATION =====
+function required(id, errId) {
+    const val = document.getElementById(id).value.trim();
+    const show = !val;
+    document.getElementById(id).classList.toggle('error', show);
+    const err = document.getElementById(errId);
+    if (err) err.classList.toggle('show', show);
+    return !show;
+}
+function validPhone(id, errId) {
+    const val = document.getElementById(id).value.trim().replace(/\s/g,'');
+    const ok = /^(\+44|0)[0-9]{9,10}$/.test(val);
+    document.getElementById(id).classList.toggle('error', !ok);
+    const err = document.getElementById(errId);
+    if (err) err.classList.toggle('show', !ok);
+    return ok;
+}
+function validEmail(id, errId) {
+    const val = document.getElementById(id).value.trim();
+    if (!val) return true; // optional
+    const ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val);
+    document.getElementById(id).classList.toggle('error', !ok);
+    const err = document.getElementById(errId);
+    if (err) err.classList.toggle('show', !ok);
+    return ok;
+}
+function validPostcode(id, errId) {
+    const val = document.getElementById(id).value.trim().toUpperCase();
+    const ok = /^[A-Z]{1,2}[0-9][0-9A-Z]?\s?[0-9][A-Z]{2}$/.test(val);
+    document.getElementById(id).classList.toggle('error', !ok);
+    const err = document.getElementById(errId);
+    if (err) err.classList.toggle('show', !ok);
+    return ok;
+}
+
+function validateForm() {
+    let ok = true;
+    ok = required('firstName','err-firstName') && ok;
+    ok = required('lastName','err-lastName') && ok;
+    ok = validPhone('phone','err-phone') && ok;
+    ok = validEmail('email','err-email') && ok;
+    if (orderType === 'delivery') {
+        ok = required('addr1','err-addr1') && ok;
+        ok = required('city','err-city') && ok;
+        ok = validPostcode('postcode','err-postcode') && ok;
+    } else {
+        ok = validPostcode('collPostcode','err-collPostcode') && ok;
+    }
+    return ok;
+}
+
+// ===== COLLECT DETAILS =====
+function collectDetails() {
+    const d = {
+        firstName: document.getElementById('firstName').value.trim(),
+        lastName:  document.getElementById('lastName').value.trim(),
+        phone:     document.getElementById('phone').value.trim(),
+        email:     document.getElementById('email').value.trim(),
+        notes:     document.getElementById('notes').value.trim(),
+        orderType,
+        isScheduled,
+        schedDate,
+        schedTime
+    };
+    if (orderType === 'delivery') {
+        d.addr1    = document.getElementById('addr1').value.trim();
+        d.addr2    = document.getElementById('addr2').value.trim();
+        d.city     = document.getElementById('city').value.trim();
+        d.postcode = document.getElementById('postcode').value.trim().toUpperCase();
+    } else {
+        d.postcode = document.getElementById('collPostcode').value.trim().toUpperCase();
+    }
+    return d;
+}
+
+// ===== PROCEED TO PAYMENT =====
+function proceedToPayment() {
+    if (!validateForm()) {
+        document.querySelector('.field.error, input.error')?.scrollIntoView({behavior:'smooth',block:'center'});
+        return;
+    }
+    const details = collectDetails();
+    const sub = cartSubtotal();
+    const delivery = orderType === 'delivery' ? DELIVERY_FEE : 0;
+    const grand = sub + delivery;
+
+    sessionStorage.setItem('rc_details', JSON.stringify(details));
+    sessionStorage.setItem('rc_grand_total', grand.toFixed(2));
+
+    // → Stage 4: launch SumUp payment
+    window.location.href = 'payment.html';
+}
+
+init();
+</script>
+</body>
+</html>
