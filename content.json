@@ -4,7 +4,14 @@
     "line1": "Dil Se Desi",
     "line2": "Taste Mein Royal",
     "desc": "Experience the rich flavours and traditions of authentic Indian cooking, crafted with love and passion in the heart of London.",
-    "bgImage": ""
+    "bgImage": "",
+    "bgImages": [
+      "https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=1920&q=80",
+      "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1920&q=80",
+      "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1920&q=80",
+      "https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=1920&q=80",
+      "https://images.unsplash.com/photo-1596797038530-2c107229654b?w=1920&q=80"
+    ]
   },
   "about": {
     "title": "Where Every Dish Tells a Story of",
@@ -1351,7 +1358,8 @@
     }
   ],
   "opening": {
-    "videoUrl": "video/mayor welcoming video.mp4"
+    "videoUrl": "video/mayor welcoming video.mp4",
+    "hideAfter": ""
   },
   "reservation": {
     "tag": "Reserve a Table",
