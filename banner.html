@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Today's Special Banner | The Royal Chilli</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300&display=swap" rel="stylesheet">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  body {
+    background: #0a0505;
+    display: flex; align-items: center; justify-content: center;
+    min-height: 100vh; font-family: 'Playfair Display', serif;
+  }
+
+  /* ── SCENE ── */
+  .scene {
+    width: 820px; height: 980px;
+    position: relative; overflow: hidden;
+    background:
+      radial-gradient(ellipse 60% 40% at 50% 8%,  rgba(90,30,10,0.55) 0%, transparent 70%),
+      radial-gradient(ellipse 80% 60% at 20% 80%, rgba(30,10,5,0.9)   0%, transparent 60%),
+      radial-gradient(ellipse 80% 60% at 80% 80%, rgba(30,10,5,0.9)   0%, transparent 60%),
+      linear-gradient(180deg, #130808 0%, #0c0404 50%, #0a0303 100%);
+  }
+
+  /* Atmospheric blurred table lights */
+  .atm-light {
+    position: absolute; border-radius: 50%;
+    filter: blur(40px); pointer-events: none;
+  }
+  .atm-l1 { width:180px;height:80px;  background:rgba(200,130,50,0.08); bottom:15%; left:5%;  }
+  .atm-l2 { width:140px;height:60px;  background:rgba(200,130,50,0.07); bottom:20%; right:8%; }
+  .atm-l3 { width:100px;height:40px;  background:rgba(200,130,50,0.06); bottom:8%;  left:35%; }
+  .atm-top { width:300px;height:150px; background:rgba(220,160,60,0.12); top:0; left:50%; transform:translateX(-50%); border-radius:50%; filter:blur(60px); }
+
+  /* ── WIRE RIGGING ── */
+  .rigging { position:absolute; top:0; left:0; width:100%; height:100%; pointer-events:none; }
+
+  /* ── ORBIT SPARKLES ── */
+  .orbit-ring {
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 420px; height: 420px;
+    margin: -210px 0 0 -210px;
+    pointer-events: none;
+  }
+  .spark {
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 6px; height: 6px;
+    margin: -3px 0 0 -3px;
+    border-radius: 50%;
+  }
+  .spark::before {
+    content:'';
+    position: absolute; inset:0;
+    border-radius: 50%;
+    background: radial-gradient(circle, #fff9c4, #f0c040, transparent);
+    box-shadow: 0 0 8px 3px rgba(240,192,64,0.8), 0 0 18px 6px rgba(240,192,64,0.3);
+  }
+
+  /* ── BANNER OUTER WRAP ── */
+  .banner-outer {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -48%);
+    width: 360px;
+    display: flex; flex-direction: column; align-items: center;
+    filter: drop-shadow(0 30px 60px rgba(0,0,0,0.8));
+  }
+
+  /* ── TOP RIM (cylinder top ellipse) ── */
+  .rim-top {
+    width: 360px; height: 36px;
+    background: linear-gradient(180deg,
+      #c9614e 0%, #a03020 30%, #7a1e10 60%, #5a1008 100%);
+    border-radius: 50%;
+    position: relative; z-index: 5;
+    box-shadow:
+      0 -4px 12px rgba(200,80,40,0.35),
+      0  6px 20px rgba(0,0,0,0.7),
+      inset 0 3px 8px rgba(255,180,120,0.2);
+  }
+
+  /* Highlight line on top rim edge */
+  .rim-top::before {
+    content:'';
+    position: absolute; top:4px; left:15%; right:15%; height:3px;
+    background: linear-gradient(90deg, transparent, rgba(255,220,180,0.5), transparent);
+    border-radius: 50%;
+  }
+
+  /* ── MAIN BANNER BODY ── */
+  .banner-body {
+    width: 360px;
+    min-height: 440px;
+    margin-top: -18px;
+    position: relative; z-index: 4;
+    overflow: hidden;
+
+    /* Cylinder shading: dark edges, lit centre */
+    background: linear-gradient(90deg,
+      #2d0808 0%,
+      #5c1010 12%,
+      #8B1a14 25%,
+      #b02820 38%,
+      #c9372a 50%,
+      #b02820 62%,
+      #8B1a14 75%,
+      #5c1010 88%,
+      #2d0808 100%);
+
+    /* Vertical gradient for depth */
+    /* Applied via ::before overlay */
+    box-shadow:
+      inset  8px 0 30px rgba(0,0,0,0.55),
+      inset -8px 0 30px rgba(0,0,0,0.55),
+      inset  0 -20px 40px rgba(0,0,0,0.4);
+  }
+
+  /* Vertical depth overlay */
+  .banner-body::after {
+    content:'';
+    position: absolute; inset:0;
+    background: linear-gradient(180deg,
+      rgba(0,0,0,0.15) 0%,
+      transparent 30%,
+      transparent 70%,
+      rgba(0,0,0,0.3) 100%);
+    pointer-events: none; z-index: 2;
+  }
+
+  /* ── BOTANICAL SVG LAYER ── */
+  .botanicals {
+    position: absolute; inset:0; z-index:1; pointer-events:none;
+    overflow:hidden;
+  }
+
+  /* ── BANNER CONTENT ── */
+  .banner-content {
+    position: relative; z-index: 3;
+    display: flex; flex-direction: column; align-items: center;
+    padding: 28px 28px 24px;
+    gap: 0;
+  }
+
+  /* Logo */
+  .banner-logo {
+    width: 80px; height: 80px;
+    object-fit: contain;
+    filter: brightness(1.1) drop-shadow(0 2px 8px rgba(0,0,0,0.6));
+    margin-bottom: 12px;
+  }
+
+  /* Gold ornament line */
+  .ornament {
+    display: flex; align-items: center; gap: 8px;
+    width: 100%; margin-bottom: 14px;
+  }
+  .orn-line { flex:1; height:1px; background: linear-gradient(90deg, transparent, rgba(212,160,23,0.6), transparent); }
+  .orn-diamond { width:6px;height:6px; background:var(--gold,#d4a017); transform:rotate(45deg); flex-shrink:0; }
+
+  /* TODAY'S */
+  .txt-todays {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.55rem; font-weight: 300;
+    letter-spacing: 0.35em;
+    color: rgba(255,235,200,0.85);
+    text-transform: uppercase;
+    line-height: 1;
+    margin-bottom: 2px;
+  }
+
+  /* SPECIAL */
+  .txt-special {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.6rem; font-weight: 900;
+    letter-spacing: 0.08em;
+    color: #fff8ee;
+    text-transform: uppercase;
+    line-height: 1;
+    text-shadow: 0 2px 20px rgba(200,60,20,0.6), 0 0 40px rgba(255,180,80,0.2);
+    margin-bottom: 10px;
+  }
+
+  /* Gold divider */
+  .gold-divider {
+    display: flex; align-items: center; gap: 10px;
+    width: 80%; margin-bottom: 12px;
+  }
+  .gd-line { flex:1; height:1.5px; background: linear-gradient(90deg, transparent, #d4a017, transparent); }
+  .gd-icon { font-size:0.9rem; color:#d4a017; line-height:1; }
+
+  /* ASK STAFF FOR */
+  .txt-ask {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.82rem; font-weight: 300;
+    letter-spacing: 0.3em;
+    color: rgba(255,220,170,0.75);
+    text-transform: uppercase;
+    line-height: 1.4;
+    margin-bottom: 1px;
+  }
+
+  /* TODAY'S SPECIAL (bottom line) */
+  .txt-todays2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem; font-weight: 700;
+    letter-spacing: 0.18em;
+    color: #f5d98a;
+    text-transform: uppercase;
+    line-height: 1.2;
+    margin-bottom: 14px;
+    text-shadow: 0 0 20px rgba(212,160,23,0.5);
+  }
+
+  /* Bottom ornament */
+  .ornament-b { margin-top: 4px; margin-bottom:0; }
+
+  /* ── BOTTOM RIM (underside / reversed text) ── */
+  .rim-bottom {
+    width: 360px; height: 58px;
+    margin-top: -18px;
+    position: relative; z-index: 3;
+    background: linear-gradient(180deg,
+      #3a0808 0%, #200404 50%, #160303 100%);
+    border-radius: 50%;
+    box-shadow:
+      0 8px 25px rgba(0,0,0,0.8),
+      inset 0 4px 12px rgba(0,0,0,0.6);
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+  }
+
+  .rim-bottom-text {
+    transform: scaleY(-1) scaleX(-1);
+    display: flex; flex-direction: column; align-items: center; gap: 1px;
+    margin-top: 12px;
+  }
+  .rbt-1 {
+    font-family:'Playfair Display',serif;
+    font-size:0.68rem; font-weight:700; letter-spacing:0.1em;
+    color:rgba(180,80,60,0.65); text-transform:uppercase;
+  }
+  .rbt-2 {
+    font-family:'Cormorant Garamond',serif;
+    font-size:0.55rem; font-weight:300; letter-spacing:0.25em;
+    color:rgba(160,70,50,0.5); text-transform:uppercase;
+  }
+
+  /* ── PRINT / EXPORT HINT ── */
+  .export-hint {
+    position: absolute; bottom: 14px; left: 0; right: 0;
+    text-align: center; font-family: 'Playfair Display', serif;
+    font-size: 0.65rem; color: rgba(120,60,40,0.5);
+    letter-spacing: 0.1em;
+    pointer-events: none;
+  }
+
+  /* Print */
+  @media print {
+    body { background:#0a0505; }
+    .export-hint { display:none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="scene">
+
+  <!-- Atmosphere -->
+  <div class="atm-light atm-top"></div>
+  <div class="atm-light atm-l1"></div>
+  <div class="atm-light atm-l2"></div>
+  <div class="atm-light atm-l3"></div>
+
+  <!-- Wire Rigging SVG -->
+  <svg class="rigging" viewBox="0 0 820 980" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- Main wires from top edge to central ring -->
+    <line x1="260" y1="0"   x2="410" y2="100" stroke="rgba(180,140,80,0.45)" stroke-width="0.8"/>
+    <line x1="410" y1="0"   x2="410" y2="100" stroke="rgba(180,140,80,0.55)" stroke-width="0.8"/>
+    <line x1="560" y1="0"   x2="410" y2="100" stroke="rgba(180,140,80,0.45)" stroke-width="0.8"/>
+    <line x1="200" y1="0"   x2="410" y2="100" stroke="rgba(180,140,80,0.25)" stroke-width="0.6"/>
+    <line x1="620" y1="0"   x2="410" y2="100" stroke="rgba(180,140,80,0.25)" stroke-width="0.6"/>
+    <!-- Drop wire to banner -->
+    <line x1="410" y1="100" x2="410" y2="222" stroke="rgba(180,140,80,0.5)" stroke-width="1.2"/>
+    <!-- Central ring -->
+    <circle cx="410" cy="100" r="8" stroke="rgba(200,160,80,0.7)" stroke-width="1.5" fill="rgba(40,20,5,0.9)"/>
+    <circle cx="410" cy="100" r="4" fill="rgba(200,160,80,0.5)"/>
+    <!-- Rigging attachment ring at top of banner -->
+    <ellipse cx="410" cy="222" rx="22" ry="6" stroke="rgba(180,140,80,0.4)" stroke-width="1" fill="none"/>
+  </svg>
+
+  <!-- Orbit Sparkles -->
+  <div class="orbit-ring" id="orbitRing"></div>
+
+  <!-- BANNER -->
+  <div class="banner-outer">
+
+    <!-- Top rim -->
+    <div class="rim-top"></div>
+
+    <!-- Main body -->
+    <div class="banner-body">
+
+      <!-- Botanical SVG Pattern -->
+      <div class="botanicals">
+        <svg width="360" height="440" viewBox="0 0 360 440" fill="none" xmlns="http://www.w3.org/2000/svg" style="position:absolute;inset:0">
+          <defs>
+            <g id="star-anise">
+              <ellipse cx="0" cy="-13" rx="3.5" ry="9" fill="rgba(255,220,160,0.18)" transform="rotate(0)"/>
+              <ellipse cx="0" cy="-13" rx="3.5" ry="9" fill="rgba(255,220,160,0.18)" transform="rotate(45)"/>
+              <ellipse cx="0" cy="-13" rx="3.5" ry="9" fill="rgba(255,220,160,0.18)" transform="rotate(90)"/>
+              <ellipse cx="0" cy="-13" rx="3.5" ry="9" fill="rgba(255,220,160,0.18)" transform="rotate(135)"/>
+              <ellipse cx="0" cy="-13" rx="3.5" ry="9" fill="rgba(255,220,160,0.18)" transform="rotate(180)"/>
+              <ellipse cx="0" cy="-13" rx="3.5" ry="9" fill="rgba(255,220,160,0.18)" transform="rotate(225)"/>
+              <ellipse cx="0" cy="-13" rx="3.5" ry="9" fill="rgba(255,220,160,0.18)" transform="rotate(270)"/>
+              <ellipse cx="0" cy="-13" rx="3.5" ry="9" fill="rgba(255,220,160,0.18)" transform="rotate(315)"/>
+              <circle cx="0" cy="0" r="4.5" fill="rgba(255,200,120,0.22)" stroke="rgba(255,220,160,0.15)" stroke-width="0.8"/>
+            </g>
+            <g id="coffee-bean">
+              <ellipse cx="0" cy="0" rx="7" ry="10" fill="rgba(160,80,30,0.22)" stroke="rgba(200,140,70,0.2)" stroke-width="0.8"/>
+              <path d="M0,-9 Q3,0 0,9" stroke="rgba(255,200,100,0.18)" stroke-width="0.8" fill="none"/>
+            </g>
+            <g id="cinnamon">
+              <rect x="-4" y="-14" width="8" height="28" rx="4" fill="rgba(180,100,40,0.2)" stroke="rgba(220,150,70,0.18)" stroke-width="0.7"/>
+              <line x1="-2" y1="-9" x2="2"  y2="-9" stroke="rgba(255,200,100,0.14)" stroke-width="0.6"/>
+              <line x1="-2" y1="-4" x2="2"  y2="-4" stroke="rgba(255,200,100,0.14)" stroke-width="0.6"/>
+              <line x1="-2" y1="1"  x2="2"  y2="1"  stroke="rgba(255,200,100,0.14)" stroke-width="0.6"/>
+              <line x1="-2" y1="6"  x2="2"  y2="6"  stroke="rgba(255,200,100,0.14)" stroke-width="0.6"/>
+            </g>
+            <g id="leaf">
+              <path d="M0,-16 C8,-8 8,8 0,16 C-8,8 -8,-8 0,-16 Z" fill="rgba(80,160,80,0.12)" stroke="rgba(120,200,100,0.15)" stroke-width="0.7"/>
+              <line x1="0" y1="-14" x2="0" y2="14" stroke="rgba(150,220,120,0.12)" stroke-width="0.6"/>
+            </g>
+            <g id="swirl">
+              <path d="M0,12 C-8,8 -14,0 -10,-8 C-6,-16 4,-18 10,-12 C16,-6 14,4 8,8 C2,12 -4,10 -6,5" fill="none" stroke="rgba(255,210,140,0.16)" stroke-width="1.2" stroke-linecap="round"/>
+            </g>
+            <g id="dot-spice">
+              <circle cx="0" cy="0" r="2" fill="rgba(255,200,120,0.2)"/>
+            </g>
+          </defs>
+
+          <!-- Scatter botanicals -->
+          <!-- Top-left cluster -->
+          <use href="#star-anise" transform="translate(38,52) scale(1.1)"/>
+          <use href="#swirl"      transform="translate(22,95)"/>
+          <use href="#leaf"       transform="translate(55,115) rotate(30)"/>
+          <use href="#dot-spice"  transform="translate(18,130)"/>
+          <use href="#dot-spice"  transform="translate(30,140)"/>
+          <use href="#coffee-bean" transform="translate(60,38) rotate(20)"/>
+
+          <!-- Top-right cluster -->
+          <use href="#star-anise" transform="translate(322,48) scale(0.9)"/>
+          <use href="#cinnamon"   transform="translate(305,90) rotate(-15)"/>
+          <use href="#leaf"       transform="translate(335,120) rotate(-40) scale(0.85)"/>
+          <use href="#swirl"      transform="translate(315,140) scale(0.8)"/>
+          <use href="#coffee-bean" transform="translate(340,32) rotate(-25)"/>
+
+          <!-- Left mid -->
+          <use href="#cinnamon"   transform="translate(28,210) rotate(10)"/>
+          <use href="#star-anise" transform="translate(52,260) scale(0.8)"/>
+          <use href="#swirl"      transform="translate(20,300) scale(0.9)"/>
+          <use href="#leaf"       transform="translate(38,340) rotate(60)"/>
+          <use href="#dot-spice"  transform="translate(22,370)"/>
+          <use href="#dot-spice"  transform="translate(34,382)"/>
+          <use href="#dot-spice"  transform="translate(14,360)"/>
+
+          <!-- Right mid -->
+          <use href="#coffee-bean" transform="translate(332,200) rotate(30)"/>
+          <use href="#leaf"        transform="translate(318,250) rotate(-60) scale(0.9)"/>
+          <use href="#star-anise"  transform="translate(340,310) scale(0.75)"/>
+          <use href="#swirl"       transform="translate(310,355) scale(0.85)"/>
+          <use href="#cinnamon"    transform="translate(330,390) rotate(-20)"/>
+
+          <!-- Bottom cluster -->
+          <use href="#star-anise" transform="translate(80,400) scale(0.8)"/>
+          <use href="#coffee-bean" transform="translate(120,415) rotate(10)"/>
+          <use href="#swirl"      transform="translate(160,420) scale(0.7)"/>
+          <use href="#leaf"       transform="translate(200,418) rotate(20) scale(0.8)"/>
+          <use href="#cinnamon"   transform="translate(245,410) rotate(5)"/>
+          <use href="#star-anise" transform="translate(285,402) scale(0.75)"/>
+
+          <!-- Scattered dots -->
+          <use href="#dot-spice" transform="translate(100,70)"/>
+          <use href="#dot-spice" transform="translate(260,80)"/>
+          <use href="#dot-spice" transform="translate(180,35)"/>
+          <use href="#dot-spice" transform="translate(78,190)"/>
+          <use href="#dot-spice" transform="translate(288,190)"/>
+          <use href="#dot-spice" transform="translate(165,430)"/>
+
+          <!-- Corner border flourishes -->
+          <path d="M10,10 Q30,10 30,30" stroke="rgba(212,160,23,0.12)" stroke-width="1" fill="none"/>
+          <path d="M350,10 Q330,10 330,30" stroke="rgba(212,160,23,0.12)" stroke-width="1" fill="none"/>
+          <path d="M10,430 Q30,430 30,410" stroke="rgba(212,160,23,0.12)" stroke-width="1" fill="none"/>
+          <path d="M350,430 Q330,430 330,410" stroke="rgba(212,160,23,0.12)" stroke-width="1" fill="none"/>
+        </svg>
+      </div>
+
+      <!-- Content -->
+      <div class="banner-content">
+
+        <img src="logo2.png" alt="The Royal Chilli" class="banner-logo">
+
+        <!-- Top ornament -->
+        <div class="ornament">
+          <div class="orn-line"></div>
+          <div class="orn-diamond"></div>
+          <div class="orn-line"></div>
+        </div>
+
+        <div class="txt-todays">Today's</div>
+        <div class="txt-special">Special</div>
+
+        <div class="gold-divider">
+          <div class="gd-line"></div>
+          <span class="gd-icon">✦</span>
+          <div class="gd-line"></div>
+        </div>
+
+        <div class="txt-ask">Ask Staff For</div>
+        <div class="txt-todays2">Today's Special</div>
+
+        <!-- Bottom ornament -->
+        <div class="ornament ornament-b">
+          <div class="orn-line"></div>
+          <div class="orn-diamond"></div>
+          <div class="orn-line"></div>
+        </div>
+
+      </div>
+    </div><!-- /banner-body -->
+
+    <!-- Bottom rim — underside / reversed text -->
+    <div class="rim-bottom">
+      <div class="rim-bottom-text">
+        <div class="rbt-1">Today's Special</div>
+        <div class="rbt-2">Ask Staff For Today's Special</div>
+      </div>
+    </div>
+
+  </div><!-- /banner-outer -->
+
+  <div class="export-hint">Open in browser · Screenshot or Print to save</div>
+
+</div><!-- /scene -->
+
+<script>
+// ── SPARKLE ORBIT ──
+(function() {
+  const ring    = document.getElementById('orbitRing');
+  const COUNT   = 18;
+  const RADIUS  = 205;
+
+  for (let i = 0; i < COUNT; i++) {
+    const spark = document.createElement('div');
+    spark.className = 'spark';
+
+    // Vary size slightly
+    const size  = 3 + Math.random() * 5;
+    const delay = -(i / COUNT) * 6;     // stagger around full loop
+    const dur   = 6 + Math.random() * 2; // vary speed slightly
+    const angle = (i / COUNT) * 360;
+
+    // Elliptical orbit (flatter horizontally to match cylinder shape)
+    const rx = RADIUS;
+    const ry = RADIUS * 0.38; // flatten orbit to ellipse
+
+    spark.style.cssText = `
+      width:${size}px; height:${size}px;
+      margin:${-size/2}px 0 0 ${-size/2}px;
+      animation: orbit-spark-${i} ${dur}s ${delay}s linear infinite;
+      opacity: ${0.5 + Math.random() * 0.5};
+    `;
+    ring.appendChild(spark);
+
+    // Create unique keyframe per spark for elliptical path
+    const styleEl = document.createElement('style');
+    const rad = (angle * Math.PI) / 180;
+    // Each spark has a fixed angular offset, the animation rotates the whole ellipse
+    styleEl.textContent = `
+      @keyframes orbit-spark-${i} {
+        0%   { transform: rotate(${angle}deg)   translateX(${rx}px) scaleY(${ry/rx}); opacity:${0.3 + Math.random()*0.4}; }
+        25%  { opacity: ${0.8 + Math.random()*0.2}; }
+        50%  { opacity: ${0.3 + Math.random()*0.3}; }
+        75%  { opacity: ${0.7 + Math.random()*0.3}; }
+        100% { transform: rotate(${angle+360}deg) translateX(${rx}px) scaleY(${ry/rx}); opacity:${0.3 + Math.random()*0.4}; }
+      }
+    `;
+    document.head.appendChild(styleEl);
+  }
+})();
+</script>
+</body>
+</html>
