@@ -466,7 +466,7 @@
         "name": "Apollo Fish Fry",
         "price": "£9.95",
         "desc": "Crispy fried fish tossed in signature Apollo masala sauce",
-        "img": "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=400&q=80",
+        "img": "gallery/1783559235832_Apollo_Fish.JPG",
         "badge": "nonveg",
         "popular": false,
         "popularTag": "Popular"
@@ -687,7 +687,8 @@
         "desc": "Seasonal vegetables layered with fragrant basmati rice",
         "img": "https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=400&q=80",
         "badge": "veg",
-        "popular": false
+        "popular": false,
+        "popularTag": "Popular"
       },
       {
         "name": "Paneer Biryani",
@@ -695,7 +696,8 @@
         "desc": "Paneer pieces with saffron-kissed basmati rice",
         "img": "https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=400&q=80",
         "badge": "veg",
-        "popular": false
+        "popular": false,
+        "popularTag": "Popular"
       },
       {
         "name": "Egg Biryani",
@@ -703,7 +705,8 @@
         "desc": "Boiled eggs layered with aromatic spiced basmati rice",
         "img": "https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=400&q=80",
         "badge": "nonveg",
-        "popular": false
+        "popular": false,
+        "popularTag": "Popular"
       },
       {
         "name": "Chicken Dum Biryani",
@@ -711,7 +714,8 @@
         "desc": "Fragrant basmati layered with spiced chicken — Hyderabadi dum style",
         "img": "https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=400&q=80",
         "badge": "nonveg",
-        "popular": true
+        "popular": true,
+        "popularTag": "Popular"
       },
       {
         "name": "Chicken Fry Piece Biryani",
@@ -719,7 +723,8 @@
         "desc": "Crispy fried chicken pieces with dum basmati rice",
         "img": "https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=400&q=80",
         "badge": "nonveg",
-        "popular": false
+        "popular": false,
+        "popularTag": "Popular"
       },
       {
         "name": "Chicken Joint Biryani",
@@ -727,7 +732,8 @@
         "desc": "Bone-in chicken joints with aromatic basmati in dum style",
         "img": "https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=400&q=80",
         "badge": "nonveg",
-        "popular": false
+        "popular": false,
+        "popularTag": "Popular"
       },
       {
         "name": "Lamb Dum Biryani",
@@ -735,7 +741,8 @@
         "desc": "Succulent lamb pieces with saffron-infused basmati rice",
         "img": "https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=400&q=80",
         "badge": "nonveg",
-        "popular": false
+        "popular": false,
+        "popularTag": "Popular"
       },
       {
         "name": "Prawns Biryani",
@@ -743,7 +750,8 @@
         "desc": "King prawns with aromatic basmati in coastal spices",
         "img": "https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=400&q=80",
         "badge": "nonveg",
-        "popular": false
+        "popular": false,
+        "popularTag": "Popular"
       },
       {
         "name": "Nalli Gosht Biryani",
@@ -751,7 +759,8 @@
         "desc": "Tender mutton shank with slow-cooked dum basmati",
         "img": "https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=400&q=80",
         "badge": "nonveg",
-        "popular": false
+        "popular": false,
+        "popularTag": "Popular"
       }
     ],
     "rice": [
