@@ -115,6 +115,8 @@ input, select, textarea, button { font-family: inherit; }
 .mob-link { display: block; padding: 1rem 1.5rem; font-size: 1.2rem; font-weight: 500; color: var(--text2); border-radius: 10px; transition: var(--transition); }
 .mob-link:hover { color: var(--text); background: var(--bg3); }
 .mob-book { background: var(--red); color: white !important; text-align: center; margin-top: 1rem; font-size: 1.1rem; }
+.mob-order { color: var(--gold) !important; font-weight: 600; }
+.nav-order-now { color: var(--gold) !important; font-weight: 600; }
 
 /* ===== HERO ===== */
 .hero {

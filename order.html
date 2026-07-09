@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Order online from The Royal Chilli — Delivery, Collection or Scheduled.">
+    <title>Order Online | The Royal Chilli</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        :root {
+            --red: #c0392b; --red-dark: #96281b;
+            --gold: #d4a017; --gold-light: #f0c040;
+            --bg: #0d0d0d; --bg2: #111111; --bg3: #161616;
+            --card: #1a1a1a; --card2: #222222;
+            --text: #f0ebe3; --text2: #b0a090; --text3: #6b5e52;
+            --border: rgba(255,255,255,0.07);
+            --nav-h: 70px; --radius: 12px;
+            --shadow: 0 20px 60px rgba(0,0,0,0.4);
+            --transition: all 0.35s cubic-bezier(0.4,0,0.2,1);
+        }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; font-size: 16px; }
+        body { font-family: 'Poppins', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+        button { font-family: inherit; cursor: pointer; border: none; }
+
+        /* ===== NAV ===== */
+        #navbar {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+            background: rgba(10,10,10,0.97);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 2px 30px rgba(0,0,0,0.5);
+            border-bottom: 1px solid var(--border);
+        }
+        .nav-container {
+            max-width: 1200px; margin: 0 auto;
+            padding: 0 1.5rem; height: var(--nav-h);
+            display: flex; align-items: center; gap: 2rem;
+        }
+        .nav-logo { display: flex; align-items: center; gap: 0.75rem; }
+        .nav-logo-img { height: 44px; width: auto; }
+        .nav-logo-text { display: flex; flex-direction: column; line-height: 1.2; }
+        .nav-name { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; color: var(--gold); }
+        .nav-tagline { font-size: 0.65rem; color: var(--text2); letter-spacing: 0.05em; }
+        .nav-links { display: flex; align-items: center; gap: 0.25rem; margin-left: auto; }
+        .nav-link { padding: 0.5rem 0.9rem; font-size: 0.88rem; font-weight: 500; color: var(--text2); border-radius: 8px; transition: var(--transition); }
+        .nav-link:hover { color: var(--text); background: rgba(255,255,255,0.05); }
+        .nav-link.active { color: var(--gold); }
+        .nav-order-now { color: var(--gold) !important; font-weight: 600; }
+        .nav-cta { display: flex; align-items: center; gap: 0.75rem; }
+        .nav-phone { font-size: 0.8rem; color: var(--text2); display: flex; align-items: center; gap: 0.4rem; transition: var(--transition); }
+        .nav-phone i { color: var(--gold); }
+        .nav-phone:hover { color: var(--gold); }
+        .btn-nav-book { padding: 0.55rem 1.3rem; background: var(--red); color: white; border-radius: 8px; font-size: 0.85rem; font-weight: 600; transition: var(--transition); white-space: nowrap; }
+        .btn-nav-book:hover { background: var(--red-dark); }
+        .hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 4px; margin-left: auto; }
+        .hamburger span { display: block; width: 24px; height: 2px; background: var(--text); border-radius: 2px; transition: var(--transition); }
+
+        /* ===== MOBILE MENU ===== */
+        .mobile-menu {
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(10,10,10,0.98); backdrop-filter: blur(20px);
+            z-index: 999; display: flex; align-items: center; justify-content: center;
+            opacity: 0; visibility: hidden; transition: var(--transition);
+        }
+        .mobile-menu.open { opacity: 1; visibility: visible; }
+        .mobile-menu ul { display: flex; flex-direction: column; align-items: center; gap: 1.5rem; }
+        .mobile-menu a { font-size: 1.4rem; font-weight: 600; color: var(--text2); transition: var(--transition); }
+        .mobile-menu a:hover, .mobile-menu a.active { color: var(--gold); }
+        .mob-order { color: var(--gold) !important; }
+        .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        .hamburger.open span:nth-child(2) { opacity: 0; }
+        .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+        /* ===== PAGE LAYOUT ===== */
+        .order-page {
+            min-height: 100vh;
+            padding-top: var(--nav-h);
+            display: flex; flex-direction: column;
+        }
+
+        /* ===== HERO BAND ===== */
+        .order-hero {
+            background: linear-gradient(135deg, #0d0d0d 0%, #1a0a08 50%, #0d0d0d 100%);
+            border-bottom: 1px solid var(--border);
+            padding: 3rem 1.5rem 2.5rem;
+            text-align: center;
+            position: relative; overflow: hidden;
+        }
+        .order-hero::before {
+            content: '';
+            position: absolute; inset: 0;
+            background: radial-gradient(ellipse at 50% 0%, rgba(192,57,43,0.15) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .order-hero-label {
+            display: inline-flex; align-items: center; gap: 6px;
+            font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase;
+            color: var(--gold); background: rgba(212,160,23,0.1);
+            border: 1px solid rgba(212,160,23,0.25); border-radius: 20px;
+            padding: 5px 14px; margin-bottom: 1rem;
+        }
+        .order-hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.8rem, 5vw, 2.8rem);
+            font-weight: 700; color: var(--text);
+            margin-bottom: 0.5rem;
+        }
+        .order-hero h1 span { color: var(--gold); }
+        .order-hero p { color: var(--text2); font-size: 0.92rem; max-width: 420px; margin: 0 auto; }
+
+        /* ===== ORDER TYPE SELECTION ===== */
+        .order-type-section {
+            flex: 1; display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            padding: 3rem 1.5rem 4rem;
+            gap: 2rem;
+        }
+        .order-type-title {
+            text-align: center; font-size: 1rem; color: var(--text2);
+            text-transform: uppercase; letter-spacing: 0.1em; font-weight: 500;
+        }
+
+        /* Main two buttons */
+        .order-type-main {
+            display: flex; gap: 1.2rem; flex-wrap: wrap; justify-content: center;
+        }
+        .order-type-btn {
+            display: flex; flex-direction: column; align-items: center;
+            gap: 1rem; padding: 2rem 2.5rem;
+            background: var(--card); border: 2px solid var(--border);
+            border-radius: 18px; min-width: 180px; max-width: 220px; width: 100%;
+            transition: var(--transition); color: var(--text);
+            position: relative; overflow: hidden;
+        }
+        .order-type-btn::before {
+            content: ''; position: absolute; inset: 0;
+            background: var(--accent-color, var(--red));
+            opacity: 0; transition: var(--transition);
+        }
+        .order-type-btn:hover::before { opacity: 0.08; }
+        .order-type-btn:hover { border-color: var(--accent-color, var(--red)); transform: translateY(-3px); box-shadow: 0 16px 40px rgba(0,0,0,0.4); }
+        .order-type-btn.selected { border-color: var(--accent-color, var(--red)); background: rgba(192,57,43,0.12); }
+        .order-type-btn .btn-icon {
+            width: 64px; height: 64px; border-radius: 16px;
+            background: var(--accent-color, var(--red));
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.6rem; color: white; position: relative; z-index: 1;
+            transition: var(--transition);
+        }
+        .order-type-btn:hover .btn-icon { transform: scale(1.08); }
+        .order-type-btn .btn-label { font-size: 1.1rem; font-weight: 600; position: relative; z-index: 1; }
+        .order-type-btn .btn-sub { font-size: 0.78rem; color: var(--text2); text-align: center; position: relative; z-index: 1; }
+
+        .btn-delivery { --accent-color: var(--red); }
+        .btn-collection { --accent-color: #2d7a4f; }
+        .btn-collection .btn-icon { background: #2d7a4f; }
+        .btn-collection:hover { border-color: #2d7a4f; }
+        .btn-collection.selected { border-color: #2d7a4f; background: rgba(45,122,79,0.12); }
+
+        /* Schedule option */
+        .order-schedule-row {
+            display: flex; align-items: center; gap: 1rem;
+            width: 100%; max-width: 460px;
+        }
+        .schedule-divider {
+            flex: 1; height: 1px; background: var(--border);
+        }
+        .schedule-label { font-size: 0.78rem; color: var(--text3); white-space: nowrap; }
+        .btn-schedule {
+            display: flex; align-items: center; gap: 10px;
+            padding: 0.85rem 1.5rem; background: var(--card);
+            border: 1px solid var(--border); border-radius: 12px;
+            color: var(--text2); font-size: 0.88rem; font-weight: 500;
+            transition: var(--transition); width: 100%; max-width: 460px;
+        }
+        .btn-schedule i { color: var(--gold); font-size: 1rem; }
+        .btn-schedule:hover { border-color: var(--gold); color: var(--text); background: rgba(212,160,23,0.06); }
+        .btn-schedule .sched-arrow { margin-left: auto; color: var(--text3); font-size: 0.8rem; }
+
+        /* ===== SCHEDULE MODAL ===== */
+        .modal-overlay {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.75);
+            backdrop-filter: blur(6px); z-index: 2000;
+            display: flex; align-items: center; justify-content: center;
+            padding: 1rem; opacity: 0; visibility: hidden; transition: var(--transition);
+        }
+        .modal-overlay.open { opacity: 1; visibility: visible; }
+        .modal-box {
+            background: var(--card); border: 1px solid var(--border);
+            border-radius: 20px; padding: 2rem; width: 100%; max-width: 420px;
+            transform: translateY(20px); transition: var(--transition);
+        }
+        .modal-overlay.open .modal-box { transform: translateY(0); }
+        .modal-title { font-family: 'Playfair Display', serif; font-size: 1.3rem; margin-bottom: 0.4rem; }
+        .modal-sub { font-size: 0.82rem; color: var(--text2); margin-bottom: 1.5rem; }
+        .modal-field { margin-bottom: 1.1rem; }
+        .modal-field label { display: block; font-size: 0.8rem; font-weight: 500; color: var(--text2); margin-bottom: 0.4rem; text-transform: uppercase; letter-spacing: 0.06em; }
+        .modal-field select,
+        .modal-field input[type="date"],
+        .modal-field input[type="time"] {
+            width: 100%; padding: 0.75rem 1rem;
+            background: var(--bg2); border: 1px solid var(--border);
+            border-radius: 10px; color: var(--text); font-size: 0.9rem;
+            outline: none; transition: var(--transition);
+        }
+        .modal-field select:focus,
+        .modal-field input:focus { border-color: var(--gold); }
+        .modal-field select option { background: var(--bg2); }
+        .modal-row { display: flex; gap: 0.8rem; }
+        .modal-row .modal-field { flex: 1; }
+        .modal-actions { display: flex; gap: 0.75rem; margin-top: 1.5rem; }
+        .btn-primary {
+            flex: 1; padding: 0.85rem; background: var(--red); color: white;
+            border: none; border-radius: 10px; font-size: 0.9rem; font-weight: 600;
+            cursor: pointer; transition: var(--transition);
+        }
+        .btn-primary:hover { background: var(--red-dark); }
+        .btn-ghost {
+            padding: 0.85rem 1.2rem; background: transparent;
+            border: 1px solid var(--border); border-radius: 10px;
+            color: var(--text2); font-size: 0.9rem; cursor: pointer;
+            transition: var(--transition);
+        }
+        .btn-ghost:hover { border-color: var(--text2); color: var(--text); }
+
+        /* ===== FOOTER STRIP ===== */
+        .order-footer {
+            text-align: center; padding: 1.5rem;
+            border-top: 1px solid var(--border);
+            font-size: 0.78rem; color: var(--text3);
+        }
+        .order-footer a { color: var(--gold); }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .nav-links, .nav-cta { display: none; }
+            .hamburger { display: flex; }
+            .order-type-main { gap: 0.9rem; }
+            .order-type-btn { min-width: 140px; padding: 1.5rem 1.2rem; }
+            .order-type-btn .btn-icon { width: 52px; height: 52px; font-size: 1.3rem; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+    <div class="nav-container">
+        <a href="index.html" class="nav-logo">
+            <img src="logo2.png" alt="The Royal Chilli" class="nav-logo-img">
+            <div class="nav-logo-text">
+                <span class="nav-name">The Royal Chilli</span>
+                <span class="nav-tagline">Dil Se Desi</span>
+            </div>
+        </a>
+        <ul class="nav-links">
+            <li><a href="index.html" class="nav-link">Home</a></li>
+            <li><a href="order.html" class="nav-link nav-order-now active">Order Now</a></li>
+            <li><a href="index.html#reservation" class="nav-link">Dine-In</a></li>
+            <li><a href="index.html#menu" class="nav-link">Menu</a></li>
+            <li><a href="index.html#about" class="nav-link">About</a></li>
+        </ul>
+        <div class="nav-cta">
+            <a href="tel:02087973044" class="nav-phone"><i class="fas fa-phone"></i> 020 8797 3044</a>
+        </div>
+        <button class="hamburger" id="hamburger" aria-label="Menu">
+            <span></span><span></span><span></span>
+        </button>
+    </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+    <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="order.html" class="active mob-order">Order Now</a></li>
+        <li><a href="index.html#reservation">Dine-In</a></li>
+        <li><a href="index.html#menu">Menu</a></li>
+        <li><a href="index.html#about">About</a></li>
+    </ul>
+</div>
+
+<div class="order-page">
+
+    <!-- HERO BAND -->
+    <div class="order-hero">
+        <div class="order-hero-label"><i class="fas fa-utensils"></i> Online Ordering</div>
+        <h1>Order from <span>The Royal Chilli</span></h1>
+        <p>Fresh, authentic Indian food delivered to your door or ready for collection.</p>
+    </div>
+
+    <!-- ORDER TYPE SELECTION -->
+    <div class="order-type-section">
+        <p class="order-type-title">How would you like your order?</p>
+
+        <!-- Delivery + Collection -->
+        <div class="order-type-main">
+            <button class="order-type-btn btn-delivery" onclick="selectOrderType('delivery')">
+                <div class="btn-icon"><i class="fas fa-motorcycle"></i></div>
+                <span class="btn-label">Delivery</span>
+                <span class="btn-sub">We bring it to your door</span>
+            </button>
+            <button class="order-type-btn btn-collection" onclick="selectOrderType('collection')">
+                <div class="btn-icon"><i class="fas fa-shopping-bag"></i></div>
+                <span class="btn-label">Collection</span>
+                <span class="btn-sub">Pick up from the restaurant</span>
+            </button>
+        </div>
+
+        <!-- Schedule divider -->
+        <div class="order-schedule-row">
+            <div class="schedule-divider"></div>
+            <span class="schedule-label">or plan ahead</span>
+            <div class="schedule-divider"></div>
+        </div>
+
+        <!-- Schedule button -->
+        <button class="btn-schedule" onclick="openSchedule()">
+            <i class="fas fa-clock"></i>
+            <span>Schedule for later</span>
+            <span class="sched-arrow"><i class="fas fa-chevron-right"></i></span>
+        </button>
+    </div>
+
+    <div class="order-footer">
+        <a href="index.html"><i class="fas fa-arrow-left"></i> Back to main site</a>
+        &nbsp;·&nbsp; 020 8797 3044
+    </div>
+</div>
+
+<!-- SCHEDULE MODAL -->
+<div class="modal-overlay" id="scheduleModal">
+    <div class="modal-box">
+        <div class="modal-title"><i class="fas fa-clock" style="color:var(--gold);margin-right:8px"></i>Schedule Your Order</div>
+        <div class="modal-sub">Choose when and how you'd like your order.</div>
+
+        <div class="modal-field">
+            <label>Order Type</label>
+            <select id="schedType">
+                <option value="delivery">Delivery</option>
+                <option value="collection">Collection</option>
+            </select>
+        </div>
+        <div class="modal-row">
+            <div class="modal-field">
+                <label>Date</label>
+                <input type="date" id="schedDate">
+            </div>
+            <div class="modal-field">
+                <label>Time</label>
+                <input type="time" id="schedTime" min="11:00" max="22:00" step="900">
+            </div>
+        </div>
+
+        <div class="modal-actions">
+            <button class="btn-ghost" onclick="closeSchedule()">Cancel</button>
+            <button class="btn-primary" onclick="confirmSchedule()"><i class="fas fa-arrow-right"></i> Continue to Menu</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Hamburger
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('open');
+        mobileMenu.classList.toggle('open');
+    });
+    mobileMenu.addEventListener('click', e => {
+        if (e.target.tagName === 'A') {
+            hamburger.classList.remove('open');
+            mobileMenu.classList.remove('open');
+        }
+    });
+
+    // Set min date to today
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById('schedDate').min = today;
+    document.getElementById('schedDate').value = today;
+
+    // Set default time to next half hour
+    const now = new Date();
+    now.setMinutes(Math.ceil(now.getMinutes() / 15) * 15 + 30);
+    const hh = String(now.getHours()).padStart(2,'0');
+    const mm = String(now.getMinutes() % 60).padStart(2,'0');
+    document.getElementById('schedTime').value = hh + ':' + mm;
+
+    function selectOrderType(type) {
+        // Store choice and go to menu (Stage 2)
+        sessionStorage.setItem('rc_order_type', type);
+        sessionStorage.setItem('rc_order_scheduled', 'false');
+        window.location.href = 'menu-order.html';
+    }
+
+    function openSchedule() {
+        document.getElementById('scheduleModal').classList.add('open');
+    }
+    function closeSchedule() {
+        document.getElementById('scheduleModal').classList.remove('open');
+    }
+    function confirmSchedule() {
+        const type = document.getElementById('schedType').value;
+        const date = document.getElementById('schedDate').value;
+        const time = document.getElementById('schedTime').value;
+        if (!date || !time) { alert('Please pick a date and time.'); return; }
+        sessionStorage.setItem('rc_order_type', type);
+        sessionStorage.setItem('rc_order_scheduled', 'true');
+        sessionStorage.setItem('rc_order_date', date);
+        sessionStorage.setItem('rc_order_time', time);
+        window.location.href = 'menu-order.html';
+    }
+
+    // Close modal on overlay click
+    document.getElementById('scheduleModal').addEventListener('click', function(e) {
+        if (e.target === this) closeSchedule();
+    });
+</script>
+</body>
+</html>
