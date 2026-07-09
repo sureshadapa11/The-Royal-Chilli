@@ -1,7 +1,86 @@
 // ===== PRELOADER =====
-const hidePreloader = () => document.getElementById('preloader').classList.add('hidden');
+const hidePreloader = () => {
+    document.getElementById('preloader').classList.add('hidden');
+    showBannerSplash();
+};
 setTimeout(hidePreloader, 4000);
 window.addEventListener('load', () => setTimeout(hidePreloader, 300));
+
+// ===== BANNER SPLASH =====
+const SPLASH_DURATION = 5000;
+let splashTimer = null;
+
+function showBannerSplash() {
+    const splash = document.getElementById('bannerSplash');
+    if (!splash) return;
+    splash.classList.add('visible');
+
+    // Progress bar
+    const fill = document.getElementById('bsProgressFill');
+    if (fill) {
+        requestAnimationFrame(() => {
+            fill.style.transition = `width ${SPLASH_DURATION}ms linear`;
+            fill.style.width = '100%';
+        });
+    }
+
+    // Sparkle canvas
+    initSplashCanvas();
+
+    splashTimer = setTimeout(hideBannerSplash, SPLASH_DURATION);
+}
+
+function hideBannerSplash() {
+    if (splashTimer) { clearTimeout(splashTimer); splashTimer = null; }
+    const splash = document.getElementById('bannerSplash');
+    if (!splash) return;
+    splash.classList.add('hiding');
+    splash.classList.remove('visible');
+    setTimeout(() => { if (splash.parentNode) splash.parentNode.removeChild(splash); }, 750);
+}
+
+function initSplashCanvas() {
+    const canvas = document.getElementById('bsCanvas');
+    if (!canvas) return;
+    const scene = canvas.closest('.bs-scene');
+    if (!scene) return;
+    canvas.width  = scene.offsetWidth;
+    canvas.height = scene.offsetHeight + 160; // include rigging area
+    canvas.style.top    = '-140px';
+    canvas.style.height = (scene.offsetHeight + 160) + 'px';
+    canvas.style.position = 'absolute';
+
+    const ctx = canvas.getContext('2d');
+    const cx  = canvas.width / 2;
+    const cy  = canvas.height - (scene.offsetHeight / 2) + 20;
+    const rx  = canvas.width  / 2 + 20;
+    const ry  = rx * 0.3;
+    const sparks = Array.from({length: 22}, (_, i) => ({
+        angle:  (i / 22) * Math.PI * 2,
+        speed:  0.008 + Math.random() * 0.004,
+        size:   2 + Math.random() * 3.5,
+        alpha:  0.4 + Math.random() * 0.6
+    }));
+
+    function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        sparks.forEach(s => {
+            s.angle += s.speed;
+            const x = cx + Math.cos(s.angle) * rx;
+            const y = cy + Math.sin(s.angle) * ry;
+            const grd = ctx.createRadialGradient(x, y, 0, x, y, s.size * 3);
+            grd.addColorStop(0,   `rgba(255,248,180,${s.alpha})`);
+            grd.addColorStop(0.4, `rgba(240,192,64,${s.alpha * 0.6})`);
+            grd.addColorStop(1,   'rgba(240,192,64,0)');
+            ctx.beginPath();
+            ctx.arc(x, y, s.size * 3, 0, Math.PI * 2);
+            ctx.fillStyle = grd;
+            ctx.fill();
+        });
+        requestAnimationFrame(draw);
+    }
+    draw();
+}
 
 // ===== NAVBAR SCROLL =====
 const navbar = document.getElementById('navbar');

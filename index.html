@@ -7,7 +7,7 @@
     <title>The Royal Chilli | Dil Se Desi - Taste Mein Royal</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400&family=Poppins:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
@@ -19,6 +19,87 @@
             <div class="preloader-logo"><img src="splash.png" alt="The Royal Chilli"></div>
             <div class="preloader-bar"><div class="preloader-fill"></div></div>
         </div>
+    </div>
+
+    <!-- Banner Splash Overlay -->
+    <div id="bannerSplash">
+        <button id="bannerSkip" onclick="hideBannerSplash()">Skip <i class="fas fa-times"></i></button>
+        <div class="bs-scene">
+            <!-- Chandelier glow -->
+            <div class="bs-glow-top"></div>
+            <!-- Wire rigging -->
+            <svg class="bs-rigging" viewBox="0 0 400 220" fill="none">
+                <line x1="130" y1="0" x2="200" y2="90" stroke="rgba(180,140,80,0.5)" stroke-width="0.9"/>
+                <line x1="200" y1="0" x2="200" y2="90" stroke="rgba(180,140,80,0.6)" stroke-width="0.9"/>
+                <line x1="270" y1="0" x2="200" y2="90" stroke="rgba(180,140,80,0.5)" stroke-width="0.9"/>
+                <line x1="200" y1="90" x2="200" y2="136" stroke="rgba(180,140,80,0.55)" stroke-width="1.2"/>
+                <circle cx="200" cy="90" r="7" stroke="rgba(200,160,80,0.7)" stroke-width="1.4" fill="rgba(20,8,2,0.9)"/>
+                <circle cx="200" cy="90" r="3" fill="rgba(200,160,80,0.5)"/>
+                <ellipse cx="200" cy="136" rx="18" ry="5" stroke="rgba(180,140,80,0.35)" stroke-width="1" fill="none"/>
+            </svg>
+            <!-- Banner -->
+            <div class="bs-banner">
+                <!-- Top rim -->
+                <div class="bs-rim-top"></div>
+                <!-- Body -->
+                <div class="bs-body">
+                    <!-- Botanical SVG -->
+                    <svg class="bs-botanicals" viewBox="0 0 300 380" fill="none">
+                        <!-- star anise TL -->
+                        <g transform="translate(28,40)"><ellipse cx="0" cy="-10" rx="3" ry="7" fill="rgba(255,220,160,0.15)" transform="rotate(0)"/><ellipse cx="0" cy="-10" rx="3" ry="7" fill="rgba(255,220,160,0.15)" transform="rotate(45)"/><ellipse cx="0" cy="-10" rx="3" ry="7" fill="rgba(255,220,160,0.15)" transform="rotate(90)"/><ellipse cx="0" cy="-10" rx="3" ry="7" fill="rgba(255,220,160,0.15)" transform="rotate(135)"/><ellipse cx="0" cy="-10" rx="3" ry="7" fill="rgba(255,220,160,0.15)" transform="rotate(180)"/><ellipse cx="0" cy="-10" rx="3" ry="7" fill="rgba(255,220,160,0.15)" transform="rotate(225)"/><ellipse cx="0" cy="-10" rx="3" ry="7" fill="rgba(255,220,160,0.15)" transform="rotate(270)"/><ellipse cx="0" cy="-10" rx="3" ry="7" fill="rgba(255,220,160,0.15)" transform="rotate(315)"/><circle cx="0" cy="0" r="3.5" fill="rgba(255,200,120,0.2)"/></g>
+                        <!-- star anise TR -->
+                        <g transform="translate(272,44)"><ellipse cx="0" cy="-10" rx="3" ry="7" fill="rgba(255,220,160,0.15)" transform="rotate(0)"/><ellipse cx="0" cy="-10" rx="3" ry="7" fill="rgba(255,220,160,0.15)" transform="rotate(45)"/><ellipse cx="0" cy="-10" rx="3" ry="7" fill="rgba(255,220,160,0.15)" transform="rotate(90)"/><ellipse cx="0" cy="-10" rx="3" ry="7" fill="rgba(255,220,160,0.15)" transform="rotate(135)"/><ellipse cx="0" cy="-10" rx="3" ry="7" fill="rgba(255,220,160,0.15)" transform="rotate(180)"/><ellipse cx="0" cy="-10" rx="3" ry="7" fill="rgba(255,220,160,0.15)" transform="rotate(225)"/><ellipse cx="0" cy="-10" rx="3" ry="7" fill="rgba(255,220,160,0.15)" transform="rotate(270)"/><ellipse cx="0" cy="-10" rx="3" ry="7" fill="rgba(255,220,160,0.15)" transform="rotate(315)"/><circle cx="0" cy="0" r="3.5" fill="rgba(255,200,120,0.2)"/></g>
+                        <!-- coffee beans -->
+                        <g transform="translate(48,28) rotate(20)"><ellipse cx="0" cy="0" rx="5" ry="8" fill="rgba(160,80,30,0.2)" stroke="rgba(200,140,70,0.18)" stroke-width="0.7"/><path d="M0,-7 Q2,0 0,7" stroke="rgba(255,200,100,0.15)" stroke-width="0.7" fill="none"/></g>
+                        <g transform="translate(252,30) rotate(-20)"><ellipse cx="0" cy="0" rx="5" ry="8" fill="rgba(160,80,30,0.2)" stroke="rgba(200,140,70,0.18)" stroke-width="0.7"/><path d="M0,-7 Q2,0 0,7" stroke="rgba(255,200,100,0.15)" stroke-width="0.7" fill="none"/></g>
+                        <!-- cinnamon left -->
+                        <g transform="translate(22,180) rotate(10)"><rect x="-3" y="-11" width="6" height="22" rx="3" fill="rgba(180,100,40,0.18)" stroke="rgba(220,150,70,0.15)" stroke-width="0.6"/></g>
+                        <!-- cinnamon right -->
+                        <g transform="translate(278,185) rotate(-10)"><rect x="-3" y="-11" width="6" height="22" rx="3" fill="rgba(180,100,40,0.18)" stroke="rgba(220,150,70,0.15)" stroke-width="0.6"/></g>
+                        <!-- swirl left -->
+                        <path d="M24,310 C16,306 10,298 14,290 C18,282 28,280 34,286 C40,292 38,302 32,306" fill="none" stroke="rgba(255,210,140,0.14)" stroke-width="1.1" stroke-linecap="round"/>
+                        <!-- swirl right -->
+                        <path d="M276,315 C284,311 290,303 286,295 C282,287 272,285 266,291 C260,297 262,307 268,311" fill="none" stroke="rgba(255,210,140,0.14)" stroke-width="1.1" stroke-linecap="round"/>
+                        <!-- leaf bottom left -->
+                        <g transform="translate(55,345) rotate(40)"><path d="M0,-12 C6,-6 6,6 0,12 C-6,6 -6,-6 0,-12Z" fill="rgba(80,160,80,0.1)" stroke="rgba(120,200,100,0.12)" stroke-width="0.6"/></g>
+                        <!-- leaf bottom right -->
+                        <g transform="translate(245,348) rotate(-40)"><path d="M0,-12 C6,-6 6,6 0,12 C-6,6 -6,-6 0,-12Z" fill="rgba(80,160,80,0.1)" stroke="rgba(120,200,100,0.12)" stroke-width="0.6"/></g>
+                        <!-- dots scattered -->
+                        <circle cx="80"  cy="60"  r="2" fill="rgba(255,200,120,0.18)"/>
+                        <circle cx="220" cy="55"  r="2" fill="rgba(255,200,120,0.18)"/>
+                        <circle cx="18"  cy="260" r="2" fill="rgba(255,200,120,0.16)"/>
+                        <circle cx="282" cy="265" r="2" fill="rgba(255,200,120,0.16)"/>
+                        <!-- corner flourishes -->
+                        <path d="M8,8 Q24,8 24,24"   stroke="rgba(212,160,23,0.12)" stroke-width="0.9" fill="none"/>
+                        <path d="M292,8 Q276,8 276,24" stroke="rgba(212,160,23,0.12)" stroke-width="0.9" fill="none"/>
+                        <path d="M8,372 Q24,372 24,356"   stroke="rgba(212,160,23,0.12)" stroke-width="0.9" fill="none"/>
+                        <path d="M292,372 Q276,372 276,356" stroke="rgba(212,160,23,0.12)" stroke-width="0.9" fill="none"/>
+                    </svg>
+                    <!-- Content -->
+                    <div class="bs-content">
+                        <img src="logo2.png" alt="The Royal Chilli" class="bs-logo">
+                        <div class="bs-orn"><span class="bs-line"></span><span class="bs-diamond"></span><span class="bs-line"></span></div>
+                        <div class="bs-today">Today's</div>
+                        <div class="bs-special">Special</div>
+                        <div class="bs-gdiv"><span class="bs-gline"></span><span class="bs-gstar">✦</span><span class="bs-gline"></span></div>
+                        <div class="bs-ask">Ask Staff For</div>
+                        <div class="bs-today2">Today's Special</div>
+                        <div class="bs-orn bs-orn-b"><span class="bs-line"></span><span class="bs-diamond"></span><span class="bs-line"></span></div>
+                    </div>
+                </div>
+                <!-- Bottom rim -->
+                <div class="bs-rim-bot">
+                    <div class="bs-rim-bot-text">
+                        <span class="bs-rbt1">Today's Special</span>
+                        <span class="bs-rbt2">Ask Staff For Today's Special</span>
+                    </div>
+                </div>
+            </div>
+            <!-- Sparkle orbit canvas -->
+            <canvas id="bsCanvas" class="bs-canvas"></canvas>
+        </div>
+        <!-- Progress bar -->
+        <div class="bs-progress"><div class="bs-progress-fill" id="bsProgressFill"></div></div>
     </div>
 
     <!-- Navigation -->
