@@ -892,16 +892,14 @@ input, select, textarea, button { font-family: inherit; }
     .exp-n { font-size: 1.5rem; }
     .exp-t { font-size: 0.6rem; max-width: 70px; }
 
-    /* Menu Sidebar — horizontal scroll on mobile */
+    /* Menu Sidebar — 2-row wrap grid on mobile */
     .menu-layout { flex-direction: column; }
     .menu-sidebar {
-        width: 100%; display: flex; flex-direction: row; flex-wrap: nowrap;
-        overflow-x: auto; overflow-y: hidden; max-height: none;
-        position: static; padding: 0.4rem; gap: 4px;
-        -webkit-overflow-scrolling: touch; scrollbar-width: none;
+        width: 100%; display: flex; flex-direction: row; flex-wrap: wrap;
+        overflow: visible; max-height: none;
+        position: static; padding: 0.4rem; gap: 6px;
     }
-    .menu-sidebar::-webkit-scrollbar { display: none; }
-    .menu-cat { flex-shrink: 0; white-space: nowrap; padding: 8px 12px; }
+    .menu-cat { flex-shrink: 0; white-space: nowrap; padding: 7px 11px; width: auto; }
     .menu-grid { grid-template-columns: 1fr; }
 
     /* Gallery */
