@@ -322,19 +322,25 @@ input, select, textarea, button { font-family: inherit; }
 
 /* ===== MENU ===== */
 .menu { background: var(--bg); }
-.tabs {
-    display: flex; gap: 0.5rem; justify-content: center;
-    flex-wrap: wrap; margin-bottom: 2.5rem;
+.menu-layout { display: flex; gap: 2rem; align-items: flex-start; }
+.menu-sidebar {
+    width: 200px; flex-shrink: 0; position: sticky; top: 80px;
+    max-height: calc(100vh - 100px); overflow-y: auto;
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 0.5rem;
+    scrollbar-width: thin; scrollbar-color: var(--red) transparent;
 }
-.tab {
-    padding: 0.55rem 1.2rem; border-radius: 30px;
-    border: 1.5px solid var(--border);
-    background: transparent; color: var(--text2);
-    font-size: 0.85rem; font-weight: 500; cursor: pointer;
-    transition: var(--transition);
+.menu-cat {
+    display: flex; align-items: center; gap: 10px; width: 100%;
+    padding: 11px 14px; border-radius: 8px; border: none;
+    background: none; color: var(--text2); font-size: 0.84rem;
+    font-weight: 500; cursor: pointer; transition: var(--transition); text-align: left;
 }
-.tab:hover { border-color: var(--red); color: var(--text); }
-.tab.active { background: var(--red); border-color: var(--red); color: white; font-weight: 600; }
+.menu-cat i { width: 18px; text-align: center; color: var(--red); font-size: 0.88rem; flex-shrink: 0; }
+.menu-cat:hover { background: var(--bg); color: var(--text); }
+.menu-cat.active { background: var(--red); color: white; font-weight: 600; }
+.menu-cat.active i { color: white; }
+.menu-right { flex: 1; min-width: 0; }
 
 .tab-panel { display: none; }
 .tab-panel.active { display: block; }
@@ -873,15 +879,16 @@ input, select, textarea, button { font-family: inherit; }
     .exp-n { font-size: 1.5rem; }
     .exp-t { font-size: 0.6rem; max-width: 70px; }
 
-    /* Menu Tabs — horizontal scroll instead of wrap */
-    .tabs {
-        flex-wrap: nowrap; overflow-x: auto; justify-content: flex-start;
-        gap: 0.4rem; padding-bottom: 0.5rem;
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: none;
+    /* Menu Sidebar — horizontal scroll on mobile */
+    .menu-layout { flex-direction: column; }
+    .menu-sidebar {
+        width: 100%; display: flex; flex-direction: row; flex-wrap: nowrap;
+        overflow-x: auto; overflow-y: hidden; max-height: none;
+        position: static; padding: 0.4rem; gap: 4px;
+        -webkit-overflow-scrolling: touch; scrollbar-width: none;
     }
-    .tabs::-webkit-scrollbar { display: none; }
-    .tab { font-size: 0.78rem; padding: 0.45rem 0.9rem; white-space: nowrap; flex-shrink: 0; }
+    .menu-sidebar::-webkit-scrollbar { display: none; }
+    .menu-cat { flex-shrink: 0; white-space: nowrap; padding: 8px 12px; }
     .menu-grid { grid-template-columns: 1fr; }
 
     /* Gallery */

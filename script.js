@@ -86,12 +86,12 @@ const statsSection = document.getElementById('stats');
 if (statsSection) statsObserver.observe(statsSection);
 
 // ===== MENU TABS =====
-document.querySelectorAll('.tab').forEach(tab => {
-    tab.addEventListener('click', () => {
-        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+document.querySelectorAll('.menu-cat').forEach(btn => {
+    btn.addEventListener('click', () => {
+        document.querySelectorAll('.menu-cat').forEach(b => b.classList.remove('active'));
         document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-        tab.classList.add('active');
-        const panel = document.getElementById('panel-' + tab.dataset.tab);
+        btn.classList.add('active');
+        const panel = document.getElementById('panel-' + btn.dataset.cat);
         if (panel) panel.classList.add('active');
     });
 });

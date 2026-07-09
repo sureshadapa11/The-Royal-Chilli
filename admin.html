@@ -117,9 +117,26 @@ input[type=checkbox]{width:16px;height:16px;accent-color:var(--gold);cursor:poin
 .cat-tab.active{background:var(--gold);color:#000;border-color:var(--gold)}
 
 /* TOAST */
-.toast{position:fixed;bottom:24px;right:24px;background:var(--green);color:#fff;padding:12px 20px;border-radius:8px;font-size:.875rem;font-weight:600;z-index:9999;transform:translateY(80px);opacity:0;transition:.3s;pointer-events:none}
+.toast{position:fixed;bottom:24px;right:24px;background:var(--green);color:#fff;padding:12px 20px;border-radius:8px;font-size:.875rem;font-weight:600;z-index:9999;transform:translateY(80px);opacity:0;transition:.3s;pointer-events:none;max-width:380px}
 .toast.show{transform:translateY(0);opacity:1}
 .toast.error{background:var(--red)}
+
+/* UPLOAD OVERLAY */
+.upload-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:2000;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:.2s}
+.upload-overlay.open{opacity:1;pointer-events:all}
+.upload-box{background:var(--dark3);border:1px solid var(--border);border-radius:14px;padding:32px 40px;text-align:center;max-width:380px;width:100%}
+.upload-box h3{color:var(--gold);margin-bottom:8px;font-size:1rem}
+.upload-box p{color:var(--text2);font-size:.82rem;margin-bottom:0;line-height:1.6}
+.upload-spinner{font-size:2rem;color:var(--gold);margin-bottom:16px;animation:spin 1s linear infinite;display:inline-block}
+@keyframes spin{to{transform:rotate(360deg)}}
+.upload-err-box{background:var(--dark3);border:1px solid var(--red);border-radius:14px;padding:28px 32px;max-width:420px;width:100%}
+.upload-err-box h3{color:var(--red);margin-bottom:10px;font-size:1rem}
+.upload-err-box p{color:var(--text2);font-size:.82rem;margin-bottom:16px;line-height:1.6;word-break:break-all}
+.token-setup-box{background:var(--dark3);border:1px solid var(--gold);border-radius:14px;padding:28px 32px;max-width:440px;width:100%}
+.token-setup-box h3{color:var(--gold);margin-bottom:8px;font-size:1rem}
+.token-setup-box p{color:var(--text2);font-size:.8rem;margin-bottom:16px;line-height:1.6}
+.token-setup-box input{width:100%;background:var(--dark4);border:1px solid var(--border);border-radius:7px;padding:9px 12px;color:var(--text);font-size:.875rem;outline:none;margin-bottom:10px}
+.token-setup-box input:focus{border-color:var(--gold)}
 
 /* PUBLISH MODAL */
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:1000;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:.2s}
@@ -372,6 +389,11 @@ input[type=checkbox]{width:16px;height:16px;accent-color:var(--gold);cursor:poin
 
 <input type="file" id="imgUploadInput" accept="image/*" style="display:none">
 
+<!-- UPLOAD OVERLAY -->
+<div class="upload-overlay" id="uploadOverlay">
+  <div id="uploadOverlayContent"></div>
+</div>
+
 <!-- PUBLISH MODAL -->
 <div class="modal-overlay" id="publishModal">
   <div class="modal-box">
@@ -597,10 +619,9 @@ function updatePromoThumb(pi, si) {
 
 // ===== MENU =====
 const CAT_LABELS = {
-    soups:'Soups & Sides', veg:'Veg Starters', nonveg:'Non-Veg Starters',
-    sizzlers:'Sizzlers & Platters', vegmain:'Veg Main', nonvegmain:'Non-Veg Main',
-    biryani:'Biryani', rice:'Rice & Noodles', breads:'Breads',
-    chefspecial:"Chef's Special", desserts:'Desserts'
+    soups:'Soups', veg:'Veg Starters', nonveg:'Non-Veg Starters',
+    tandoori:'Tandoori Specials', vegcurry:'Vegetarian Curries', nonvegcurry:'Non-Veg Curries',
+    rice:'Fried Rice & Noodles', breads:'Breads', desserts:'Desserts & Hot Drinks'
 };
 let activeCat = 'soups';
 
@@ -886,16 +907,60 @@ function setPublishStatus(type, html) {
 
 // ===== IMAGE UPLOAD =====
 let _uploadTarget = null;
+let _pendingUploadFile = null;
+
+function showUploadOverlay(html) {
+    document.getElementById('uploadOverlayContent').innerHTML = html;
+    document.getElementById('uploadOverlay').classList.add('open');
+}
+function closeUploadOverlay() {
+    document.getElementById('uploadOverlay').classList.remove('open');
+    document.getElementById('uploadOverlayContent').innerHTML = '';
+}
 
 function triggerImageUpload(inputId, thumbId) {
+    const token = localStorage.getItem('rc_gh_token');
+    if (!token) { showTokenSetup({ inputId, thumbId, newGallery: false }); return; }
     _uploadTarget = { inputId, thumbId, newGallery: false };
     document.getElementById('imgUploadInput').value = '';
     document.getElementById('imgUploadInput').click();
 }
 
 function triggerAddGalleryImage() {
+    const token = localStorage.getItem('rc_gh_token');
     collectGallery();
+    if (!token) { showTokenSetup({ inputId: null, thumbId: null, newGallery: true }); return; }
     _uploadTarget = { inputId: null, thumbId: null, newGallery: true };
+    document.getElementById('imgUploadInput').value = '';
+    document.getElementById('imgUploadInput').click();
+}
+
+function showTokenSetup(target) {
+    _pendingUploadTarget = target;
+    showUploadOverlay(
+        '<div class="token-setup-box">' +
+        '<h3><i class="fas fa-key"></i> GitHub Token Required for Uploads</h3>' +
+        '<p>To upload images, enter your GitHub Personal Access Token. Create one at<br>' +
+        '<b>GitHub → Settings → Developer Settings → Fine-grained tokens</b><br>' +
+        'and grant <b>Contents: Read &amp; Write</b> for this repo.</p>' +
+        '<input type="password" id="uploadTokenInput" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" autofocus>' +
+        '<div style="display:flex;gap:8px">' +
+        '<button class="btn btn-gold" style="flex:1" onclick="saveTokenAndUpload()"><i class="fas fa-key"></i> Save Token &amp; Continue</button>' +
+        '<button class="btn btn-outline" onclick="closeUploadOverlay()">Cancel</button>' +
+        '</div></div>'
+    );
+    setTimeout(() => { const el = document.getElementById('uploadTokenInput'); if (el) el.focus(); }, 100);
+}
+
+let _pendingUploadTarget = null;
+function saveTokenAndUpload() {
+    const tok = document.getElementById('uploadTokenInput').value.trim();
+    if (!tok) { alert('Please enter your GitHub token.'); return; }
+    localStorage.setItem('rc_gh_token', tok);
+    localStorage.setItem('rc_gh_repo', 'sureshadapa11/The-Royal-Chilli');
+    closeUploadOverlay();
+    _uploadTarget = _pendingUploadTarget;
+    _pendingUploadTarget = null;
     document.getElementById('imgUploadInput').value = '';
     document.getElementById('imgUploadInput').click();
 }
@@ -908,34 +973,42 @@ document.getElementById('imgUploadInput').addEventListener('change', async funct
 
     const token = localStorage.getItem('rc_gh_token');
     const repo = localStorage.getItem('rc_gh_repo') || 'sureshadapa11/The-Royal-Chilli';
-    if (!token) {
-        showToast('Set your GitHub token via "Publish to Live Site" first.', true);
-        return;
-    }
 
-    showToast('Uploading image — please wait...');
+    showUploadOverlay(
+        '<div class="upload-box">' +
+        '<div class="upload-spinner"><i class="fas fa-circle-notch"></i></div>' +
+        '<h3>Uploading Image...</h3>' +
+        '<p>' + esc(file.name) + '<br><span style="color:var(--text2);font-size:.75rem">Uploading to GitHub — please wait</span></p>' +
+        '</div>'
+    );
 
     try {
         const path = await uploadFileToGitHub(file, repo, token);
+        closeUploadOverlay();
 
         if (target.newGallery) {
-            DATA.gallery.push({ src: path, name: file.name.replace(/\.[^.]+$/, '').replace(/_/g,' '), large: false, hidden: false });
+            DATA.gallery.push({ src: path, name: file.name.replace(/\.[^.]+$/, '').replace(/[_-]/g,' '), large: false, hidden: false });
             renderGallery();
-            showToast('Photo added to gallery! Save & Publish to make it live.');
+            showToast('Photo added! Click Save Changes then Publish to make it live.');
         } else {
             const input = document.getElementById(target.inputId);
-            if (input) {
-                input.value = path;
-                input.dispatchEvent(new Event('input'));
-            }
+            if (input) { input.value = path; input.dispatchEvent(new Event('input')); }
             if (target.thumbId) {
                 const img = document.getElementById(target.thumbId);
                 if (img) { img.src = path; img.style.opacity = '1'; img.classList.add('show'); }
             }
-            showToast('Image uploaded! Save & Publish to make it live.');
+            showToast('Image uploaded! Click Save Changes then Publish to make it live.');
         }
     } catch(err) {
-        showToast('Upload failed: ' + err.message, true);
+        showUploadOverlay(
+            '<div class="upload-err-box">' +
+            '<h3><i class="fas fa-exclamation-triangle"></i> Upload Failed</h3>' +
+            '<p>' + esc(err.message) + '</p>' +
+            '<div style="display:flex;gap:8px;flex-direction:column">' +
+            '<small style="color:var(--text2)">Common fixes: make sure your token has <b>Contents: Read &amp; Write</b> permission, and the repo name is correct (<b>sureshadapa11/The-Royal-Chilli</b>).</small>' +
+            '<button class="btn btn-outline" style="margin-top:8px" onclick="closeUploadOverlay()">Close</button>' +
+            '</div></div>'
+        );
     }
 });
 
@@ -955,8 +1028,8 @@ async function uploadFileToGitHub(file, repo, token) {
         body: JSON.stringify({ message: 'Upload image via admin portal', content: base64 })
     });
     if (!putRes.ok) {
-        const err = await putRes.json();
-        throw new Error(err.message || 'GitHub upload failed: ' + putRes.status);
+        const errData = await putRes.json().catch(() => ({}));
+        throw new Error(errData.message || ('GitHub API error ' + putRes.status));
     }
     return path;
 }
