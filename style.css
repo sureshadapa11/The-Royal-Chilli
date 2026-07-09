@@ -584,22 +584,30 @@ input, select, textarea, button { font-family: inherit; }
 .footer-bottom .container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; }
 .footer-bottom p { font-size: 0.8rem; color: var(--text3); }
 
-/* ===== BACK TO TOP ===== */
+/* ===== BACK TO TOP (glass) ===== */
 .back-top {
     position: fixed; bottom: 2rem; right: 2rem; z-index: 999;
-    width: 46px; height: 46px; border-radius: 10px;
-    background: var(--red); color: white; border: none;
-    display: flex; align-items: center; justify-content: center;
+    width: 46px; height: 46px; border-radius: 12px;
+    background: rgba(255,255,255,0.12);
+    backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(255,255,255,0.22);
+    color: white; display: flex; align-items: center; justify-content: center;
     cursor: pointer; transition: var(--transition);
     opacity: 0; visibility: hidden; transform: translateY(10px);
-    box-shadow: 0 8px 25px rgba(192,57,43,0.4);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.35);
+    font-size: 1rem;
 }
 .back-top.visible { opacity: 1; visibility: visible; transform: translateY(0); }
-.back-top:hover { background: var(--red-dark); transform: translateY(-3px); }
+.back-top:hover {
+    background: rgba(255,255,255,0.22);
+    border-color: rgba(255,255,255,0.38);
+    transform: translateY(-3px);
+    box-shadow: 0 14px 40px rgba(0,0,0,0.45);
+}
 
-/* ===== FLOATING CONTACT (WA + CALL) ===== */
+/* ===== FLOATING CONTACT (WA + CALL) — right side ===== */
 .float-contact {
-    position: fixed; bottom: 2rem; left: 2rem;
+    position: fixed; bottom: 6.5rem; right: 2rem;
     display: flex; flex-direction: column; gap: 0.7rem; z-index: 998;
 }
 .float-btn {
@@ -616,7 +624,7 @@ input, select, textarea, button { font-family: inherit; }
 
 /* ===== FLOATING CART BUTTON ===== */
 .float-cart-btn {
-    position: fixed; bottom: 5.5rem; right: 2rem; z-index: 998;
+    position: fixed; bottom: 15rem; right: 2rem; z-index: 998;
     width: 60px; height: 60px; border-radius: 50%;
     background: #25d366; color: white; border: none;
     display: flex; align-items: center; justify-content: center;
@@ -759,9 +767,10 @@ input, select, textarea, button { font-family: inherit; }
 .cart-send-btn:hover { background: #1ebe5d; transform: translateY(-1px); box-shadow: 0 8px 25px rgba(37,211,102,0.35); }
 
 @media (max-width: 600px) {
-    .float-contact { bottom: 1.5rem; left: 1rem; }
+    .float-contact { bottom: 5.5rem; right: 1rem; }
     .float-btn { width: 48px; height: 48px; font-size: 1.25rem; }
-    .float-cart-btn { bottom: 5rem; right: 1rem; width: 54px; height: 54px; font-size: 1.3rem; }
+    .back-top { bottom: 1.5rem; right: 1rem; width: 42px; height: 42px; }
+    .float-cart-btn { bottom: 13rem; right: 1rem; width: 54px; height: 54px; font-size: 1.3rem; }
     .cart-drawer { width: 100vw; }
 }
 
