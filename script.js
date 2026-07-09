@@ -362,7 +362,8 @@ function renderCartDrawer() {
     cartTotal.textContent = 'Subtotal: £' + subtotal.toFixed(2);
 
     cartItems.innerHTML = items.map(item => {
-        const n = JSON.stringify(item.name);
+        const n = JSON.stringify(item.name).replace(/"/g, '&quot;');
+        const safe = item.name.replace(/"/g, '&quot;');
         return `
         <div class="cart-item">
             <div class="cart-item-info">
@@ -379,8 +380,8 @@ function renderCartDrawer() {
                 <button class="cart-remove" onclick="cartRemove(${n})"><i class="fas fa-times"></i></button>
             </div>
         </div>
-        <textarea class="item-cooking-note" data-name="${item.name.replace(/"/g,'&quot;')}" rows="2"
-            placeholder="Cooking notes for ${item.name.replace(/"/g,'&quot;')} (optional)…"
+        <textarea class="item-cooking-note" data-name="${safe}" rows="2"
+            placeholder="Cooking notes for ${safe} (optional)…"
             oninput="saveCartNote(${n},this.value)">${item.note || ''}</textarea>`;
     }).join('');
 

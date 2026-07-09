@@ -493,7 +493,7 @@ function buildItemCard(catKey, item, idx) {
     itemPos[name] = { catKey, idx };
     const inCart = cart[name];
     const pn = parseFloat((item.price || '£0').replace(/[^0-9.]/g,'')) || 0;
-    const n = JSON.stringify(name);
+    const n = JSON.stringify(name).replace(/"/g, '&quot;');
 
     const badgeHTML = item.badge === 'nonveg'
         ? '<span class="badge-nonveg" title="Non-Veg"></span>'
@@ -580,7 +580,7 @@ function refreshItemCtrl(name, catKey, idx) {
     const el = document.getElementById('ctrl-' + catKey + '-' + idx);
     if (!el) return;
     const inCart = cart[name];
-    const n = JSON.stringify(name);
+    const n = JSON.stringify(name).replace(/"/g, '&quot;');
     if (inCart) {
         el.innerHTML = `<div class="qty-ctrl">
             <button class="qty-btn" onclick="changeQty(${n},'${catKey}',${idx},-1)"><i class="fas fa-minus"></i></button>
@@ -660,7 +660,7 @@ function updateCartUI() {
     itemsEl.innerHTML = names.map(name => {
         const item = cart[name];
         const note = item.note || '';
-        const n = JSON.stringify(name);
+        const n = JSON.stringify(name).replace(/"/g, '&quot;');
         const safeAttr = name.replace(/"/g, '&quot;');
         return `<div class="cart-item">
             <div class="cart-item-top">
