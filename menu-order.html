@@ -660,22 +660,21 @@ function updateCartUI() {
     itemsEl.innerHTML = names.map(name => {
         const item = cart[name];
         const note = item.note || '';
-        const n = JSON.stringify(name).replace(/"/g, '&quot;');
-        const safeAttr = name.replace(/"/g, '&quot;');
+        const safe = name.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
         return `<div class="cart-item">
             <div class="cart-item-top">
-                <img class="cart-item-img" src="${item.img}" alt="${item.name}" onerror="this.style.display='none'">
+                <img class="cart-item-img" src="${item.img}" alt="${safe}" onerror="this.style.display='none'">
                 <div class="cart-item-info">
                     <div class="cart-item-name">${item.name}</div>
-                    <div class="cart-item-price">${fmt(item.priceNum * item.qty)}</div>
+                    <div class="cart-item-price">${fmt((item.priceNum||0) * item.qty)}</div>
                 </div>
                 <div class="cart-item-qty">
-                    <button class="cqty-btn" onclick="changeQtyFromCart(${n},-1)"><i class="fas fa-minus"></i></button>
+                    <button class="cqty-btn mo-cq" data-action="dec" data-name="${safe}"><i class="fas fa-minus"></i></button>
                     <span class="cqty-num">${item.qty}</span>
-                    <button class="cqty-btn" onclick="changeQtyFromCart(${n},1)"><i class="fas fa-plus"></i></button>
+                    <button class="cqty-btn mo-cq" data-action="inc" data-name="${safe}"><i class="fas fa-plus"></i></button>
                 </div>
             </div>
-            <textarea class="item-note" data-key="${safeAttr}" placeholder="Cooking suggestions for this dish (optional)…" oninput="saveItemNote(${n},this.value)">${note}</textarea>
+            <textarea class="item-note" data-key="${safe}" placeholder="Cooking suggestions for this dish (optional)…">${note}</textarea>
         </div>`;
     }).join('');
 }
@@ -692,6 +691,22 @@ function closeCart() {
 function handleOverlayClick(e) {
     if (e.target === document.getElementById('cartOverlay')) closeCart();
 }
+
+// Cart item controls — event delegation
+document.getElementById('cartItems').addEventListener('click', e => {
+    const btn = e.target.closest('.mo-cq');
+    if (!btn) return;
+    const name = btn.dataset.name;
+    const action = btn.dataset.action;
+    if (action === 'inc') changeQtyFromCart(name, 1);
+    else if (action === 'dec') changeQtyFromCart(name, -1);
+});
+
+document.getElementById('cartItems').addEventListener('input', e => {
+    const ta = e.target.closest('.item-note');
+    if (!ta) return;
+    saveItemNote(ta.dataset.key, ta.value);
+});
 
 // ===== CHECKOUT =====
 function goCheckout() {

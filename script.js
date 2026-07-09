@@ -345,7 +345,6 @@ function renderCartDrawer() {
     const cartEmpty = document.getElementById('cartEmpty');
     const cartFooter = document.getElementById('cartFooter');
     const cartTotal = document.getElementById('cartTotal');
-    const cartSendBtn = document.getElementById('cartSendBtn');
 
     const items = Object.values(cart);
     if (!items.length) {
@@ -362,27 +361,26 @@ function renderCartDrawer() {
     cartTotal.textContent = 'Subtotal: £' + subtotal.toFixed(2);
 
     cartItems.innerHTML = items.map(item => {
-        const n = JSON.stringify(item.name).replace(/"/g, '&quot;');
-        const safe = item.name.replace(/"/g, '&quot;');
+        const price = (item.priceNum || item.price || 0);
+        const safe = item.name.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
         return `
         <div class="cart-item">
             <div class="cart-item-info">
                 <div class="cart-item-name">${item.name}</div>
-                <div class="cart-item-price">£${item.priceNum.toFixed(2)} each</div>
+                <div class="cart-item-price">£${Number(price).toFixed(2)} each</div>
                 <div class="cart-qty">
-                    <button onclick="cartDec(${n})">−</button>
+                    <button class="cq-btn" data-action="dec" data-name="${safe}">−</button>
                     <span>${item.qty}</span>
-                    <button onclick="cartInc(${n})">+</button>
+                    <button class="cq-btn" data-action="inc" data-name="${safe}">+</button>
                 </div>
             </div>
             <div style="display:flex;flex-direction:column;align-items:flex-end;gap:0.4rem">
-                <span style="font-size:0.9rem;font-weight:700;color:var(--gold)">£${(item.priceNum * item.qty).toFixed(2)}</span>
-                <button class="cart-remove" onclick="cartRemove(${n})"><i class="fas fa-times"></i></button>
+                <span style="font-size:0.9rem;font-weight:700;color:var(--gold)">£${(Number(price) * item.qty).toFixed(2)}</span>
+                <button class="cart-remove cq-btn" data-action="remove" data-name="${safe}"><i class="fas fa-times"></i></button>
             </div>
         </div>
         <textarea class="item-cooking-note" data-name="${safe}" rows="2"
-            placeholder="Cooking notes for ${safe} (optional)…"
-            oninput="saveCartNote(${n},this.value)">${item.note || ''}</textarea>`;
+            placeholder="Cooking notes for ${safe} (optional)…">${item.note || ''}</textarea>`;
     }).join('');
 
     // Show order-type buttons only if allergy already answered
@@ -444,6 +442,24 @@ function closeCart() {
 }
 
 cartOverlay.addEventListener('click', closeCart);
+
+// Cart item controls — event delegation avoids onclick string-encoding issues
+document.getElementById('cartItems').addEventListener('click', e => {
+    const btn = e.target.closest('.cq-btn');
+    if (!btn) return;
+    const name = btn.dataset.name;
+    const action = btn.dataset.action;
+    if (!name || !action) return;
+    if (action === 'inc') cartInc(name);
+    else if (action === 'dec') cartDec(name);
+    else if (action === 'remove') cartRemove(name);
+});
+
+document.getElementById('cartItems').addEventListener('input', e => {
+    const ta = e.target.closest('.item-cooking-note');
+    if (!ta) return;
+    saveCartNote(ta.dataset.name, ta.value);
+});
 
 // Allergy selection
 function selectAllergy(choice) {
