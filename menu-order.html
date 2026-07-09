@@ -380,11 +380,12 @@ const CAT_META = {
 };
 
 const MOBILE_SHOW = 4; // items shown before Load More on mobile
-let cart = {};         // { "catKey|itemIndex": { name, price, priceNum, img, qty } }
-try { cart = JSON.parse(sessionStorage.getItem('rc_menu_cart') || '{}'); } catch(e) { cart = {}; }
+let cart = {};         // { itemName: { name, priceNum, img, qty, note } } — shared with home page
+try { cart = JSON.parse(sessionStorage.getItem('rc_cart') || '{}'); } catch(e) { cart = {}; }
+let itemPos = {};      // { itemName: { catKey, idx } } for reverse DOM lookup
 
 function persistMenuCart() {
-    sessionStorage.setItem('rc_menu_cart', JSON.stringify(cart));
+    sessionStorage.setItem('rc_cart', JSON.stringify(cart));
 }
 let menuData = {};
 let activeCat = '';
@@ -459,10 +460,9 @@ function renderMenu() {
     catSections.innerHTML = sectionsHTML;
 
     // Restore cart item controls for any previously selected items
-    Object.keys(cart).forEach(cartKey => {
-        const parts = cartKey.split('|');
-        const catKey = parts[0], idx = parseInt(parts[1]);
-        if (menuData[catKey] && menuData[catKey][idx]) refreshItemCtrl(cartKey, catKey, idx);
+    Object.keys(cart).forEach(name => {
+        const pos = itemPos[name];
+        if (pos) refreshItemCtrl(name, pos.catKey, pos.idx);
     });
     updateCartUI();
 }
@@ -488,9 +488,12 @@ function buildSection(key, meta, items, isMobile) {
 }
 
 function buildItemCard(catKey, item, idx) {
-    const cartKey = catKey + '|' + idx;
-    const inCart = cart[cartKey];
-    const priceNum = parseFloat((item.price || '£0').replace(/[^0-9.]/g,'')) || 0;
+    const domId = catKey + '-' + idx;
+    const name = item.name;
+    itemPos[name] = { catKey, idx };
+    const inCart = cart[name];
+    const pn = parseFloat((item.price || '£0').replace(/[^0-9.]/g,'')) || 0;
+    const n = JSON.stringify(name);
 
     const badgeHTML = item.badge === 'nonveg'
         ? '<span class="badge-nonveg" title="Non-Veg"></span>'
@@ -498,23 +501,23 @@ function buildItemCard(catKey, item, idx) {
 
     const addCtrl = inCart
         ? `<div class="qty-ctrl">
-            <button class="qty-btn" onclick="changeQty('${cartKey}','${catKey}',${idx},-1)"><i class="fas fa-minus"></i></button>
+            <button class="qty-btn" onclick="changeQty(${n},'${catKey}',${idx},-1)"><i class="fas fa-minus"></i></button>
             <span class="qty-num">${inCart.qty}</span>
-            <button class="qty-btn" onclick="changeQty('${cartKey}','${catKey}',${idx},1)"><i class="fas fa-plus"></i></button>
+            <button class="qty-btn" onclick="changeQty(${n},'${catKey}',${idx},1)"><i class="fas fa-plus"></i></button>
           </div>`
-        : `<button class="btn-add" onclick="addToCart('${cartKey}','${catKey}',${idx})">Add</button>`;
+        : `<button class="btn-add" onclick="addToCart(${n},'${catKey}',${idx})">Add</button>`;
 
-    return `<div class="item-card" id="card-${cartKey.replace('|','-')}">
-        <img class="item-img" src="${item.img || ''}" alt="${item.name}" loading="lazy" onerror="this.style.display='none'">
+    return `<div class="item-card" id="card-${domId}">
+        <img class="item-img" src="${item.img || ''}" alt="${name}" loading="lazy" onerror="this.style.display='none'">
         <div class="item-body">
             <div class="item-top">
-                <span class="item-name">${item.name}</span>
+                <span class="item-name">${name}</span>
                 <div class="item-badges">${badgeHTML}${item.popular ? '<span class="badge-popular">Popular</span>' : ''}</div>
             </div>
             <p class="item-desc">${item.desc || ''}</p>
             <div class="item-footer">
                 <span class="item-price">${item.price}</span>
-                <div id="ctrl-${cartKey.replace('|','-')}">${addCtrl}</div>
+                <div id="ctrl-${domId}">${addCtrl}</div>
             </div>
         </div>
     </div>`;
@@ -545,45 +548,47 @@ function priceNum(item) {
     return parseFloat((item.price || '£0').replace(/[^0-9.]/g,'')) || 0;
 }
 
-function addToCart(cartKey, catKey, idx) {
+function addToCart(name, catKey, idx) {
     const item = menuData[catKey][idx];
-    cart[cartKey] = { name: item.name, price: item.price, priceNum: priceNum(item), img: item.img || '', qty: 1 };
-    refreshItemCtrl(cartKey, catKey, idx);
+    if (cart[name]) {
+        cart[name].qty++;
+    } else {
+        cart[name] = { name, priceNum: priceNum(item), img: item.img || '', qty: 1, note: '' };
+    }
+    refreshItemCtrl(name, catKey, idx);
     updateCartUI();
 }
 
-function changeQty(cartKey, catKey, idx, delta) {
-    if (!cart[cartKey]) return;
-    cart[cartKey].qty += delta;
-    if (cart[cartKey].qty <= 0) delete cart[cartKey];
-    refreshItemCtrl(cartKey, catKey, idx);
+function changeQty(name, catKey, idx, delta) {
+    if (!cart[name]) return;
+    cart[name].qty += delta;
+    if (cart[name].qty <= 0) delete cart[name];
+    refreshItemCtrl(name, catKey, idx);
     updateCartUI();
 }
 
-function changeQtyFromCart(cartKey, delta) {
-    if (!cart[cartKey]) return;
-    cart[cartKey].qty += delta;
-    if (cart[cartKey].qty <= 0) delete cart[cartKey];
-    // Also update the item card control if visible
-    const parts = cartKey.split('|');
-    const catKey = parts[0], idx = parseInt(parts[1]);
-    if (menuData[catKey] && menuData[catKey][idx]) refreshItemCtrl(cartKey, catKey, idx);
+function changeQtyFromCart(name, delta) {
+    if (!cart[name]) return;
+    cart[name].qty += delta;
+    if (cart[name].qty <= 0) delete cart[name];
+    const pos = itemPos[name];
+    if (pos) refreshItemCtrl(name, pos.catKey, pos.idx);
     updateCartUI();
 }
 
-function refreshItemCtrl(cartKey, catKey, idx) {
-    const id = 'ctrl-' + cartKey.replace('|', '-');
-    const el = document.getElementById(id);
+function refreshItemCtrl(name, catKey, idx) {
+    const el = document.getElementById('ctrl-' + catKey + '-' + idx);
     if (!el) return;
-    const inCart = cart[cartKey];
+    const inCart = cart[name];
+    const n = JSON.stringify(name);
     if (inCart) {
         el.innerHTML = `<div class="qty-ctrl">
-            <button class="qty-btn" onclick="changeQty('${cartKey}','${catKey}',${idx},-1)"><i class="fas fa-minus"></i></button>
+            <button class="qty-btn" onclick="changeQty(${n},'${catKey}',${idx},-1)"><i class="fas fa-minus"></i></button>
             <span class="qty-num">${inCart.qty}</span>
-            <button class="qty-btn" onclick="changeQty('${cartKey}','${catKey}',${idx},1)"><i class="fas fa-plus"></i></button>
+            <button class="qty-btn" onclick="changeQty(${n},'${catKey}',${idx},1)"><i class="fas fa-plus"></i></button>
           </div>`;
     } else {
-        el.innerHTML = `<button class="btn-add" onclick="addToCart('${cartKey}','${catKey}',${idx})">Add</button>`;
+        el.innerHTML = `<button class="btn-add" onclick="addToCart(${n},'${catKey}',${idx})">Add</button>`;
     }
 }
 
@@ -616,8 +621,8 @@ function updateCheckoutBtn() {
 }
 
 // Save per-item note without re-rendering (preserves focus)
-function saveItemNote(cartKey, val) {
-    if (cart[cartKey]) cart[cartKey].note = val;
+function saveItemNote(name, val) {
+    if (cart[name]) cart[name].note = val;
 }
 
 function updateCartUI() {
@@ -647,14 +652,16 @@ function updateCartUI() {
         if (key && cart[key]) cart[key].note = el.value;
     });
 
-    const keys = Object.keys(cart);
-    if (!keys.length) {
+    const names = Object.keys(cart);
+    if (!names.length) {
         itemsEl.innerHTML = '<div class="cart-empty"><i class="fas fa-shopping-bag"></i><p>Your cart is empty</p></div>';
         return;
     }
-    itemsEl.innerHTML = keys.map(cartKey => {
-        const item = cart[cartKey];
+    itemsEl.innerHTML = names.map(name => {
+        const item = cart[name];
         const note = item.note || '';
+        const n = JSON.stringify(name);
+        const safeAttr = name.replace(/"/g, '&quot;');
         return `<div class="cart-item">
             <div class="cart-item-top">
                 <img class="cart-item-img" src="${item.img}" alt="${item.name}" onerror="this.style.display='none'">
@@ -663,12 +670,12 @@ function updateCartUI() {
                     <div class="cart-item-price">${fmt(item.priceNum * item.qty)}</div>
                 </div>
                 <div class="cart-item-qty">
-                    <button class="cqty-btn" onclick="changeQtyFromCart('${cartKey}',-1)"><i class="fas fa-minus"></i></button>
+                    <button class="cqty-btn" onclick="changeQtyFromCart(${n},-1)"><i class="fas fa-minus"></i></button>
                     <span class="cqty-num">${item.qty}</span>
-                    <button class="cqty-btn" onclick="changeQtyFromCart('${cartKey}',1)"><i class="fas fa-plus"></i></button>
+                    <button class="cqty-btn" onclick="changeQtyFromCart(${n},1)"><i class="fas fa-plus"></i></button>
                 </div>
             </div>
-            <textarea class="item-note" data-key="${cartKey}" placeholder="Cooking suggestions for this dish (optional)…" oninput="saveItemNote('${cartKey}',this.value)">${note}</textarea>
+            <textarea class="item-note" data-key="${safeAttr}" placeholder="Cooking suggestions for this dish (optional)…" oninput="saveItemNote(${n},this.value)">${note}</textarea>
         </div>`;
     }).join('');
 }
@@ -698,7 +705,6 @@ function goCheckout() {
     sessionStorage.setItem('rc_allergy', allergyChoice === 'yes'
         ? (document.getElementById('allergyText').value.trim() || 'Yes (no details given)')
         : 'None');
-    sessionStorage.removeItem('rc_menu_cart');
     window.location.href = 'checkout.html';
 }
 

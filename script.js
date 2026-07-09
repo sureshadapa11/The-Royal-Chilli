@@ -249,11 +249,11 @@ function toggleGallery() {
 
 // ===== WHATSAPP ORDERING SYSTEM =====
 const WA_NUMBER = '442087973044';
-let cart = [];
-try { cart = JSON.parse(sessionStorage.getItem('rc_home_cart') || '[]'); } catch(e) { cart = []; }
+let cart = {};
+try { cart = JSON.parse(sessionStorage.getItem('rc_cart') || '{}'); } catch(e) { cart = {}; }
 
 function persistHomeCart() {
-    sessionStorage.setItem('rc_home_cart', JSON.stringify(cart));
+    sessionStorage.setItem('rc_cart', JSON.stringify(cart));
 }
 
 // Inject steppers on all dish cards
@@ -291,12 +291,10 @@ function stepInc(btn) {
     const stepper = btn.closest('.card-stepper');
     const name = stepper.dataset.name;
     const price = parseFloat(stepper.dataset.price);
-
-    const existing = cart.find(i => i.name === name);
-    if (existing) {
-        existing.qty++;
+    if (cart[name]) {
+        cart[name].qty++;
     } else {
-        cart.push({ name, price, qty: 1, note: '' });
+        cart[name] = { name, priceNum: price, qty: 1, note: '', img: '' };
     }
     syncStepper(stepper);
     updateCartUI();
@@ -305,17 +303,16 @@ function stepInc(btn) {
 function stepDec(btn) {
     const stepper = btn.closest('.card-stepper');
     const name = stepper.dataset.name;
-    const item = cart.find(i => i.name === name);
-    if (!item) return;
-    item.qty--;
-    if (item.qty <= 0) cart = cart.filter(i => i.name !== name);
+    if (!cart[name]) return;
+    cart[name].qty--;
+    if (cart[name].qty <= 0) delete cart[name];
     syncStepper(stepper);
     updateCartUI();
 }
 
 function syncStepper(stepper) {
     const name = stepper.dataset.name;
-    const item = cart.find(i => i.name === name);
+    const item = cart[name];
     const label = stepper.querySelector('.stepper-label');
     const dec = stepper.querySelector('.stepper-dec');
     if (item && item.qty > 0) {
@@ -331,7 +328,7 @@ function syncStepper(stepper) {
 
 function updateCartUI() {
     persistHomeCart();
-    const total = cart.reduce((s, i) => s + i.qty, 0);
+    const total = Object.values(cart).reduce((s, i) => s + i.qty, 0);
     const floatBtn = document.getElementById('floatCartBtn');
     const badge = document.getElementById('cartBadge');
     if (total > 0) {
@@ -350,7 +347,8 @@ function renderCartDrawer() {
     const cartTotal = document.getElementById('cartTotal');
     const cartSendBtn = document.getElementById('cartSendBtn');
 
-    if (cart.length === 0) {
+    const items = Object.values(cart);
+    if (!items.length) {
         cartEmpty.style.display = 'flex';
         cartItems.innerHTML = '';
         cartFooter.style.display = 'none';
@@ -360,29 +358,31 @@ function renderCartDrawer() {
     cartEmpty.style.display = 'none';
     cartFooter.style.display = 'block';
 
-    const subtotal = cart.reduce((s, i) => s + i.price * i.qty, 0);
+    const subtotal = items.reduce((s, i) => s + i.priceNum * i.qty, 0);
     cartTotal.textContent = 'Subtotal: £' + subtotal.toFixed(2);
 
-    cartItems.innerHTML = cart.map((item, idx) => `
+    cartItems.innerHTML = items.map(item => {
+        const n = JSON.stringify(item.name);
+        return `
         <div class="cart-item">
             <div class="cart-item-info">
                 <div class="cart-item-name">${item.name}</div>
-                <div class="cart-item-price">£${item.price.toFixed(2)} each</div>
+                <div class="cart-item-price">£${item.priceNum.toFixed(2)} each</div>
                 <div class="cart-qty">
-                    <button onclick="cartDec(${idx})">−</button>
+                    <button onclick="cartDec(${n})">−</button>
                     <span>${item.qty}</span>
-                    <button onclick="cartInc(${idx})">+</button>
+                    <button onclick="cartInc(${n})">+</button>
                 </div>
             </div>
             <div style="display:flex;flex-direction:column;align-items:flex-end;gap:0.4rem">
-                <span style="font-size:0.9rem;font-weight:700;color:var(--gold)">£${(item.price * item.qty).toFixed(2)}</span>
-                <button class="cart-remove" onclick="cartRemove(${idx})"><i class="fas fa-times"></i></button>
+                <span style="font-size:0.9rem;font-weight:700;color:var(--gold)">£${(item.priceNum * item.qty).toFixed(2)}</span>
+                <button class="cart-remove" onclick="cartRemove(${n})"><i class="fas fa-times"></i></button>
             </div>
         </div>
-        <textarea class="item-cooking-note" data-idx="${idx}" rows="2"
-            placeholder="Cooking notes for ${item.name} (optional)…"
-            oninput="saveCartNote(${idx},this.value)">${item.note || ''}</textarea>
-    `).join('');
+        <textarea class="item-cooking-note" data-name="${item.name.replace(/"/g,'&quot;')}" rows="2"
+            placeholder="Cooking notes for ${item.name.replace(/"/g,'&quot;')} (optional)…"
+            oninput="saveCartNote(${n},this.value)">${item.note || ''}</textarea>`;
+    }).join('');
 
     // Show order-type buttons only if allergy already answered
     const allergyYes = document.getElementById('allergyYes');
@@ -391,25 +391,24 @@ function renderCartDrawer() {
     document.getElementById('orderTypeBtns').style.display = hasAnswer ? 'block' : 'none';
 }
 
-function saveCartNote(idx, val) {
-    if (cart[idx]) cart[idx].note = val;
+function saveCartNote(name, val) {
+    if (cart[name]) cart[name].note = val;
 }
 
-function cartInc(idx) {
-    cart[idx].qty++;
+function cartInc(name) {
+    if (cart[name]) { cart[name].qty++; resyncAllSteppers(); updateCartUI(); }
+}
+
+function cartDec(name) {
+    if (!cart[name]) return;
+    cart[name].qty--;
+    if (cart[name].qty <= 0) delete cart[name];
     resyncAllSteppers();
     updateCartUI();
 }
 
-function cartDec(idx) {
-    cart[idx].qty--;
-    if (cart[idx].qty <= 0) cart.splice(idx, 1);
-    resyncAllSteppers();
-    updateCartUI();
-}
-
-function cartRemove(idx) {
-    cart.splice(idx, 1);
+function cartRemove(name) {
+    delete cart[name];
     resyncAllSteppers();
     updateCartUI();
 }
@@ -460,35 +459,22 @@ function selectAllergy(choice) {
 
 // Proceed to checkout with chosen order type
 function goToCheckout(type) {
-    if (cart.length === 0) return;
+    if (!Object.keys(cart).length) return;
 
-    // Snapshot any cooking notes from textareas
+    // Snapshot any cooking notes from open textareas
     document.querySelectorAll('.item-cooking-note').forEach(ta => {
-        const idx = parseInt(ta.dataset.idx);
-        if (cart[idx]) cart[idx].note = ta.value;
-    });
-
-    // Convert array to object format expected by checkout.html
-    const rcCart = {};
-    cart.forEach((item, idx) => {
-        rcCart['item_' + idx] = {
-            name: item.name,
-            priceNum: item.price,
-            qty: item.qty,
-            note: item.note || '',
-            img: ''
-        };
+        const name = ta.dataset.name;
+        if (name && cart[name]) cart[name].note = ta.value;
     });
 
     const allergyInput = document.getElementById('allergyInput')?.value.trim() || '';
     const allergyYes = document.getElementById('allergyYes');
     const hasAllergy = allergyYes?.classList.contains('selected');
 
-    sessionStorage.setItem('rc_cart', JSON.stringify(rcCart));
+    sessionStorage.setItem('rc_cart', JSON.stringify(cart));
     sessionStorage.setItem('rc_order_type', type);
     sessionStorage.setItem('rc_allergy', JSON.stringify({ hasAllergy, text: allergyInput }));
     sessionStorage.removeItem('rc_order_scheduled');
-    sessionStorage.removeItem('rc_home_cart');
 
     window.location.href = 'checkout.html';
 }
