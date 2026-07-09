@@ -286,7 +286,8 @@
         "desc": "Crispy golden onion fritters with spiced chickpea batter",
         "img": "https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=400&q=80",
         "badge": "veg",
-        "popular": false
+        "popular": false,
+        "popularTag": "Popular"
       },
       {
         "name": "Cut Mirchi / Mirchi Bajji",
@@ -294,7 +295,8 @@
         "desc": "Fried green chillies in crispy besan batter, Andhra style",
         "img": "https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=400&q=80",
         "badge": "veg",
-        "popular": false
+        "popular": false,
+        "popularTag": "Popular"
       },
       {
         "name": "Bindi Khurkure",
@@ -302,7 +304,8 @@
         "desc": "Crispy salt and pepper okra — a Southern favourite",
         "img": "https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=400&q=80",
         "badge": "veg",
-        "popular": false
+        "popular": false,
+        "popularTag": "Popular"
       },
       {
         "name": "Mushroom Pepper Fry",
@@ -310,7 +313,8 @@
         "desc": "Mushrooms tossed in black pepper and aromatic spices",
         "img": "https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=400&q=80",
         "badge": "veg",
-        "popular": false
+        "popular": false,
+        "popularTag": "Popular"
       },
       {
         "name": "Salt & Veg Pepper Fry",
@@ -318,7 +322,8 @@
         "desc": "Mixed vegetables stir-fried with salt, pepper and spices",
         "img": "https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=400&q=80",
         "badge": "veg",
-        "popular": false
+        "popular": false,
+        "popularTag": "Popular"
       },
       {
         "name": "Gobi / Veg Manchurian",
@@ -326,7 +331,8 @@
         "desc": "Crispy cauliflower or veg balls in bold Manchurian sauce",
         "img": "https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=400&q=80",
         "badge": "veg",
-        "popular": false
+        "popular": false,
+        "popularTag": "Popular"
       },
       {
         "name": "Chilli Paneer",
@@ -334,7 +340,8 @@
         "desc": "Wok-tossed paneer cubes with peppers in Indo-Chinese sauce",
         "img": "https://images.unsplash.com/photo-1596797038530-2c107229654b?w=400&q=80",
         "badge": "veg",
-        "popular": true
+        "popular": true,
+        "popularTag": "Popular"
       },
       {
         "name": "Paneer Manchurian",
@@ -342,7 +349,8 @@
         "desc": "Paneer cubes in spicy tangy Manchurian gravy",
         "img": "https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=400&q=80",
         "badge": "veg",
-        "popular": false
+        "popular": false,
+        "popularTag": "Popular"
       }
     ],
     "nonveg": [
@@ -352,7 +360,8 @@
         "desc": "Chicken balls in bold tangy Manchurian gravy",
         "img": "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=400&q=80",
         "badge": "nonveg",
-        "popular": false
+        "popular": false,
+        "popularTag": "Popular"
       },
       {
         "name": "Chicken 65",
@@ -360,7 +369,8 @@
         "desc": "Spicy deep-fried chicken with classic Hyderabadi marinade",
         "img": "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=400&q=80",
         "badge": "nonveg",
-        "popular": true
+        "popular": true,
+        "popularTag": "Popular"
       },
       {
         "name": "Chicken Pakoda",
@@ -368,7 +378,8 @@
         "desc": "Crispy battered chicken fritters with aromatic spices",
         "img": "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=400&q=80",
         "badge": "nonveg",
-        "popular": false
+        "popular": false,
+        "popularTag": "Popular"
       },
       {
         "name": "Chilli Chicken",
@@ -376,7 +387,8 @@
         "desc": "Crispy chicken wok-tossed in spicy Indo-Chinese sauce",
         "img": "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=400&q=80",
         "badge": "nonveg",
-        "popular": false
+        "popular": false,
+        "popularTag": "Popular"
       },
       {
         "name": "Kodi Vepudu",
@@ -384,7 +396,8 @@
         "desc": "Andhra-style dry fried chicken with bold spices",
         "img": "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=400&q=80",
         "badge": "nonveg",
-        "popular": false
+        "popular": false,
+        "popularTag": "Popular"
       },
       {
         "name": "Chicken Tandoori",
@@ -392,7 +405,8 @@
         "desc": "Classic tandoori marinated chicken from the clay oven",
         "img": "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=400&q=80",
         "badge": "nonveg",
-        "popular": false
+        "popular": false,
+        "popularTag": "Popular"
       },
       {
         "name": "Chicken Chukka",
@@ -400,7 +414,8 @@
         "desc": "South Indian dry chicken with coconut and curry leaves",
         "img": "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=400&q=80",
         "badge": "nonveg",
-        "popular": false
+        "popular": false,
+        "popularTag": "Popular"
       },
       {
         "name": "Chicken Lollipop",
@@ -408,7 +423,8 @@
         "desc": "Marinated chicken wings in a spicy lollipop coating",
         "img": "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=400&q=80",
         "badge": "nonveg",
-        "popular": false
+        "popular": false,
+        "popularTag": "Popular"
       },
       {
         "name": "Lamb Ghee Roast",
@@ -416,7 +432,8 @@
         "desc": "Mangalorean-style lamb roasted in rich ghee and spices",
         "img": "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=400&q=80",
         "badge": "nonveg",
-        "popular": false
+        "popular": false,
+        "popularTag": "Popular"
       },
       {
         "name": "Lamb Pepper",
@@ -424,7 +441,8 @@
         "desc": "Tender lamb dry-fried with black pepper and curry leaves",
         "img": "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=400&q=80",
         "badge": "nonveg",
-        "popular": false
+        "popular": false,
+        "popularTag": "Popular"
       },
       {
         "name": "Mutton Chukka",
@@ -432,7 +450,8 @@
         "desc": "South Indian dry mutton with coconut and spicy masala",
         "img": "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=400&q=80",
         "badge": "nonveg",
-        "popular": false
+        "popular": false,
+        "popularTag": "Popular"
       },
       {
         "name": "Fish Pakoda",
@@ -440,7 +459,8 @@
         "desc": "Golden battered fish pieces with aromatic spices",
         "img": "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=400&q=80",
         "badge": "nonveg",
-        "popular": false
+        "popular": false,
+        "popularTag": "Popular"
       },
       {
         "name": "Apollo Fish Fry",
@@ -448,7 +468,8 @@
         "desc": "Crispy fried fish tossed in signature Apollo masala sauce",
         "img": "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=400&q=80",
         "badge": "nonveg",
-        "popular": false
+        "popular": false,
+        "popularTag": "Popular"
       },
       {
         "name": "Garlic Chilli Prawns",
@@ -456,7 +477,8 @@
         "desc": "Juicy prawns tossed in bold garlic and chilli seasoning",
         "img": "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=400&q=80",
         "badge": "nonveg",
-        "popular": false
+        "popular": false,
+        "popularTag": "Popular"
       },
       {
         "name": "Pepper Prawns",
@@ -464,7 +486,8 @@
         "desc": "Prawns dry-fried with cracked black pepper and spices",
         "img": "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=400&q=80",
         "badge": "nonveg",
-        "popular": false
+        "popular": false,
+        "popularTag": "Popular"
       }
     ],
     "sizzlers": [
