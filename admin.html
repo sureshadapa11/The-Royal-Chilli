@@ -347,8 +347,11 @@ input[type=checkbox]{width:16px;height:16px;accent-color:var(--gold);cursor:poin
             <h3><i class="fas fa-film"></i> Video Source</h3>
             <div class="fg cols-1">
               <label>Video File Path or URL</label>
-              <input type="text" id="opening_videoUrl" placeholder="video/mayor welcoming video.mp4">
-              <small style="color:var(--text2);font-size:.72rem;margin-top:4px;display:block"><i class="fas fa-info-circle"></i> Use a path like <code>video/filename.mp4</code> for videos in the project, or a full URL.</small>
+              <div style="display:flex;gap:8px;align-items:center">
+                <input type="text" id="opening_videoUrl" placeholder="video/mayor welcoming video.mp4" style="flex:1">
+                <button class="btn btn-outline" onclick="triggerVideoUpload()" style="white-space:nowrap;flex-shrink:0"><i class="fas fa-upload"></i> Upload from Device</button>
+              </div>
+              <small style="color:var(--text2);font-size:.72rem;margin-top:4px;display:block"><i class="fas fa-info-circle"></i> Upload a video from your device (max ~50 MB), or type a path like <code>video/filename.mp4</code> or a full URL.</small>
             </div>
           </div>
           <div class="edit-card">
@@ -397,6 +400,7 @@ input[type=checkbox]{width:16px;height:16px;accent-color:var(--gold);cursor:poin
 <div class="toast" id="toast"></div>
 
 <input type="file" id="imgUploadInput" accept="image/*" style="display:none">
+<input type="file" id="videoUploadInput" accept="video/*" style="display:none">
 
 <!-- UPLOAD OVERLAY -->
 <div class="upload-overlay" id="uploadOverlay">
@@ -1023,6 +1027,68 @@ function triggerAddGalleryImage() {
     document.getElementById('imgUploadInput').click();
 }
 
+function triggerVideoUpload() {
+    const token = localStorage.getItem('rc_gh_token');
+    if (!token) { showTokenSetup({ isVideo: true }); return; }
+    document.getElementById('videoUploadInput').value = '';
+    document.getElementById('videoUploadInput').click();
+}
+
+document.getElementById('videoUploadInput').addEventListener('change', async function() {
+    const file = this.files[0];
+    if (!file) return;
+
+    const token = localStorage.getItem('rc_gh_token');
+    const repo = localStorage.getItem('rc_gh_repo') || 'sureshadapa11/The-Royal-Chilli';
+
+    if (file.size > 50 * 1024 * 1024) {
+        alert('Video file is larger than 50 MB. GitHub has a 50 MB file limit. Please compress the video first.');
+        return;
+    }
+
+    showUploadOverlay(
+        '<div class="upload-box">' +
+        '<div class="upload-spinner"><i class="fas fa-circle-notch"></i></div>' +
+        '<h3>Uploading Video...</h3>' +
+        '<p>' + esc(file.name) + '<br><span style="color:var(--text2);font-size:.75rem">This may take a moment for large videos — please wait</span></p>' +
+        '</div>'
+    );
+
+    try {
+        const base64 = await fileToBase64(file);
+        const safeName = Date.now() + '_' + file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
+        const path = 'video/' + safeName;
+        const url = 'https://api.github.com/repos/' + repo + '/contents/' + path;
+        const putRes = await fetch(url, {
+            method: 'PUT',
+            headers: {
+                'Authorization': 'Bearer ' + token,
+                'Accept': 'application/vnd.github.v3+json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ message: 'Upload video via admin portal', content: base64 })
+        });
+        if (!putRes.ok) {
+            const errData = await putRes.json().catch(() => ({}));
+            throw new Error(errData.message || ('GitHub API error ' + putRes.status));
+        }
+        closeUploadOverlay();
+        const input = document.getElementById('opening_videoUrl');
+        if (input) { input.value = path; input.dispatchEvent(new Event('input')); }
+        showToast('Video uploaded! Click Save Changes then Publish to make it live.');
+    } catch(err) {
+        showUploadOverlay(
+            '<div class="upload-err-box">' +
+            '<h3><i class="fas fa-exclamation-triangle"></i> Upload Failed</h3>' +
+            '<p>' + esc(err.message) + '</p>' +
+            '<div style="display:flex;gap:8px;flex-direction:column">' +
+            '<small style="color:var(--text2)">Make sure your token has <b>Contents: Read &amp; Write</b> permission. Videos over 50 MB cannot be uploaded via GitHub API.</small>' +
+            '<button class="btn btn-outline" style="margin-top:8px" onclick="closeUploadOverlay()">Close</button>' +
+            '</div></div>'
+        );
+    }
+});
+
 function showTokenSetup(target) {
     _pendingUploadTarget = target;
     showUploadOverlay(
@@ -1047,10 +1113,16 @@ function saveTokenAndUpload() {
     localStorage.setItem('rc_gh_token', tok);
     localStorage.setItem('rc_gh_repo', 'sureshadapa11/The-Royal-Chilli');
     closeUploadOverlay();
-    _uploadTarget = _pendingUploadTarget;
+    const pending = _pendingUploadTarget;
     _pendingUploadTarget = null;
-    document.getElementById('imgUploadInput').value = '';
-    document.getElementById('imgUploadInput').click();
+    if (pending && pending.isVideo) {
+        document.getElementById('videoUploadInput').value = '';
+        document.getElementById('videoUploadInput').click();
+    } else {
+        _uploadTarget = pending;
+        document.getElementById('imgUploadInput').value = '';
+        document.getElementById('imgUploadInput').click();
+    }
 }
 
 document.getElementById('imgUploadInput').addEventListener('change', async function() {
