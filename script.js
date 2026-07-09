@@ -250,6 +250,11 @@ function toggleGallery() {
 // ===== WHATSAPP ORDERING SYSTEM =====
 const WA_NUMBER = '442087973044';
 let cart = [];
+try { cart = JSON.parse(sessionStorage.getItem('rc_home_cart') || '[]'); } catch(e) { cart = []; }
+
+function persistHomeCart() {
+    sessionStorage.setItem('rc_home_cart', JSON.stringify(cart));
+}
 
 // Inject steppers on all dish cards
 document.querySelectorAll('.dish-card').forEach(card => {
@@ -277,6 +282,10 @@ document.querySelectorAll('.dish-card').forEach(card => {
     if (badge) row.appendChild(badge);
     row.appendChild(stepper);
 });
+
+// Restore cart UI after steppers are injected
+updateCartUI();
+resyncAllSteppers();
 
 function stepInc(btn) {
     const stepper = btn.closest('.card-stepper');
@@ -321,6 +330,7 @@ function syncStepper(stepper) {
 }
 
 function updateCartUI() {
+    persistHomeCart();
     const total = cart.reduce((s, i) => s + i.qty, 0);
     const floatBtn = document.getElementById('floatCartBtn');
     const badge = document.getElementById('cartBadge');
@@ -478,6 +488,7 @@ function goToCheckout(type) {
     sessionStorage.setItem('rc_order_type', type);
     sessionStorage.setItem('rc_allergy', JSON.stringify({ hasAllergy, text: allergyInput }));
     sessionStorage.removeItem('rc_order_scheduled');
+    sessionStorage.removeItem('rc_home_cart');
 
     window.location.href = 'checkout.html';
 }

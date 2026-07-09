@@ -381,6 +381,11 @@ const CAT_META = {
 
 const MOBILE_SHOW = 4; // items shown before Load More on mobile
 let cart = {};         // { "catKey|itemIndex": { name, price, priceNum, img, qty } }
+try { cart = JSON.parse(sessionStorage.getItem('rc_menu_cart') || '{}'); } catch(e) { cart = {}; }
+
+function persistMenuCart() {
+    sessionStorage.setItem('rc_menu_cart', JSON.stringify(cart));
+}
 let menuData = {};
 let activeCat = '';
 
@@ -452,6 +457,14 @@ function renderMenu() {
     sidebar.innerHTML = sidebarHTML;
     mobCats.innerHTML = mobHTML;
     catSections.innerHTML = sectionsHTML;
+
+    // Restore cart item controls for any previously selected items
+    Object.keys(cart).forEach(cartKey => {
+        const parts = cartKey.split('|');
+        const catKey = parts[0], idx = parseInt(parts[1]);
+        if (menuData[catKey] && menuData[catKey][idx]) refreshItemCtrl(cartKey, catKey, idx);
+    });
+    updateCartUI();
 }
 
 function buildSection(key, meta, items, isMobile) {
@@ -608,6 +621,7 @@ function saveItemNote(cartKey, val) {
 }
 
 function updateCartUI() {
+    persistMenuCart();
     const count = cartCount();
     const total = cartTotal();
 
@@ -684,6 +698,7 @@ function goCheckout() {
     sessionStorage.setItem('rc_allergy', allergyChoice === 'yes'
         ? (document.getElementById('allergyText').value.trim() || 'Yes (no details given)')
         : 'None');
+    sessionStorage.removeItem('rc_menu_cart');
     window.location.href = 'checkout.html';
 }
 
