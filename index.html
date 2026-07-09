@@ -635,26 +635,33 @@
     <!-- Cart Drawer -->
     <div class="cart-drawer" id="cartDrawer">
         <div class="cart-header">
-            <span><i class="fab fa-whatsapp"></i> Your Order</span>
+            <span><i class="fas fa-shopping-bag"></i> Your Order</span>
             <button class="cart-close" onclick="closeCart()"><i class="fas fa-times"></i></button>
         </div>
         <div class="cart-items" id="cartItems"></div>
         <div class="cart-footer" id="cartFooter" style="display:none">
             <div class="cart-total" id="cartTotal"></div>
             <div class="cart-allergy-wrap">
-                <p class="cart-allergy-question">Any allergies or dietary requirements?</p>
+                <p class="cart-allergy-question"><i class="fas fa-exclamation-triangle" style="color:var(--gold)"></i> Any allergies?</p>
                 <div class="cart-allergy-btns">
                     <button class="allergy-btn" id="allergyNo" onclick="selectAllergy('no')">No</button>
                     <button class="allergy-btn" id="allergyYes" onclick="selectAllergy('yes')">Yes</button>
                 </div>
                 <div id="allergyNoteWrap" style="display:none">
-                    <input class="cart-note-input" id="allergyInput" type="text" placeholder="e.g. nut allergy, gluten free, dairy intolerant…">
+                    <textarea class="cart-note-input" id="allergyInput" rows="2" placeholder="e.g. nut allergy, gluten free, dairy intolerant…"></textarea>
                 </div>
             </div>
-            <p class="cart-note">We'll confirm availability &amp; total price via WhatsApp.</p>
-            <button class="cart-send-btn" id="cartSendBtn" onclick="sendWhatsAppOrder()" style="display:none">
-                <i class="fab fa-whatsapp"></i> Send Order via WhatsApp
-            </button>
+            <div id="orderTypeBtns" style="display:none">
+                <p class="cart-allergy-question" style="margin-top:0.8rem">How would you like your order?</p>
+                <div style="display:flex;gap:0.6rem;margin-top:0.4rem">
+                    <button class="cart-ot-btn" style="background:var(--red)" onclick="goToCheckout('delivery')">
+                        <i class="fas fa-motorcycle"></i> Delivery
+                    </button>
+                    <button class="cart-ot-btn" style="background:#2d7a4f" onclick="goToCheckout('collection')">
+                        <i class="fas fa-store"></i> Collection
+                    </button>
+                </div>
+            </div>
         </div>
         <div class="cart-empty" id="cartEmpty">
             <i class="fas fa-shopping-bag"></i>

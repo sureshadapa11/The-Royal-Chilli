@@ -287,7 +287,7 @@ function stepInc(btn) {
     if (existing) {
         existing.qty++;
     } else {
-        cart.push({ name, price, qty: 1 });
+        cart.push({ name, price, qty: 1, note: '' });
     }
     syncStepper(stepper);
     updateCartUI();
@@ -369,13 +369,20 @@ function renderCartDrawer() {
                 <button class="cart-remove" onclick="cartRemove(${idx})"><i class="fas fa-times"></i></button>
             </div>
         </div>
+        <textarea class="item-cooking-note" data-idx="${idx}" rows="2"
+            placeholder="Cooking notes for ${item.name} (optional)…"
+            oninput="saveCartNote(${idx},this.value)">${item.note || ''}</textarea>
     `).join('');
 
-    // Reset send button state if it was shown — keep hidden until allergy answered
+    // Show order-type buttons only if allergy already answered
     const allergyYes = document.getElementById('allergyYes');
     const allergyNo = document.getElementById('allergyNo');
     const hasAnswer = allergyYes.classList.contains('selected') || allergyNo.classList.contains('selected');
-    cartSendBtn.style.display = hasAnswer ? 'flex' : 'none';
+    document.getElementById('orderTypeBtns').style.display = hasAnswer ? 'block' : 'none';
+}
+
+function saveCartNote(idx, val) {
+    if (cart[idx]) cart[idx].note = val;
 }
 
 function cartInc(idx) {
@@ -438,27 +445,41 @@ function selectAllergy(choice) {
         allergyNoteWrap.style.display = 'none';
         document.getElementById('allergyInput').value = '';
     }
-    cartSendBtn.style.display = 'flex';
+    document.getElementById('orderTypeBtns').style.display = 'block';
 }
 
-// Send WhatsApp order
-function sendWhatsAppOrder() {
+// Proceed to checkout with chosen order type
+function goToCheckout(type) {
     if (cart.length === 0) return;
-    const allergyInput = document.getElementById('allergyInput').value.trim();
-    const allergyYes = document.getElementById('allergyYes');
-    const hasAllergy = allergyYes.classList.contains('selected') && allergyInput;
 
-    let msg = '🌶️ *Order from The Royal Chilli*\n\n';
-    msg += '*Items:*\n';
-    cart.forEach(item => {
-        msg += `• ${item.name} x${item.qty} — £${(item.price * item.qty).toFixed(2)}\n`;
+    // Snapshot any cooking notes from textareas
+    document.querySelectorAll('.item-cooking-note').forEach(ta => {
+        const idx = parseInt(ta.dataset.idx);
+        if (cart[idx]) cart[idx].note = ta.value;
     });
-    const total = cart.reduce((s, i) => s + i.price * i.qty, 0);
-    msg += `\n*Total: £${total.toFixed(2)}*`;
-    if (hasAllergy) msg += `\n\n⚠️ *Dietary requirements:* ${allergyInput}`;
-    msg += '\n\nPlease confirm my order. Thank you! 🙏';
 
-    window.open('https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent(msg), '_blank');
+    // Convert array to object format expected by checkout.html
+    const rcCart = {};
+    cart.forEach((item, idx) => {
+        rcCart['item_' + idx] = {
+            name: item.name,
+            priceNum: item.price,
+            qty: item.qty,
+            note: item.note || '',
+            img: ''
+        };
+    });
+
+    const allergyInput = document.getElementById('allergyInput')?.value.trim() || '';
+    const allergyYes = document.getElementById('allergyYes');
+    const hasAllergy = allergyYes?.classList.contains('selected');
+
+    sessionStorage.setItem('rc_cart', JSON.stringify(rcCart));
+    sessionStorage.setItem('rc_order_type', type);
+    sessionStorage.setItem('rc_allergy', JSON.stringify({ hasAllergy, text: allergyInput }));
+    sessionStorage.removeItem('rc_order_scheduled');
+
+    window.location.href = 'checkout.html';
 }
 
 // ===== RESERVATION FORM =====
