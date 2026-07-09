@@ -745,19 +745,21 @@ input, select, textarea, button { font-family: inherit; }
 .back-top {
     position: fixed; bottom: 2rem; right: 2rem; z-index: 999;
     width: 46px; height: 46px; border-radius: 12px;
-    background: var(--red);
-    border: none;
+    background: rgba(255,255,255,0.12);
+    backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(255,255,255,0.22);
     color: white; display: flex; align-items: center; justify-content: center;
     cursor: pointer; transition: var(--transition);
     opacity: 0; visibility: hidden; transform: translateY(10px);
-    box-shadow: 0 8px 24px rgba(192,57,43,0.35);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.35);
     font-size: 1rem;
 }
 .back-top.visible { opacity: 1; visibility: visible; transform: translateY(0); }
 .back-top:hover {
-    background: var(--red-dark);
+    background: rgba(255,255,255,0.22);
+    border-color: rgba(255,255,255,0.38);
     transform: translateY(-3px);
-    box-shadow: 0 14px 36px rgba(192,57,43,0.45);
+    box-shadow: 0 14px 40px rgba(0,0,0,0.45);
 }
 
 /* ===== FLOATING CONTACT (WA + CALL) — right side ===== */
@@ -801,7 +803,7 @@ input, select, textarea, button { font-family: inherit; }
 .card-stepper {
     display: inline-flex; align-items: center;
     background: #111; border-radius: 50px;
-    border: 1.5px solid rgba(255,255,255,0.1);
+    border: 1.5px solid rgba(255,255,255,0.08);
     overflow: hidden; min-width: 100px;
 }
 .stepper-btn {
@@ -809,10 +811,10 @@ input, select, textarea, button { font-family: inherit; }
     font-size: 1.15rem; font-weight: 700; cursor: pointer;
     transition: var(--transition); display: flex; align-items: center; justify-content: center;
 }
-.stepper-btn.stepper-dec { color: #c8a060; }
+.stepper-btn.stepper-dec { color: var(--text2); }
 .stepper-btn.stepper-dec:hover { color: white; }
-.stepper-btn.stepper-inc { color: #e8b422; }
-.stepper-btn.stepper-inc:hover { color: #f5cc44; }
+.stepper-btn.stepper-inc { color: var(--gold); }
+.stepper-btn.stepper-inc:hover { color: var(--gold-light); }
 .stepper-dec { display: none; }
 .stepper-dec.visible { display: flex; }
 .stepper-label {
@@ -841,7 +843,7 @@ input, select, textarea, button { font-family: inherit; }
 .cart-drawer.open { transform: translateX(0); }
 .cart-header {
     display: flex; align-items: center; justify-content: space-between;
-    padding: 1.2rem 1.5rem; background: var(--red); color: white;
+    padding: 1.2rem 1.5rem; background: #25d366; color: white;
     font-size: 1.1rem; font-weight: 700;
 }
 .cart-header i { margin-right: 0.5rem; font-size: 1.3rem; }
@@ -979,7 +981,7 @@ input, select, textarea, button { font-family: inherit; }
 }
 .ot-modal-overlay.open { opacity: 1; visibility: visible; }
 .ot-modal {
-    background: #1c1008; border: 1px solid rgba(255,200,100,0.15);
+    background: var(--bg2); border: 1px solid var(--border);
     border-radius: 20px; padding: 2rem 2rem 2.5rem;
     max-width: 420px; width: 100%; text-align: center; position: relative;
     transform: translateY(24px) scale(0.97); transition: transform 0.25s ease;
@@ -995,18 +997,18 @@ input, select, textarea, button { font-family: inherit; }
 }
 .ot-close:hover { background: var(--red); color: white; }
 .ot-icon { font-size: 2.5rem; color: var(--gold); margin-bottom: 0.75rem; }
-.ot-title { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; margin-bottom: 0.4rem; color: #f0ebe3; }
-.ot-sub { font-size: 0.83rem; color: #c8a060; margin-bottom: 1.5rem; }
+.ot-title { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; margin-bottom: 0.4rem; }
+.ot-sub { font-size: 0.83rem; color: var(--text2); margin-bottom: 1.5rem; }
 .ot-btns { display: flex; gap: 1rem; }
 .ot-btn {
-    flex: 1; padding: 1.2rem 0.75rem; border: 2px solid rgba(255,200,100,0.15);
-    border-radius: 14px; background: rgba(255,255,255,0.06); color: #f0ebe3;
+    flex: 1; padding: 1.2rem 0.75rem; border: 2px solid var(--border);
+    border-radius: 14px; background: var(--card); color: var(--text);
     cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 0.4rem;
     transition: var(--transition);
 }
 .ot-btn i { font-size: 1.6rem; }
 .ot-btn span { font-size: 1rem; font-weight: 700; }
-.ot-btn small { font-size: 0.72rem; color: #c8a060; }
+.ot-btn small { font-size: 0.72rem; color: var(--text2); }
 .ot-delivery:hover, .ot-delivery.active { border-color: var(--red); background: rgba(192,57,43,0.12); color: white; }
 .ot-delivery:hover i, .ot-delivery.active i { color: var(--red); }
 .ot-collection:hover, .ot-collection.active { border-color: #2d9c5e; background: rgba(45,156,94,0.12); color: white; }
@@ -1021,7 +1023,7 @@ input, select, textarea, button { font-family: inherit; }
 }
 .pdf-modal-overlay.open { opacity: 1; visibility: visible; }
 .pdf-modal {
-    background: #1c1008; border: 1px solid rgba(255,200,100,0.15);
+    background: var(--bg2); border: 1px solid var(--border);
     border-radius: 16px; width: 100%; max-width: 860px;
     height: 90vh; display: flex; flex-direction: column;
     transform: translateY(30px); transition: transform 0.3s ease;
