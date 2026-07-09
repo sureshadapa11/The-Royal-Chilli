@@ -361,9 +361,9 @@
                 <h2 class="section-title">A Royal Feast <span class="text-gold">Awaits You</span></h2>
                 <p class="section-sub">From delicate starters to hearty mains — a celebration of India's diverse culinary heritage.</p>
                 <div class="menu-card-wrap reveal">
-                    <a href="Royal_Chilli_Dinner_Menu_Print_Ready2.pdf" target="_blank" rel="noopener" class="btn-download-menu">
+                    <button class="btn-download-menu" onclick="openMenuPdf()">
                         <i class="fas fa-book-open"></i> Explore Complete Menu
-                    </a>
+                    </button>
                 </div>
             </div>
             <div class="menu-layout reveal">
@@ -676,6 +676,22 @@
             <h3>Booking Sent!</h3>
             <p>WhatsApp opened with your booking details. We'll confirm your reservation shortly!</p>
             <button class="modal-close" id="modalClose">Close</button>
+        </div>
+    </div>
+
+    <!-- PDF Menu Modal -->
+    <div class="pdf-modal-overlay" id="pdfModalOverlay" onclick="closePdfModal(event)">
+        <div class="pdf-modal">
+            <div class="pdf-modal-header">
+                <span><i class="fas fa-book-open" style="color:var(--gold);margin-right:0.5rem"></i> Our Menu</span>
+                <div style="display:flex;gap:0.75rem;align-items:center">
+                    <a href="Royal_Chilli_Dinner_Menu_Print_Ready2.pdf" download class="pdf-modal-download" title="Download PDF">
+                        <i class="fas fa-download"></i> Download
+                    </a>
+                    <button class="pdf-modal-close" onclick="closePdfModal()"><i class="fas fa-times"></i></button>
+                </div>
+            </div>
+            <iframe id="pdfFrame" class="pdf-modal-frame" src="" title="Royal Chilli Menu"></iframe>
         </div>
     </div>
 

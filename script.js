@@ -479,6 +479,23 @@ function goToCheckout(type) {
     window.location.href = 'checkout.html';
 }
 
+// ===== PDF MENU MODAL =====
+function openMenuPdf() {
+    const overlay = document.getElementById('pdfModalOverlay');
+    const frame = document.getElementById('pdfFrame');
+    if (!frame.src || frame.src === window.location.href) {
+        frame.src = 'Royal_Chilli_Dinner_Menu_Print_Ready2.pdf';
+    }
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+}
+
+function closePdfModal(e) {
+    if (e && e.target !== document.getElementById('pdfModalOverlay')) return;
+    document.getElementById('pdfModalOverlay').classList.remove('open');
+    document.body.style.overflow = '';
+}
+
 // ===== RESERVATION FORM =====
 document.getElementById('resForm')?.addEventListener('submit', async e => {
     e.preventDefault();

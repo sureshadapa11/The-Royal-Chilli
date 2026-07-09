@@ -972,6 +972,46 @@ input, select, textarea, button { font-family: inherit; }
 }
 .modal-close:hover { background: var(--red-dark); }
 
+/* ===== PDF MENU MODAL ===== */
+.pdf-modal-overlay {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.85);
+    z-index: 9999; display: flex; align-items: center; justify-content: center;
+    opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease;
+    backdrop-filter: blur(8px); padding: 1rem;
+}
+.pdf-modal-overlay.open { opacity: 1; visibility: visible; }
+.pdf-modal {
+    background: var(--bg2); border: 1px solid var(--border);
+    border-radius: 16px; width: 100%; max-width: 860px;
+    height: 90vh; display: flex; flex-direction: column;
+    transform: translateY(30px); transition: transform 0.3s ease;
+    overflow: hidden; box-shadow: 0 24px 80px rgba(0,0,0,0.6);
+}
+.pdf-modal-overlay.open .pdf-modal { transform: translateY(0); }
+.pdf-modal-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0.9rem 1.25rem; border-bottom: 1px solid var(--border);
+    font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 600;
+    color: var(--text); flex-shrink: 0;
+}
+.pdf-modal-close {
+    width: 36px; height: 36px; border-radius: 50%; border: none;
+    background: rgba(255,255,255,0.08); color: var(--text2);
+    cursor: pointer; font-size: 1rem; display: flex; align-items: center; justify-content: center;
+    transition: var(--transition);
+}
+.pdf-modal-close:hover { background: var(--red); color: white; }
+.pdf-modal-download {
+    padding: 0.35rem 0.85rem; border-radius: 8px; font-size: 0.8rem; font-weight: 600;
+    background: rgba(201,163,57,0.15); color: var(--gold);
+    border: 1px solid rgba(201,163,57,0.3); text-decoration: none;
+    transition: var(--transition); display: flex; align-items: center; gap: 0.35rem;
+}
+.pdf-modal-download:hover { background: var(--gold); color: #000; }
+.pdf-modal-frame {
+    flex: 1; width: 100%; border: none; background: #525659;
+}
+
 /* ===== RESPONSIVE ===== */
 @media (max-width: 1100px) {
     .about-grid { gap: 3rem; }
