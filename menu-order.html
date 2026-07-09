@@ -149,25 +149,26 @@
         }
         .mob-cat-pill.active{background:var(--red);border-color:var(--red);color:#fff;font-weight:600}
 
-        /* FLOATING CART BAR */
-        .cart-bar{
-            position:fixed;bottom:0;left:0;right:0;z-index:800;
+        /* FLOATING CART ICON */
+        .cart-fab{
+            position:fixed;bottom:1.8rem;right:1.8rem;z-index:800;
+            width:58px;height:58px;border-radius:50%;
             background:linear-gradient(135deg,var(--red-dark),var(--red));
-            padding:1rem 1.5rem;
-            display:none;align-items:center;justify-content:space-between;
-            box-shadow:0 -4px 30px rgba(0,0,0,0.5);
-            cursor:pointer;
+            display:none;align-items:center;justify-content:center;
+            box-shadow:0 6px 24px rgba(192,57,43,0.55);
+            cursor:pointer;border:none;transition:var(--transition);
         }
-        .cart-bar.visible{display:flex}
-        .cart-bar-left{display:flex;align-items:center;gap:10px}
-        .cart-count-bubble{
-            width:28px;height:28px;background:rgba(255,255,255,0.2);
-            border-radius:8px;display:flex;align-items:center;justify-content:center;
-            font-size:0.85rem;font-weight:700;
+        .cart-fab.visible{display:flex}
+        .cart-fab:hover{transform:scale(1.08);box-shadow:0 10px 30px rgba(192,57,43,0.7)}
+        .cart-fab i{font-size:1.4rem;color:#fff}
+        .cart-fab-badge{
+            position:absolute;top:-4px;right:-4px;
+            min-width:22px;height:22px;border-radius:11px;padding:0 5px;
+            background:var(--gold);color:#1a0a00;
+            font-size:0.72rem;font-weight:800;
+            display:flex;align-items:center;justify-content:center;
+            border:2px solid var(--bg);
         }
-        .cart-bar-items{font-size:0.82rem;color:rgba(255,255,255,0.85)}
-        .cart-bar-total{font-size:1.1rem;font-weight:700}
-        .cart-bar-cta{font-size:0.85rem;font-weight:600;display:flex;align-items:center;gap:6px}
 
         /* CART PANEL */
         .cart-overlay{
@@ -204,7 +205,8 @@
         .cart-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;gap:1rem;color:var(--text3)}
         .cart-empty i{font-size:2.5rem;color:var(--border)}
         .cart-empty p{font-size:0.88rem}
-        .cart-item{display:flex;align-items:center;gap:12px;padding:0.8rem;background:var(--card);border-radius:10px;border:1px solid var(--border)}
+        .cart-item{display:flex;flex-direction:column;gap:8px;padding:0.8rem;background:var(--card);border-radius:10px;border:1px solid var(--border)}
+        .cart-item-top{display:flex;align-items:center;gap:12px}
         .cart-item-img{width:52px;height:52px;object-fit:cover;border-radius:8px;background:var(--bg3);flex-shrink:0}
         .cart-item-info{flex:1;min-width:0}
         .cart-item-name{font-size:0.85rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -213,12 +215,48 @@
         .cqty-btn{width:26px;height:26px;border-radius:6px;background:var(--card2);color:var(--text);font-size:0.9rem;display:flex;align-items:center;justify-content:center;transition:var(--transition)}
         .cqty-btn:hover{background:var(--red);color:#fff}
         .cqty-num{min-width:20px;text-align:center;font-size:0.85rem;font-weight:600}
+        /* Per-item notes */
+        .item-note{
+            width:100%;padding:7px 10px;
+            background:var(--bg2);border:1px solid var(--border);
+            border-radius:8px;color:var(--text);font-size:0.76rem;
+            font-family:'Poppins',sans-serif;resize:none;outline:none;
+            transition:var(--transition);min-height:48px;
+        }
+        .item-note::placeholder{color:var(--text3)}
+        .item-note:focus{border-color:rgba(212,160,23,0.4)}
 
         /* CART FOOTER */
-        .cart-footer{padding:1.2rem 1.5rem;border-top:1px solid var(--border)}
-        .cart-subtotal{display:flex;justify-content:space-between;align-items:center;margin-bottom:0.8rem}
+        .cart-footer{padding:1rem 1.5rem;border-top:1px solid var(--border);display:flex;flex-direction:column;gap:0.8rem}
+        .cart-subtotal{display:flex;justify-content:space-between;align-items:center}
         .cart-subtotal span{font-size:0.88rem;color:var(--text2)}
         .cart-subtotal strong{font-size:1.1rem;color:var(--gold)}
+
+        /* Allergy section */
+        .allergy-box{
+            background:var(--bg3);border:1px solid var(--border);
+            border-radius:10px;padding:0.85rem 1rem;
+        }
+        .allergy-question{font-size:0.82rem;font-weight:600;margin-bottom:0.6rem;display:flex;align-items:center;gap:6px}
+        .allergy-question i{color:var(--gold)}
+        .allergy-toggle{display:flex;gap:6px}
+        .allergy-btn{
+            flex:1;padding:6px;border-radius:7px;border:1px solid var(--border);
+            background:var(--card2);color:var(--text2);font-size:0.8rem;font-weight:500;
+            cursor:pointer;transition:var(--transition);
+        }
+        .allergy-btn.yes.active{background:rgba(192,57,43,0.2);border-color:var(--red);color:var(--text)}
+        .allergy-btn.no.active{background:rgba(45,122,79,0.2);border-color:#2d7a4f;color:var(--text)}
+        .allergy-text{
+            margin-top:0.6rem;width:100%;padding:8px 10px;
+            background:var(--bg2);border:1px solid rgba(192,57,43,0.35);
+            border-radius:8px;color:var(--text);font-size:0.8rem;
+            font-family:'Poppins',sans-serif;resize:none;outline:none;min-height:70px;
+            transition:var(--transition);
+        }
+        .allergy-text:focus{border-color:var(--red)}
+        .allergy-text::placeholder{color:var(--text3)}
+
         .btn-checkout{
             width:100%;padding:1rem;background:var(--red);color:#fff;
             border-radius:12px;font-size:1rem;font-weight:700;
@@ -231,7 +269,7 @@
         @media(max-width:768px){
             .sidebar{display:none}
             .mob-cats{display:flex}
-            .menu-main{padding:1rem 0.8rem 140px}
+            .menu-main{padding:1rem 0.8rem 5rem}
             .items-grid{grid-template-columns:1fr 1fr;gap:0.75rem}
             .item-img{height:120px}
             .item-body{padding:0.7rem}
@@ -278,15 +316,11 @@
     </main>
 </div>
 
-<!-- FLOATING CART BAR -->
-<div class="cart-bar" id="cartBar" onclick="openCart()">
-    <div class="cart-bar-left">
-        <div class="cart-count-bubble" id="cartBarCount">0</div>
-        <span class="cart-bar-items" id="cartBarItems">items in cart</span>
-    </div>
-    <span class="cart-bar-total" id="cartBarTotal">£0.00</span>
-    <span class="cart-bar-cta">View Cart <i class="fas fa-chevron-up"></i></span>
-</div>
+<!-- FLOATING CART ICON -->
+<button class="cart-fab" id="cartFab" onclick="openCart()" aria-label="View your order">
+    <i class="fas fa-shopping-bag"></i>
+    <span class="cart-fab-badge" id="cartFabBadge">0</span>
+</button>
 
 <!-- CART PANEL -->
 <div class="cart-overlay" id="cartOverlay" onclick="handleOverlayClick(event)">
@@ -301,6 +335,15 @@
             <div class="cart-subtotal">
                 <span>Subtotal</span>
                 <strong id="cartTotal">£0.00</strong>
+            </div>
+            <!-- Allergy question -->
+            <div class="allergy-box">
+                <div class="allergy-question"><i class="fas fa-exclamation-triangle"></i> Any allergies?</div>
+                <div class="allergy-toggle">
+                    <button class="allergy-btn yes" id="allergyYes" onclick="setAllergy('yes')">Yes</button>
+                    <button class="allergy-btn no"  id="allergyNo"  onclick="setAllergy('no')">No</button>
+                </div>
+                <textarea class="allergy-text" id="allergyText" placeholder="Please describe your allergies (e.g. nuts, dairy, gluten…)" style="display:none"></textarea>
             </div>
             <button class="btn-checkout" id="btnCheckout" onclick="goCheckout()" disabled>
                 <i class="fas fa-lock"></i> Proceed to Checkout
@@ -539,27 +582,57 @@ function cartCount() {
 }
 function fmt(n) { return '£' + n.toFixed(2); }
 
+// ===== ALLERGY =====
+let allergyChoice = null; // 'yes' | 'no' | null
+
+function setAllergy(val) {
+    allergyChoice = val;
+    document.getElementById('allergyYes').classList.toggle('active', val === 'yes');
+    document.getElementById('allergyNo').classList.toggle('active',  val === 'no');
+    const txt = document.getElementById('allergyText');
+    txt.style.display = val === 'yes' ? 'block' : 'none';
+    if (val === 'no') txt.value = '';
+    updateCheckoutBtn();
+}
+
+function updateCheckoutBtn() {
+    const count = cartCount();
+    // Checkout enabled only if cart has items AND allergy answered
+    const allergyDone = allergyChoice === 'no' || (allergyChoice === 'yes');
+    document.getElementById('btnCheckout').disabled = count === 0 || !allergyDone;
+}
+
+// Save per-item note without re-rendering (preserves focus)
+function saveItemNote(cartKey, val) {
+    if (cart[cartKey]) cart[cartKey].note = val;
+}
+
 function updateCartUI() {
     const count = cartCount();
     const total = cartTotal();
 
-    // Cart bar
-    const bar = document.getElementById('cartBar');
+    // FAB icon
+    const fab = document.getElementById('cartFab');
     if (count > 0) {
-        bar.classList.add('visible');
-        document.getElementById('cartBarCount').textContent = count;
-        document.getElementById('cartBarItems').textContent = count === 1 ? 'item in cart' : 'items in cart';
-        document.getElementById('cartBarTotal').textContent = fmt(total);
+        fab.classList.add('visible');
+        document.getElementById('cartFabBadge').textContent = count;
     } else {
-        bar.classList.remove('visible');
+        fab.classList.remove('visible');
     }
 
     // Cart total
     document.getElementById('cartTotal').textContent = fmt(total);
-    document.getElementById('btnCheckout').disabled = count === 0;
+    updateCheckoutBtn();
 
-    // Cart items panel
+    // Cart items panel — preserve existing notes before re-render
     const itemsEl = document.getElementById('cartItems');
+
+    // Snapshot existing note values before wiping innerHTML
+    itemsEl.querySelectorAll('.item-note').forEach(el => {
+        const key = el.dataset.key;
+        if (key && cart[key]) cart[key].note = el.value;
+    });
+
     const keys = Object.keys(cart);
     if (!keys.length) {
         itemsEl.innerHTML = '<div class="cart-empty"><i class="fas fa-shopping-bag"></i><p>Your cart is empty</p></div>';
@@ -567,19 +640,21 @@ function updateCartUI() {
     }
     itemsEl.innerHTML = keys.map(cartKey => {
         const item = cart[cartKey];
-        const parts = cartKey.split('|');
-        const catKey = parts[0], idx = parts[1];
+        const note = item.note || '';
         return `<div class="cart-item">
-            <img class="cart-item-img" src="${item.img}" alt="${item.name}" onerror="this.style.display='none'">
-            <div class="cart-item-info">
-                <div class="cart-item-name">${item.name}</div>
-                <div class="cart-item-price">${fmt(item.priceNum * item.qty)}</div>
+            <div class="cart-item-top">
+                <img class="cart-item-img" src="${item.img}" alt="${item.name}" onerror="this.style.display='none'">
+                <div class="cart-item-info">
+                    <div class="cart-item-name">${item.name}</div>
+                    <div class="cart-item-price">${fmt(item.priceNum * item.qty)}</div>
+                </div>
+                <div class="cart-item-qty">
+                    <button class="cqty-btn" onclick="changeQtyFromCart('${cartKey}',-1)"><i class="fas fa-minus"></i></button>
+                    <span class="cqty-num">${item.qty}</span>
+                    <button class="cqty-btn" onclick="changeQtyFromCart('${cartKey}',1)"><i class="fas fa-plus"></i></button>
+                </div>
             </div>
-            <div class="cart-item-qty">
-                <button class="cqty-btn" onclick="changeQtyFromCart('${cartKey}',-1)"><i class="fas fa-minus"></i></button>
-                <span class="cqty-num">${item.qty}</span>
-                <button class="cqty-btn" onclick="changeQtyFromCart('${cartKey}',1)"><i class="fas fa-plus"></i></button>
-            </div>
+            <textarea class="item-note" data-key="${cartKey}" placeholder="Cooking suggestions for this dish (optional)…" oninput="saveItemNote('${cartKey}',this.value)">${note}</textarea>
         </div>`;
     }).join('');
 }
@@ -600,8 +675,15 @@ function handleOverlayClick(e) {
 // ===== CHECKOUT =====
 function goCheckout() {
     if (!cartCount()) return;
-    // Save cart to sessionStorage for checkout page
+    // Snapshot any final note values from textareas
+    document.querySelectorAll('.item-note').forEach(el => {
+        const key = el.dataset.key;
+        if (key && cart[key]) cart[key].note = el.value;
+    });
     sessionStorage.setItem('rc_cart', JSON.stringify(cart));
+    sessionStorage.setItem('rc_allergy', allergyChoice === 'yes'
+        ? (document.getElementById('allergyText').value.trim() || 'Yes (no details given)')
+        : 'None');
     window.location.href = 'checkout.html';
 }
 
