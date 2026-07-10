@@ -247,8 +247,6 @@ function toggleGallery() {
         : '<i class="fas fa-chevron-up"></i> Show Less';
 }
 
-// ===== WHATSAPP ORDERING SYSTEM =====
-const WA_NUMBER = '442087973044';
 let cart = {};
 try { cart = JSON.parse(sessionStorage.getItem('rc_cart') || '{}'); } catch(e) { cart = {}; }
 
@@ -590,7 +588,7 @@ document.getElementById('resForm')?.addEventListener('submit', async e => {
             })
         });
     } catch(err) {
-        console.warn('Reservation save failed, WhatsApp notification sent instead.');
+        console.warn('Reservation save failed.');
     }
 
     btn.disabled = false;
