@@ -1241,20 +1241,86 @@
         if (c.footer) applyFooter(c.footer);
     }
 
+    // ── Supabase live menu fetch ──────────────────────────────────────────
+    var SUPABASE_URL = 'https://mnmebxvxmpmkuokuudao.supabase.co';
+    var SUPABASE_KEY = 'sb_publishable_quwTSUSQLMwVOkcBLjiQZQ_pQ8BbrM3';
+    var CAT_PANEL_MAP = {
+        'Soups': 'soups', 'Appetisers': 'appetisers',
+        'Veg Starters': 'vegstarters', 'Royal Veg': 'royalveg',
+        'Veg Mains': 'vegmains', 'Veg Combos': 'vegcombos',
+        'Non-Veg Starters': 'nonvegstarters', 'Royal Non-Veg': 'royalnonveg',
+        'Non-Veg Mains': 'nonvegmains', 'Non-Veg Combos': 'nonvegcombos',
+        'Biryanis': 'biryanis', 'Royal Combos': 'royalcombos',
+        'Rice & Noodles': 'ricenoodles', 'Breads': 'breads',
+        'Rice & Sides': 'ricesides', 'Desserts': 'desserts'
+    };
+
+    function buildImageLookup(menu) {
+        var map = {};
+        Object.keys(menu).forEach(function(cat) {
+            (menu[cat] || []).forEach(function(item) {
+                if (item.img) map[item.name.toLowerCase()] = item.img;
+            });
+        });
+        return map;
+    }
+
+    var DEFAULT_IMG_VEG = 'https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=400&q=80';
+    var DEFAULT_IMG_NONVEG = 'https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=400&q=80';
+
+    function fetchSupabaseMenu(imgLookup) {
+        var headers = { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY };
+        return Promise.all([
+            fetch(SUPABASE_URL + '/rest/v1/menu_categories?active=eq.1&order=display_order', { headers: headers }),
+            fetch(SUPABASE_URL + '/rest/v1/menu_items?active=eq.1&available_online=neq.false&order=display_order', { headers: headers })
+        ]).then(function(responses) {
+            if (!responses[0].ok || !responses[1].ok) return null;
+            return Promise.all([responses[0].json(), responses[1].json()]);
+        }).then(function(results) {
+            if (!results) return null;
+            var cats = results[0], items = results[1];
+            var menu = {};
+            cats.forEach(function(cat) {
+                var panelId = CAT_PANEL_MAP[cat.name];
+                if (!panelId) return;
+                menu[panelId] = items
+                    .filter(function(i) { return i.category_id === cat.id; })
+                    .map(function(i) {
+                        return {
+                            name: i.name,
+                            price: '£' + Number(i.price).toFixed(2),
+                            desc: i.description || '',
+                            img: imgLookup[i.name.toLowerCase()] || (i.is_veg ? DEFAULT_IMG_VEG : DEFAULT_IMG_NONVEG),
+                            badge: i.is_veg ? 'veg' : 'nonveg',
+                            popular: false
+                        };
+                    });
+            });
+            return menu;
+        }).catch(function() { return null; });
+    }
+
     window.addEventListener('load', function () {
         if (!document.getElementById('heroTag')) return; // only run on main site
         // Try fetching published content.json first; fall back to localStorage/defaults
         fetch('content.json?v=' + Date.now())
             .then(function (r) { return r.ok ? r.json() : null; })
             .then(function (published) {
-                // localStorage draft overrides published (only used in admin preview mode)
-                const draft = localStorage.getItem('rc_admin_preview') === '1'
-                    ? getContent()
-                    : null;
-                applyContent(draft || published || getContent());
+                var draft = localStorage.getItem('rc_admin_preview') === '1' ? getContent() : null;
+                var baseContent = draft || published || getContent();
+                var imgLookup = buildImageLookup(baseContent.menu || DEFAULTS.menu);
+                fetchSupabaseMenu(imgLookup).then(function(supabaseMenu) {
+                    if (supabaseMenu) baseContent.menu = supabaseMenu;
+                    applyContent(baseContent);
+                });
             })
             .catch(function () {
-                applyContent(getContent());
+                var baseContent = getContent();
+                var imgLookup = buildImageLookup(baseContent.menu || DEFAULTS.menu);
+                fetchSupabaseMenu(imgLookup).then(function(supabaseMenu) {
+                    if (supabaseMenu) baseContent.menu = supabaseMenu;
+                    applyContent(baseContent);
+                });
             });
     });
 
