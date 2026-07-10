@@ -160,6 +160,21 @@
         .secure-note{text-align:center;font-size:0.7rem;color:var(--text3);margin-top:8px;display:flex;align-items:center;justify-content:center;gap:5px}
         .secure-note i{color:var(--green)}
 
+        /* PAYMENT METHOD */
+        .pay-method{margin-bottom:1rem}
+        .pay-method-label{font-size:0.72rem;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:8px}
+        .pay-method-btns{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+        .pay-method-btn{
+            padding:0.65rem 0.5rem;border-radius:10px;
+            border:1.5px solid var(--border);background:var(--bg2);
+            color:var(--text2);font-size:0.82rem;font-weight:500;
+            cursor:pointer;transition:var(--transition);
+            display:flex;align-items:center;justify-content:center;gap:7px;
+        }
+        .pay-method-btn:hover{border-color:var(--text2);color:var(--text)}
+        .pay-method-btn.active{border-color:var(--gold);background:rgba(212,160,23,0.1);color:var(--gold);font-weight:600}
+        .pay-method-btn i{font-size:0.9rem}
+
         /* RESPONSIVE */
         @media(max-width:800px){
             .checkout-wrap{grid-template-columns:1fr;padding-top:calc(var(--nav-h) + 55px)}
@@ -325,10 +340,21 @@
                 <div class="tot-row grand"><span>Total</span><span id="totGrand">£0.00</span></div>
             </div>
             <div class="pay-section">
+                <div class="pay-method">
+                    <div class="pay-method-label">How would you like to pay?</div>
+                    <div class="pay-method-btns">
+                        <button class="pay-method-btn active" id="pmCash" onclick="setPayMethod('cash')">
+                            <i class="fas fa-money-bill-wave"></i> <span id="pmCashLabel">Cash on Delivery</span>
+                        </button>
+                        <button class="pay-method-btn" id="pmCard" onclick="setPayMethod('card')">
+                            <i class="fas fa-credit-card"></i> <span id="pmCardLabel">Card on Delivery</span>
+                        </button>
+                    </div>
+                </div>
                 <button class="btn-pay" id="btnPay" onclick="proceedToPayment()">
-                    <i class="fas fa-lock"></i> Pay <span id="payAmount">£0.00</span>
+                    <i class="fas fa-check-circle"></i> Place Order — <span id="payAmount">£0.00</span>
                 </button>
-                <div class="secure-note"><i class="fas fa-shield-alt"></i> Secure payment via SumUp</div>
+                <div class="secure-note"><i class="fas fa-info-circle"></i> Pay on <span id="payNote">delivery</span> — no card needed now</div>
             </div>
         </div>
     </div>
@@ -337,6 +363,7 @@
 
 <script>
 // ===== LOAD ORDER CONTEXT =====
+let paymentMethod = 'cash';
 let orderType = sessionStorage.getItem('rc_order_type') || 'delivery';
 const isScheduled = sessionStorage.getItem('rc_order_scheduled') === 'true';
 const schedDate = sessionStorage.getItem('rc_order_date') || '';
@@ -380,7 +407,22 @@ function setType(type, skipSave) {
     document.body.className = type;
     document.getElementById('tabDelivery').classList.toggle('active', type === 'delivery');
     document.getElementById('tabCollection').classList.toggle('active', type === 'collection');
+    const pn = document.getElementById('payNote');
+    if (pn) pn.textContent = type === 'delivery' ? 'delivery' : 'collection';
+    // Relabel payment method buttons
+    const suffix = type === 'delivery' ? 'on Delivery' : 'at Store';
+    const cashLabel = document.getElementById('pmCashLabel');
+    const cardLabel = document.getElementById('pmCardLabel');
+    if (cashLabel) cashLabel.textContent = 'Cash ' + suffix;
+    if (cardLabel) cardLabel.textContent = 'Card ' + suffix;
     recalcTotals();
+}
+
+// ===== PAYMENT METHOD =====
+function setPayMethod(method) {
+    paymentMethod = method;
+    document.getElementById('pmCash').classList.toggle('active', method === 'cash');
+    document.getElementById('pmCard').classList.toggle('active', method === 'card');
 }
 
 // ===== RENDER SUMMARY =====
@@ -491,8 +533,8 @@ function collectDetails() {
     return d;
 }
 
-// ===== PROCEED TO PAYMENT =====
-function proceedToPayment() {
+// ===== PLACE ORDER → SUPABASE =====
+async function proceedToPayment() {
     if (!validateForm()) {
         document.querySelector('.field.error, input.error')?.scrollIntoView({behavior:'smooth',block:'center'});
         return;
@@ -501,12 +543,77 @@ function proceedToPayment() {
     const sub = cartSubtotal();
     const delivery = orderType === 'delivery' ? DELIVERY_FEE : 0;
     const grand = sub + delivery;
+    const btn = document.getElementById('btnPay');
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Placing Order...';
 
-    sessionStorage.setItem('rc_details', JSON.stringify(details));
-    sessionStorage.setItem('rc_grand_total', grand.toFixed(2));
+    const SB_URL = 'https://mnmebxvxmpmkuokuudao.supabase.co';
+    const SB_KEY = 'sb_publishable_quwTSUSQLMwVOkcBLjiQZQ_pQ8BbrM3';
+    const hdrs = {
+        'apikey': SB_KEY, 'Authorization': 'Bearer ' + SB_KEY,
+        'Content-Type': 'application/json', 'Prefer': 'return=representation'
+    };
 
-    // → Stage 4: launch SumUp payment
-    window.location.href = 'payment.html';
+    try {
+        const ts = new Date();
+        const orderNum = 'WEB-' + ts.toISOString().slice(2,10).replace(/-/g,'') + '-' + ts.getTime().toString().slice(-4);
+        const fullName = details.firstName + ' ' + details.lastName;
+        const address = details.addr1 ? [details.addr1, details.addr2, details.city, details.postcode].filter(Boolean).join(', ') : null;
+        const schedNote = details.isScheduled ? '\nScheduled: ' + details.schedDate + ' ' + details.schedTime : '';
+        const payNote = '\nPayment: ' + (paymentMethod === 'cash' ? 'Cash' : 'Card') + (orderType === 'delivery' ? ' on Delivery' : ' at Store');
+
+        // 1. Create order
+        const orderRes = await fetch(SB_URL + '/rest/v1/orders', {
+            method: 'POST', headers: hdrs,
+            body: JSON.stringify({
+                order_number: orderNum,
+                order_type: 'online',
+                customer_name: fullName,
+                customer_phone: details.phone || null,
+                customer_address: address,
+                status: 'sent_to_kitchen',
+                subtotal: sub,
+                total: grand,
+                notes: ((details.notes || '') + schedNote + payNote).trim() || null
+            })
+        });
+        if (!orderRes.ok) throw new Error('Order failed');
+        const [order] = await orderRes.json();
+
+        // 2. Create order items
+        const itemsPayload = Object.values(cart).map(function(item) {
+            return {
+                order_id: order.id,
+                item_name: item.name,
+                item_price: item.priceNum,
+                quantity: item.qty,
+                notes: item.note || null,
+                status: 'pending'
+            };
+        });
+        await fetch(SB_URL + '/rest/v1/order_items', {
+            method: 'POST',
+            headers: Object.assign({}, hdrs, { 'Prefer': 'return=minimal' }),
+            body: JSON.stringify(itemsPayload)
+        });
+
+        // 3. Clear cart and show confirmation
+        sessionStorage.removeItem('rc_cart');
+        sessionStorage.removeItem('rc_order_type');
+        document.querySelector('.checkout-wrap').innerHTML = `
+            <div style="grid-column:1/-1;text-align:center;padding:4rem 2rem;max-width:540px;margin:0 auto">
+                <div style="font-size:4rem;margin-bottom:1.5rem">🎉</div>
+                <h2 style="font-family:'Playfair Display',serif;font-size:1.9rem;color:#d4a017;margin-bottom:1rem">Order Confirmed!</h2>
+                <p style="color:#b0a090;font-size:0.95rem;margin-bottom:0.5rem">Your order <strong style="color:#f0ebe3">${orderNum}</strong> is being prepared.</p>
+                <p style="color:#b0a090;font-size:0.88rem;margin-bottom:2rem">${orderType === 'delivery' ? 'We\'ll call you when your order is on its way.' : 'Please come to collect your order when ready.'} Please have <strong style="color:#f0ebe3">${paymentMethod === 'cash' ? 'cash' : 'your card'}</strong> ready to pay ${orderType === 'delivery' ? 'on delivery' : 'at the store'}.</p>
+                <a href="index.html" style="display:inline-block;background:#c0392b;color:#fff;padding:0.9rem 2rem;border-radius:12px;font-weight:600;font-size:0.9rem">← Back to Home</a>
+            </div>`;
+    } catch(err) {
+        console.error('Order error:', err);
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fas fa-check-circle"></i> Place Order';
+        alert('Sorry, something went wrong. Please call us on 020 8797 3044 to place your order.');
+    }
 }
 
 init();
