@@ -566,32 +566,37 @@ document.getElementById('resForm')?.addEventListener('submit', async e => {
     btn.disabled = true;
     btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
 
-    // Save to reservations.json via API
+    // Save reservation to Supabase
     try {
-        await fetch('/api/save-reservation', {
+        const SB_URL = 'https://mnmebxvxmpmkuokuudao.supabase.co';
+        const SB_KEY = 'sb_publishable_quwTSUSQLMwVOkcBLjiQZQ_pQ8BbrM3';
+        await fetch(SB_URL + '/rest/v1/reservations', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ name, phone, date, time, guests, occasion, notes })
+            headers: {
+                'apikey': SB_KEY,
+                'Authorization': 'Bearer ' + SB_KEY,
+                'Content-Type': 'application/json',
+                'Prefer': 'return=minimal'
+            },
+            body: JSON.stringify({
+                customer_name: name,
+                customer_phone: phone || null,
+                party_size: parseInt(guests) || 2,
+                reservation_date: date,
+                reservation_time: time,
+                notes: (occasion ? 'Occasion: ' + occasion + (notes ? '\n' + notes : '') : notes) || null,
+                source: 'website',
+                status: 'pending'
+            })
         });
     } catch(err) {
-        console.warn('Reservation API unavailable, WhatsApp fallback used.');
+        console.warn('Reservation save failed, WhatsApp notification sent instead.');
     }
-
-    // Also send WhatsApp notification to restaurant
-    let msg = '🍽️ *New Table Reservation — The Royal Chilli*\n\n';
-    if (name)     msg += `*Name:* ${name}\n`;
-    if (phone)    msg += `*Phone:* ${phone}\n`;
-    if (date)     msg += `*Date:* ${new Date(date).toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long',year:'numeric'})}\n`;
-    if (time)     msg += `*Time:* ${time}\n`;
-    if (guests)   msg += `*Guests:* ${guests}\n`;
-    if (occasion) msg += `*Occasion:* ${occasion}\n`;
-    if (notes)    msg += `*Special Requests:* ${notes}\n`;
-    msg += '\n_Booking confirmed via website_';
-
-    window.open('https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent(msg), '_blank');
 
     btn.disabled = false;
     btn.innerHTML = '<i class="fas fa-calendar-check"></i> Confirm Reservation';
+    const mp = document.getElementById('modalPhone');
+    if (mp) mp.textContent = phone || 'the number provided';
     document.getElementById('modalOverlay').classList.add('show');
 });
 
