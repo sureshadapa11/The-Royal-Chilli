@@ -325,9 +325,8 @@
         const popTag = dish.popular ? '<div class="pop-tag">' + (dish.popularTag || 'Popular') + '</div>' : '';
         const price = dish.price ? '<span class="price">' + dish.price + '</span>' : '';
         const badge = dish.badge ? '<span class="badge ' + dish.badge + '">' + (dish.badge === 'veg' ? '🟢 Veg' : '🔴 Non-Veg') + '</span>' : '';
-        return '<div class="dish-card' + pop + '">' + popTag +
-            '<div class="dish-img"><img src="' + (dish.img || '') + '" alt="' + dish.name + '" loading="lazy"></div>' +
-            '<div class="dish-body"><div class="dish-top"><h4>' + dish.name + '</h4>' + price + '</div>' +
+        return '<div class="dish-card' + pop + '">' +
+            '<div class="dish-body">' + popTag + '<div class="dish-top"><h4>' + dish.name + '</h4>' + price + '</div>' +
             '<p>' + dish.desc + '</p>' + badge + '</div></div>';
     }
 
