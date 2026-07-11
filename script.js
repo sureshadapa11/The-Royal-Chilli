@@ -600,7 +600,7 @@ document.getElementById('resForm')?.addEventListener('submit', async e => {
     // Save reservation to Supabase
     try {
         const SB_URL = 'https://mnmebxvxmpmkuokuudao.supabase.co';
-        const SB_KEY = 'sb_publishable_quwTSUSQLMwVOkcBLjiQZQ_pQ8BbrM3';
+        const SB_KEY = 'sb_publishable_DMBrHPDVvoCGx5hKwgxMQA_-BLFjbr1';
         await fetch(SB_URL + '/rest/v1/reservations', {
             method: 'POST',
             headers: {

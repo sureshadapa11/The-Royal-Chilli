@@ -456,7 +456,7 @@
 
     // ── Supabase live menu fetch ──────────────────────────────────────────
     var SUPABASE_URL = 'https://mnmebxvxmpmkuokuudao.supabase.co';
-    var SUPABASE_KEY = 'sb_publishable_quwTSUSQLMwVOkcBLjiQZQ_pQ8BbrM3';
+    var SUPABASE_KEY = 'sb_publishable_DMBrHPDVvoCGx5hKwgxMQA_-BLFjbr1';
     var CAT_PANEL_MAP = {
         'Soups': 'soups', 'Appetisers': 'appetisers',
         'Vegetarian Starters': 'vegstarters', 'Vegetarian Specials': 'royalveg',
