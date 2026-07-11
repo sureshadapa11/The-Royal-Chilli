@@ -1341,19 +1341,15 @@
   ],
   "stats": [
     {
-      "count": 150,
-      "label": "Signature Dishes"
+      "count": 110,
+      "label": "Total Dishes"
     },
     {
-      "count": 10000,
+      "count": 0,
       "label": "Happy Customers"
     },
     {
-      "count": 5,
-      "label": "Years of Excellence"
-    },
-    {
-      "count": 12,
+      "count": 0,
       "label": "Expert Chefs"
     }
   ],
@@ -1363,8 +1359,8 @@
   },
   "reservation": {
     "tag": "Reserve a Table",
-    "title": "Book Your",
-    "titleGold": "Royal Experience",
+    "title": "Reserve Your",
+    "titleGold": "Table",
     "desc": "Whether it's a date night, family gathering or special celebration — we're here to make it truly memorable."
   },
   "footer": {
