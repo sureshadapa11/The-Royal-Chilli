@@ -55,921 +55,135 @@
             ]}
         ],
         menu: {
-                  "royalveg": [
-                            {
-                                      "name": "Gutti Vankaya Curry",
-                                      "price": "£9.95",
-                                      "desc": "Baby aubergines stuffed with peanut, sesame, coconut and Andhra spices.",
-                                      "img": "https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?w=400&q=80",
-                                      "badge": "veg",
-                                      "popular": false
-                            },
-                            {
-                                      "name": "Gongura Paneer",
-                                      "price": "£9.95",
-                                      "desc": "Paneer cooked with tangy sorrel leaves, garlic, chilli and Andhra spices.",
-                                      "img": "https://images.unsplash.com/photo-1596797038530-2c107229654b?w=400&q=80",
-                                      "badge": "veg",
-                                      "popular": false
-                            },
-                            {
-                                      "name": "Paneer Ghee Roast",
-                                      "price": "£9.95",
-                                      "desc": "Paneer tossed in a rich Mangalorean chilli, spice and ghee masala.",
-                                      "img": "https://images.unsplash.com/photo-1596797038530-2c107229654b?w=400&q=80",
-                                      "badge": "veg",
-                                      "popular": false
-                            },
-                            {
-                                      "name": "Tandoori Paneer Platter",
-                                      "price": "£12.95",
-                                      "desc": "Paneer tikka, hariyali paneer and malai paneer cooked in the tandoor.",
-                                      "img": "https://images.unsplash.com/photo-1596797038530-2c107229654b?w=400&q=80",
-                                      "badge": "veg",
-                                      "popular": true
-                            },
-                            {
-                                      "name": "Chilli Mushroom Pepper Fry",
-                                      "price": "£7.95",
-                                      "desc": "Mushrooms stir-fried with black pepper, curry leaves, garlic and chilli.",
-                                      "img": "https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=400&q=80",
-                                      "badge": "veg",
-                                      "popular": false
-                            },
-                            {
-                                      "name": "Crispy Lotus Stem",
-                                      "price": "£9.95",
-                                      "desc": "Crispy lotus stem tossed in a sweet, spicy and tangy chilli glaze.",
-                                      "img": "https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=400&q=80",
-                                      "badge": "veg",
-                                      "popular": false
-                            },
-                            {
-                                      "name": "Tandoori Broccoli",
-                                      "price": "£8.95",
-                                      "desc": "Broccoli marinated with yoghurt, mustard, chilli and tandoori spices.",
-                                      "img": "https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=400&q=80",
-                                      "badge": "veg",
-                                      "popular": false
-                            }
-                  ],
-                  "soups": [
-                            {
-                                      "name": "Vegetable Sweet Corn Soup",
-                                      "price": "£5.95",
-                                      "desc": "Sweetcorn and garden vegetables in a lightly seasoned broth.",
-                                      "img": "https://images.unsplash.com/photo-1547592180-85f173990554?w=400&q=80",
-                                      "badge": "veg",
-                                      "popular": false
-                            },
-                            {
-                                      "name": "Chicken Sweet Corn Soup",
-                                      "price": "£6.95",
-                                      "desc": "Tender chicken and sweetcorn in a smooth, gently seasoned broth.",
-                                      "img": "https://images.unsplash.com/photo-1547592180-85f173990554?w=400&q=80",
-                                      "badge": "nonveg",
-                                      "popular": false
-                            },
-                            {
-                                      "name": "Vegetable Manchow Soup",
-                                      "price": "£5.95",
-                                      "desc": "Hot and tangy vegetable soup topped with crispy noodles.",
-                                      "img": "https://images.unsplash.com/photo-1547592180-85f173990554?w=400&q=80",
-                                      "badge": "veg",
-                                      "popular": false
-                            },
-                            {
-                                      "name": "Chicken Manchow Soup",
-                                      "price": "£6.95",
-                                      "desc": "Spicy chicken and vegetable soup with garlic, chilli and crispy noodles.",
-                                      "img": "https://images.unsplash.com/photo-1547592180-85f173990554?w=400&q=80",
-                                      "badge": "nonveg",
-                                      "popular": false
-                            }
-                  ],
-                  "appetisers": [
-                            {
-                                      "name": "Masala Papad",
-                                      "price": "£3.95",
-                                      "desc": "Crisp papad topped with onion, tomato, chilli and tangy seasoning.",
-                                      "img": "https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=400&q=80",
-                                      "badge": "veg",
-                                      "popular": false
-                            },
-                            {
-                                      "name": "Plain Papad",
-                                      "price": "£2.50",
-                                      "desc": "Crisp roasted or fried papad served with house chutneys.",
-                                      "img": "https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=400&q=80",
-                                      "badge": "veg",
-                                      "popular": false
-                            },
-                            {
-                                      "name": "Chilli Garlic Mogo",
-                                      "price": "£6.95",
-                                      "desc": "Crispy cassava tossed with garlic, chilli, peppers and spring onion.",
-                                      "img": "https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=400&q=80",
-                                      "badge": "veg",
-                                      "popular": false
-                            },
-                            {
-                                      "name": "Vegetable Spring Rolls",
-                                      "price": "£5.95",
-                                      "desc": "Crispy rolls filled with vegetables and served with sweet chilli sauce.",
-                                      "img": "https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=400&q=80",
-                                      "badge": "veg",
-                                      "popular": false
-                            },
-                            {
-                                      "name": "Onion Pakoda",
-                                      "price": "£5.95",
-                                      "desc": "Crispy onion fritters seasoned with chilli and Indian spices.",
-                                      "img": "https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=400&q=80",
-                                      "badge": "veg",
-                                      "popular": false
-                            },
-                            {
-                                      "name": "Cut Mirchi",
-                                      "price": "£5.95",
-                                      "desc": "Battered green chillies fried until crisp and finished with tangy seasoning.",
-                                      "img": "https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=400&q=80",
-                                      "badge": "veg",
-                                      "popular": false
-                            },
-                            {
-                                      "name": "Samosa Chaat",
-                                      "price": "£5.95",
-                                      "desc": "Crushed samosas with chickpeas, yoghurt and tangy chutneys.",
-                                      "img": "https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=400&q=80",
-                                      "badge": "veg",
-                                      "popular": false
-                            }
-                  ],
-                  "vegstarters": [
-                            {
-                                      "name": "Paneer Choice",
-                                      "price": "£8.95",
-                                      "desc": "Paneer 65, Chilli Paneer, Manchurian, Tikka or Pakoda.",
-                                      "img": "https://images.unsplash.com/photo-1596797038530-2c107229654b?w=400&q=80",
-                                      "badge": "veg",
-                                      "popular": true
-                            },
-                            {
-                                      "name": "Gobi Choice",
-                                      "price": "£7.95",
-                                      "desc": "Gobi 65, Chilli Gobi, Manchurian or Crispy Gobi.",
-                                      "img": "https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=400&q=80",
-                                      "badge": "veg",
-                                      "popular": false
-                            },
-                            {
-                                      "name": "Mushroom Choice",
-                                      "price": "£8.95",
-                                      "desc": "Chilli Mushroom, Mushroom 65, Pepper or Manchurian.",
-                                      "img": "https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=400&q=80",
-                                      "badge": "veg",
-                                      "popular": false
-                            },
-                            {
-                                      "name": "Crispy Corn",
-                                      "price": "£5.95",
-                                      "desc": "Golden sweetcorn tossed with garlic, chilli, pepper and curry leaves.",
-                                      "img": "https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=400&q=80",
-                                      "badge": "veg",
-                                      "popular": false
-                            },
-                            {
-                                      "name": "Vegetable Manchurian",
-                                      "price": "£8.95",
-                                      "desc": "Crispy vegetable dumplings tossed with garlic, chilli and sauce.",
-                                      "img": "https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=400&q=80",
-                                      "badge": "veg",
-                                      "popular": false
-                            },
-                            {
-                                      "name": "Tandoori Paneer Tikka",
-                                      "price": "£9.95",
-                                      "desc": "Paneer, onion and peppers marinated with yoghurt and Kashmiri chilli.",
-                                      "img": "https://images.unsplash.com/photo-1596797038530-2c107229654b?w=400&q=80",
-                                      "badge": "veg",
-                                      "popular": false
-                            },
-                            {
-                                      "name": "Bhindi Kurkuri",
-                                      "price": "£8.95",
-                                      "desc": "Crispy okra seasoned with gram flour, chilli, cumin and mango powder.",
-                                      "img": "https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=400&q=80",
-                                      "badge": "veg",
-                                      "popular": false
-                            }
-                  ],
-                  "vegmains": [
-                            {
-                                      "name": "Paneer Butter Masala",
-                                      "price": "£9.95",
-                                      "desc": "Paneer simmered in a creamy tomato, butter and mild spice sauce.",
-                                      "img": "https://images.unsplash.com/photo-1596797038530-2c107229654b?w=400&q=80",
-                                      "badge": "veg",
-                                      "popular": true
-                            },
-                            {
-                                      "name": "Kadai Paneer",
-                                      "price": "£9.95",
-                                      "desc": "Paneer with peppers, onion, tomato and freshly ground kadai spices.",
-                                      "img": "https://images.unsplash.com/photo-1596797038530-2c107229654b?w=400&q=80",
-                                      "badge": "veg",
-                                      "popular": false
-                            },
-                            {
-                                      "name": "Palak Paneer",
-                                      "price": "£9.95",
-                                      "desc": "Paneer gently cooked in a smooth spinach, garlic and tomato sauce.",
-                                      "img": "https://images.unsplash.com/photo-1596797038530-2c107229654b?w=400&q=80",
-                                      "badge": "veg",
-                                      "popular": false
-                            },
-                            {
-                                      "name": "Paneer Tikka Masala",
-                                      "price": "£9.95",
-                                      "desc": "Char-grilled paneer in a rich tomato, onion and cream sauce.",
-                                      "img": "https://images.unsplash.com/photo-1596797038530-2c107229654b?w=400&q=80",
-                                      "badge": "veg",
-                                      "popular": false
-                            },
-                            {
-                                      "name": "Vegetable Korma",
-                                      "price": "£9.95",
-                                      "desc": "Mixed vegetables cooked with coconut, cashew and aromatic spices.",
-                                      "img": "https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?w=400&q=80",
-                                      "badge": "veg",
-                                      "popular": false
-                            },
-                            {
-                                      "name": "Vegetable Chettinad",
-                                      "price": "£9.95",
-                                      "desc": "Seasonal vegetables with coconut, black pepper, fennel and curry leaves.",
-                                      "img": "https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?w=400&q=80",
-                                      "badge": "veg",
-                                      "popular": false
-                            },
-                            {
-                                      "name": "Dal Tadka",
-                                      "price": "£6.95",
-                                      "desc": "Yellow lentils tempered with cumin, garlic, chilli and ghee.",
-                                      "img": "https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?w=400&q=80",
-                                      "badge": "veg",
-                                      "popular": false
-                            },
-                            {
-                                      "name": "Dal Makhani",
-                                      "price": "£7.95",
-                                      "desc": "Black lentils slow-cooked with tomato, butter and cream.",
-                                      "img": "https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?w=400&q=80",
-                                      "badge": "veg",
-                                      "popular": false
-                            },
-                            {
-                                      "name": "Chana Masala",
-                                      "price": "£7.95",
-                                      "desc": "Chickpeas cooked with onion, tomato, ginger and Punjabi spices.",
-                                      "img": "https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?w=400&q=80",
-                                      "badge": "veg",
-                                      "popular": false
-                            }
-                  ],
-                  "vegcombos": [
-                            {
-                                      "name": "Royal Vegetarian Combo",
-                                      "price": "£19.95",
-                                      "desc": "One veg starter + one veg main, served with jeera rice, plain naan and raita.",
-                                      "img": "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=400&q=80",
-                                      "badge": "veg",
-                                      "popular": false
-                            },
-                            {
-                                      "name": "Vegetarian Sharing Combo",
-                                      "price": "£34.95",
-                                      "desc": "Two starters, two mains, dal tadka, rice, two naans and raita for two diners.",
-                                      "img": "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=400&q=80",
-                                      "badge": "veg",
-                                      "popular": false
-                            }
-                  ],
-                  "royalnonveg": [
-                            {
-                                      "name": "Chicken Platter",
-                                      "price": "£14.50",
-                                      "desc": "Chicken tikka, wings, tangdi kebab and house chicken kebab.",
-                                      "img": "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=400&q=80",
-                                      "badge": "nonveg",
-                                      "popular": true
-                            },
-                            {
-                                      "name": "Bheja Fry",
-                                      "price": "£12.95",
-                                      "desc": "Tender lamb brain cooked with onion, chilli and traditional spices.",
-                                      "img": "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=400&q=80",
-                                      "badge": "nonveg",
-                                      "popular": false
-                            },
-                            {
-                                      "name": "Liver Fry",
-                                      "price": "£8.95",
-                                      "desc": "Spiced liver stir-fried with onion, curry leaves and black pepper.",
-                                      "img": "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=400&q=80",
-                                      "badge": "nonveg",
-                                      "popular": false
-                            },
-                            {
-                                      "name": "Natu Kodi Fry",
-                                      "price": "£9.95",
-                                      "desc": "Country-style chicken fried with chilli, curry leaves and Andhra spices.",
-                                      "img": "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=400&q=80",
-                                      "badge": "nonveg",
-                                      "popular": false
-                            },
-                            {
-                                      "name": "Pistachio Lamb Chops",
-                                      "price": "£14.95",
-                                      "desc": "Char-grilled lamb chops finished with aromatic spices and pistachio.",
-                                      "img": "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=400&q=80",
-                                      "badge": "nonveg",
-                                      "popular": false
-                            },
-                            {
-                                      "name": "Haleem",
-                                      "price": "£12.95",
-                                      "desc": "Slow-cooked meat, lentils and wheat blended with Hyderabadi spices.",
-                                      "img": "https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?w=400&q=80",
-                                      "badge": "nonveg",
-                                      "popular": true,
-                                      "popularTag": "Signature"
-                            },
-                            {
-                                      "name": "Andhra Chicken Curry",
-                                      "price": "£9.95",
-                                      "desc": "Chicken slow-cooked with onion, tomato, curry leaves and Andhra spices.",
-                                      "img": "https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?w=400&q=80",
-                                      "badge": "nonveg",
-                                      "popular": false
-                            },
-                            {
-                                      "name": "Gongura Chicken",
-                                      "price": "£9.95",
-                                      "desc": "Chicken cooked with tangy sorrel leaves, garlic and green chilli.",
-                                      "img": "https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?w=400&q=80",
-                                      "badge": "nonveg",
-                                      "popular": false
-                            },
-                            {
-                                      "name": "Tiger Prawns Masala Fry",
-                                      "price": "£14.95",
-                                      "desc": "Tiger prawns tossed in onion, tomato, chilli and curry-leaf masala.",
-                                      "img": "https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=400&q=80",
-                                      "badge": "nonveg",
-                                      "popular": false
-                            },
-                            {
-                                      "name": "Paya",
-                                      "price": "£12.95",
-                                      "desc": "Slow-cooked lamb trotters in a rich and aromatic spiced gravy.",
-                                      "img": "https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?w=400&q=80",
-                                      "badge": "nonveg",
-                                      "popular": false
-                            },
-                            {
-                                      "name": "King Fish Fry",
-                                      "price": "£12.95",
-                                      "desc": "King fish marinated with chilli, turmeric, ginger and garlic.",
-                                      "img": "https://images.unsplash.com/photo-1544551763-92ab472cad5d?w=400&q=80",
-                                      "badge": "nonveg",
-                                      "popular": false
-                            },
-                            {
-                                      "name": "Pomfret Fry",
-                                      "price": "£14.95",
-                                      "desc": "Whole pomfret marinated in coastal spices and fried until crisp.",
-                                      "img": "https://images.unsplash.com/photo-1544551763-92ab472cad5d?w=400&q=80",
-                                      "badge": "nonveg",
-                                      "popular": false
-                            },
-                            {
-                                      "name": "Lemon Butter Fish",
-                                      "price": "£15.95",
-                                      "desc": "Fish fillet finished with lemon, butter, garlic and fresh herbs.",
-                                      "img": "https://images.unsplash.com/photo-1544551763-92ab472cad5d?w=400&q=80",
-                                      "badge": "nonveg",
-                                      "popular": false
-                            },
-                            {
-                                      "name": "Grilled Sea Bass",
-                                      "price": "£15.95",
-                                      "desc": "Sea bass grilled with citrus, garlic, herbs and mild Indian spices.",
-                                      "img": "https://images.unsplash.com/photo-1544551763-92ab472cad5d?w=400&q=80",
-                                      "badge": "nonveg",
-                                      "popular": false
-                            },
-                            {
-                                      "name": "Volcano Garlic Prawns",
-                                      "price": "£14.95",
-                                      "desc": "Prawns cooked in an intense garlic, chilli and butter glaze.",
-                                      "img": "https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=400&q=80",
-                                      "badge": "nonveg",
-                                      "popular": false
-                            },
-                            {
-                                      "name": "Gongura Lamb",
-                                      "price": "£10.95",
-                                      "desc": "Tender lamb cooked with tangy sorrel leaves and Andhra spices.",
-                                      "img": "https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?w=400&q=80",
-                                      "badge": "nonveg",
-                                      "popular": false
-                            },
-                            {
-                                      "name": "Gongura Prawns",
-                                      "price": "£11.95",
-                                      "desc": "Prawns cooked with gongura leaves, garlic, chilli and coastal spices.",
-                                      "img": "https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=400&q=80",
-                                      "badge": "nonveg",
-                                      "popular": false
-                            }
-                  ],
-                  "nonvegstarters": [
-                            {
-                                      "name": "Chicken Choice",
-                                      "price": "£8.95",
-                                      "desc": "Chicken 65, Chilli, Majestic, Lollipop, Manchurian, Pakoda or Tikka.",
-                                      "img": "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=400&q=80",
-                                      "badge": "nonveg",
-                                      "popular": false
-                            },
-                            {
-                                      "name": "Fish Choice",
-                                      "price": "£9.95",
-                                      "desc": "Fish Pakoda, Apollo Fish Fry, Fish 65 or Chilli Fish.",
-                                      "img": "https://images.unsplash.com/photo-1544551763-92ab472cad5d?w=400&q=80",
-                                      "badge": "nonveg",
-                                      "popular": false
-                            },
-                            {
-                                      "name": "Lamb Choice",
-                                      "price": "£9.95",
-                                      "desc": "Lamb Ghee Roast, Chukka, Pepper, Seekh Kebab or Chops.",
-                                      "img": "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=400&q=80",
-                                      "badge": "nonveg",
-                                      "popular": false
-                            },
-                            {
-                                      "name": "Prawn Choice",
-                                      "price": "£10.95",
-                                      "desc": "Pepper, Chilli Garlic, Prawn 65 or Butter Garlic Prawns.",
-                                      "img": "https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=400&q=80",
-                                      "badge": "nonveg",
-                                      "popular": false
-                            },
-                            {
-                                      "name": "Chicken Tangdi Kebab",
-                                      "price": "£9.95",
-                                      "desc": "Chicken drumsticks marinated with yoghurt, ginger, garlic and spices.",
-                                      "img": "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=400&q=80",
-                                      "badge": "nonveg",
-                                      "popular": false
-                            },
-                            {
-                                      "name": "Malai Chicken Tikka",
-                                      "price": "£9.95",
-                                      "desc": "Tender chicken marinated with cream, cardamom and mild spices.",
-                                      "img": "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=400&q=80",
-                                      "badge": "nonveg",
-                                      "popular": false
-                            },
-                            {
-                                      "name": "Lamb Seekh Kebab",
-                                      "price": "£10.95",
-                                      "desc": "Minced lamb skewers seasoned with herbs and cooked over charcoal.",
-                                      "img": "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=400&q=80",
-                                      "badge": "nonveg",
-                                      "popular": false
-                            }
-                  ],
-                  "nonvegmains": [
-                            {
-                                      "name": "Chicken Curry Choice",
-                                      "price": "£9.95",
-                                      "desc": "Chicken Tikka Masala, Butter Chicken, Kadai Chicken or Bhuna.",
-                                      "img": "https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?w=400&q=80",
-                                      "badge": "nonveg",
-                                      "popular": true
-                            },
-                            {
-                                      "name": "Lamb Curry Choice",
-                                      "price": "£10.95",
-                                      "desc": "Lamb Kadai, Telangana Mamsam, Railway Curry or Rogan Josh.",
-                                      "img": "https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?w=400&q=80",
-                                      "badge": "nonveg",
-                                      "popular": false
-                            },
-                            {
-                                      "name": "Prawn Curry Choice",
-                                      "price": "£10.95",
-                                      "desc": "Prawn Kadai, Masala, Chilli Garlic or Tikka Masala.",
-                                      "img": "https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=400&q=80",
-                                      "badge": "nonveg",
-                                      "popular": false
-                            },
-                            {
-                                      "name": "King Fish Curry",
-                                      "price": "£12.95",
-                                      "desc": "King fish simmered in a rich onion, tomato, spice and tamarind curry.",
-                                      "img": "https://images.unsplash.com/photo-1544551763-92ab472cad5d?w=400&q=80",
-                                      "badge": "nonveg",
-                                      "popular": false
-                            },
-                            {
-                                      "name": "Chicken Chettinad",
-                                      "price": "£10.95",
-                                      "desc": "Chicken cooked with coconut, black pepper, fennel and curry leaves.",
-                                      "img": "https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?w=400&q=80",
-                                      "badge": "nonveg",
-                                      "popular": false
-                            },
-                            {
-                                      "name": "Andhra Mutton Curry",
-                                      "price": "£11.95",
-                                      "desc": "Tender mutton slow-cooked with onion, tomato, pepper and Andhra spices.",
-                                      "img": "https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?w=400&q=80",
-                                      "badge": "nonveg",
-                                      "popular": false
-                            },
-                            {
-                                      "name": "Mangalore Prawn Curry",
-                                      "price": "£12.95",
-                                      "desc": "Prawns simmered with coconut, coriander, tamarind and curry leaves.",
-                                      "img": "https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=400&q=80",
-                                      "badge": "nonveg",
-                                      "popular": false
-                            },
-                            {
-                                      "name": "Nellore Fish Pulusu",
-                                      "price": "£12.95",
-                                      "desc": "Fish cooked in a tangy tamarind, raw mango and Andhra chilli gravy.",
-                                      "img": "https://images.unsplash.com/photo-1544551763-92ab472cad5d?w=400&q=80",
-                                      "badge": "nonveg",
-                                      "popular": true,
-                                      "popularTag": "Signature"
-                            }
-                  ],
-                  "nonvegcombos": [
-                            {
-                                      "name": "Royal Chicken Combo",
-                                      "price": "£22.95",
-                                      "desc": "One chicken starter + one chicken main, served with jeera rice, plain naan, raita and a special dessert.",
-                                      "img": "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=400&q=80",
-                                      "badge": "nonveg",
-                                      "popular": false
-                            },
-                            {
-                                      "name": "Royal Lamb Combo",
-                                      "price": "£26.95",
-                                      "desc": "One lamb starter + one lamb main, served with jeera rice, plain naan, raita and a special dessert.",
-                                      "img": "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=400&q=80",
-                                      "badge": "nonveg",
-                                      "popular": false
-                            }
-                  ],
-                  "biryanis": [
-                            {
-                                      "name": "Hyderabadi Chicken Dum Biryani",
-                                      "price": "£7.95",
-                                      "desc": "Marinated chicken and basmati rice dum-cooked with saffron and spices.",
-                                      "img": "https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=400&q=80",
-                                      "badge": "nonveg",
-                                      "popular": true
-                            },
-                            {
-                                      "name": "Chicken Fry-Piece Biryani",
-                                      "price": "£8.95",
-                                      "desc": "Spiced fried chicken layered with aromatic rice and biryani masala.",
-                                      "img": "https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=400&q=80",
-                                      "badge": "nonveg",
-                                      "popular": false
-                            },
-                            {
-                                      "name": "Hyderabadi Lamb Dum Biryani",
-                                      "price": "£10.95",
-                                      "desc": "Tender lamb and basmati rice slow-cooked with saffron and spices.",
-                                      "img": "https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=400&q=80",
-                                      "badge": "nonveg",
-                                      "popular": false
-                            },
-                            {
-                                      "name": "Prawn Biryani",
-                                      "price": "£12.95",
-                                      "desc": "Prawns layered with basmati rice, saffron and coastal spices.",
-                                      "img": "https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=400&q=80",
-                                      "badge": "nonveg",
-                                      "popular": false
-                            },
-                            {
-                                      "name": "Fish Biryani",
-                                      "price": "£12.95",
-                                      "desc": "Marinated fish layered with basmati rice and balanced spices.",
-                                      "img": "https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=400&q=80",
-                                      "badge": "nonveg",
-                                      "popular": false
-                            },
-                            {
-                                      "name": "Vegetable Dum Biryani",
-                                      "price": "£7.95",
-                                      "desc": "Seasonal vegetables and basmati rice dum-cooked with saffron.",
-                                      "img": "https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=400&q=80",
-                                      "badge": "veg",
-                                      "popular": false
-                            },
-                            {
-                                      "name": "Paneer Biryani",
-                                      "price": "£8.95",
-                                      "desc": "Spiced paneer and vegetables layered with fragrant basmati rice.",
-                                      "img": "https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=400&q=80",
-                                      "badge": "veg",
-                                      "popular": false
-                            }
-                  ],
-                  "royalcombos": [
-                            {
-                                      "name": "Chicken Biryani Combo",
-                                      "price": "£15.95",
-                                      "desc": "Chicken dum biryani with chicken 65, raita and a soft drink.",
-                                      "img": "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=400&q=80",
-                                      "badge": "nonveg",
-                                      "popular": false
-                            },
-                            {
-                                      "name": "Lamb Biryani Combo",
-                                      "price": "£18.95",
-                                      "desc": "Lamb dum biryani with lamb starter, raita and a soft drink.",
-                                      "img": "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=400&q=80",
-                                      "badge": "nonveg",
-                                      "popular": false
-                            },
-                            {
-                                      "name": "Vegetarian Biryani Combo",
-                                      "price": "£12.95",
-                                      "desc": "Vegetable biryani with crispy corn, raita and a soft drink.",
-                                      "img": "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=400&q=80",
-                                      "badge": "veg",
-                                      "popular": false
-                            },
-                            {
-                                      "name": "Family Chicken Biryani Combo",
-                                      "price": "£34.95",
-                                      "desc": "Family chicken biryani, chicken starter, two naans, raita and salan.",
-                                      "img": "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=400&q=80",
-                                      "badge": "nonveg",
-                                      "popular": false
-                            },
-                            {
-                                      "name": "Family Lamb Biryani Combo",
-                                      "price": "£44.95",
-                                      "desc": "Family lamb biryani, lamb starter, two naans, raita and salan.",
-                                      "img": "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=400&q=80",
-                                      "badge": "nonveg",
-                                      "popular": false
-                            }
-                  ],
-                  "ricenoodles": [
-                            {
-                                      "name": "Vegetable Fried Rice or Noodles",
-                                      "price": "£6.95",
-                                      "desc": "Wok-tossed rice or noodles with vegetables and light seasoning.",
-                                      "img": "https://images.unsplash.com/photo-1586190848861-99aa4a171e90?w=400&q=80",
-                                      "badge": "veg",
-                                      "popular": false
-                            },
-                            {
-                                      "name": "Egg Fried Rice or Noodles",
-                                      "price": "£7.95",
-                                      "desc": "Wok-tossed rice or noodles with egg and vegetables.",
-                                      "img": "https://images.unsplash.com/photo-1586190848861-99aa4a171e90?w=400&q=80",
-                                      "badge": "nonveg",
-                                      "popular": false
-                            },
-                            {
-                                      "name": "Chicken Fried Rice or Noodles",
-                                      "price": "£8.95",
-                                      "desc": "Wok-tossed rice or noodles with chicken and vegetables.",
-                                      "img": "https://images.unsplash.com/photo-1586190848861-99aa4a171e90?w=400&q=80",
-                                      "badge": "nonveg",
-                                      "popular": false
-                            },
-                            {
-                                      "name": "Prawn Fried Rice or Noodles",
-                                      "price": "£9.95",
-                                      "desc": "Wok-tossed rice or noodles with prawns and vegetables.",
-                                      "img": "https://images.unsplash.com/photo-1586190848861-99aa4a171e90?w=400&q=80",
-                                      "badge": "nonveg",
-                                      "popular": false
-                            }
-                  ],
-                  "breads": [
-                            {
-                                      "name": "Plain Naan",
-                                      "price": "£2.50",
-                                      "desc": "Soft traditional bread freshly baked in the tandoor.",
-                                      "img": "https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=400&q=80",
-                                      "badge": "veg",
-                                      "popular": false
-                            },
-                            {
-                                      "name": "Butter Naan",
-                                      "price": "£2.95",
-                                      "desc": "Tandoor-baked naan brushed with melted butter.",
-                                      "img": "https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=400&q=80",
-                                      "badge": "veg",
-                                      "popular": true
-                            },
-                            {
-                                      "name": "Garlic Naan",
-                                      "price": "£3.50",
-                                      "desc": "Fresh naan topped with garlic, butter and coriander.",
-                                      "img": "https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=400&q=80",
-                                      "badge": "veg",
-                                      "popular": true
-                            },
-                            {
-                                      "name": "Chilli Garlic Naan",
-                                      "price": "£3.95",
-                                      "desc": "Naan finished with garlic, chilli, coriander and butter.",
-                                      "img": "https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=400&q=80",
-                                      "badge": "veg",
-                                      "popular": false
-                            },
-                            {
-                                      "name": "Cheese Naan",
-                                      "price": "£4.50",
-                                      "desc": "Soft naan filled with melted cheese.",
-                                      "img": "https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=400&q=80",
-                                      "badge": "veg",
-                                      "popular": false
-                            },
-                            {
-                                      "name": "Keema Naan",
-                                      "price": "£4.95",
-                                      "desc": "Naan filled with seasoned minced lamb and baked in the tandoor.",
-                                      "img": "https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=400&q=80",
-                                      "badge": "nonveg",
-                                      "popular": false
-                            },
-                            {
-                                      "name": "Tandoori Roti",
-                                      "price": "£2.50",
-                                      "desc": "Wholewheat flatbread baked in the tandoor.",
-                                      "img": "https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=400&q=80",
-                                      "badge": "veg",
-                                      "popular": false
-                            },
-                            {
-                                      "name": "Butter Roti",
-                                      "price": "£2.95",
-                                      "desc": "Tandoori roti brushed with melted butter.",
-                                      "img": "https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=400&q=80",
-                                      "badge": "veg",
-                                      "popular": false
-                            },
-                            {
-                                      "name": "Chapati",
-                                      "price": "£2.95",
-                                      "desc": "Soft wholewheat flatbread cooked on a hot griddle.",
-                                      "img": "https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=400&q=80",
-                                      "badge": "veg",
-                                      "popular": false
-                            }
-                  ],
-                  "ricesides": [
-                            {
-                                      "name": "Steamed Basmati Rice",
-                                      "price": "£3.50",
-                                      "desc": "Fragrant basmati rice steamed until light and fluffy.",
-                                      "img": "https://images.unsplash.com/photo-1586190848861-99aa4a171e90?w=400&q=80",
-                                      "badge": "veg",
-                                      "popular": false
-                            },
-                            {
-                                      "name": "Jeera Rice",
-                                      "price": "£4.50",
-                                      "desc": "Basmati rice tempered with cumin seeds and aromatic spices.",
-                                      "img": "https://images.unsplash.com/photo-1586190848861-99aa4a171e90?w=400&q=80",
-                                      "badge": "veg",
-                                      "popular": false
-                            },
-                            {
-                                      "name": "Pilau Rice",
-                                      "price": "£4.95",
-                                      "desc": "Lightly spiced basmati rice cooked with whole spices.",
-                                      "img": "https://images.unsplash.com/photo-1586190848861-99aa4a171e90?w=400&q=80",
-                                      "badge": "veg",
-                                      "popular": false
-                            },
-                            {
-                                      "name": "Jeera Aloo",
-                                      "price": "£5.95",
-                                      "desc": "Potatoes tossed with cumin, chilli and coriander.",
-                                      "img": "https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=400&q=80",
-                                      "badge": "veg",
-                                      "popular": false
-                            },
-                            {
-                                      "name": "Bhindi Fry",
-                                      "price": "£7.95",
-                                      "desc": "Okra stir-fried with onion, tomato and dry spices.",
-                                      "img": "https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=400&q=80",
-                                      "badge": "veg",
-                                      "popular": false
-                            },
-                            {
-                                      "name": "Plain Raita",
-                                      "price": "£3.95",
-                                      "desc": "Chilled seasoned yoghurt served as a cooling accompaniment.",
-                                      "img": "https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=400&q=80",
-                                      "badge": "veg",
-                                      "popular": false
-                            },
-                            {
-                                      "name": "Boondi Raita",
-                                      "price": "£4.50",
-                                      "desc": "Seasoned yoghurt mixed with crisp gram-flour pearls.",
-                                      "img": "https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=400&q=80",
-                                      "badge": "veg",
-                                      "popular": false
-                            },
-                            {
-                                      "name": "Beetroot Raita",
-                                      "price": "£4.95",
-                                      "desc": "Chilled yoghurt with beetroot and gentle seasoning.",
-                                      "img": "https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=400&q=80",
-                                      "badge": "veg",
-                                      "popular": false
-                            },
-                            {
-                                      "name": "Green Salad",
-                                      "price": "£3.95",
-                                      "desc": "Lettuce, cucumber, tomato, onion and lemon.",
-                                      "img": "https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=400&q=80",
-                                      "badge": "veg",
-                                      "popular": false
-                            }
-                  ],
-                  "desserts": [
-                            {
-                                      "name": "Double Ka Meetha",
-                                      "price": "£4.95",
-                                      "desc": "Hyderabadi bread pudding flavoured with saffron, cardamom and nuts.",
-                                      "img": "https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400&q=80",
-                                      "badge": "veg",
-                                      "popular": false
-                            },
-                            {
-                                      "name": "Gulab Jamun with Ice Cream",
-                                      "price": "£5.95",
-                                      "desc": "Warm milk dumplings soaked in fragrant cardamom syrup, served with vanilla ice cream.",
-                                      "img": "https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400&q=80",
-                                      "badge": "veg",
-                                      "popular": false
-                            },
-                            {
-                                      "name": "Kulfi",
-                                      "price": "£5.95",
-                                      "desc": "Traditional Indian ice cream: malai, mango or pistachio.",
-                                      "img": "https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400&q=80",
-                                      "badge": "veg",
-                                      "popular": false
-                            },
-                            {
-                                      "name": "Apricot Delight",
-                                      "price": "£6.50",
-                                      "desc": "Stewed apricots layered with cream, nuts and a delicate hint of cardamom.",
-                                      "img": "https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400&q=80",
-                                      "badge": "veg",
-                                      "popular": true,
-                                      "popularTag": "Must Try"
-                            },
-                            {
-                                      "name": "Chocolate Brownie with Ice Cream",
-                                      "price": "£6.95",
-                                      "desc": "Warm chocolate brownie served with vanilla ice cream.",
-                                      "img": "https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400&q=80",
-                                      "badge": "veg",
-                                      "popular": false
-                            },
-                            {
-                                      "name": "Ice Cream Selection",
-                                      "price": "£4.95",
-                                      "desc": "Choose from vanilla, chocolate, strawberry or mango.",
-                                      "img": "https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400&q=80",
-                                      "badge": "veg",
-                                      "popular": false
-                            }
-                  ]
+            soups: [
+                { name: "Vegetable Sweet Corn Soup", price: "£5.95", desc: "Sweetcorn and garden vegetables in a lightly seasoned broth.", img: "https://images.unsplash.com/photo-1547592180-85f173990554?w=400&q=80", badge: "veg", popular: false },
+                { name: "Chicken Sweet Corn Soup", price: "£6.95", desc: "Tender chicken and sweetcorn in a smooth, gently seasoned broth.", img: "https://images.unsplash.com/photo-1547592180-85f173990554?w=400&q=80", badge: "nonveg", popular: false },
+                { name: "Vegetable Manchow Soup", price: "£5.95", desc: "Hot and tangy vegetable soup topped with crispy noodles.", img: "https://images.unsplash.com/photo-1547592180-85f173990554?w=400&q=80", badge: "veg", popular: false },
+                { name: "Chicken Manchow Soup", price: "£6.95", desc: "Spicy chicken and vegetable soup with garlic, chilli and crispy noodles.", img: "https://images.unsplash.com/photo-1547592180-85f173990554?w=400&q=80", badge: "nonveg", popular: false }
+            ],
+            appetisers: [
+                { name: "Masala Papad", price: "£3.45", desc: "Crisp papad topped with onion, tomato, chilli and tangy seasoning.", img: "https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=400&q=80", badge: "veg", popular: false },
+                { name: "Plain Papad", price: "£2.50", desc: "Crisp roasted or fried papad served with house chutneys.", img: "https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=400&q=80", badge: "veg", popular: false },
+                { name: "Chilli Garlic Mogo", price: "£6.95", desc: "Crispy cassava tossed with garlic, chilli, peppers and spring onion.", img: "https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=400&q=80", badge: "veg", popular: false },
+                { name: "Vegetable Spring Rolls", price: "£5.95", desc: "Crispy rolls filled with vegetables and served with sweet chilli sauce.", img: "https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=400&q=80", badge: "veg", popular: false },
+                { name: "Onion Pakoda", price: "£5.95", desc: "Crispy onion fritters seasoned with chilli and Indian spices.", img: "https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=400&q=80", badge: "veg", popular: false },
+                { name: "Cut Mirchi", price: "£6.95", desc: "Battered green chillies fried until crisp and finished with tangy seasoning.", img: "https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=400&q=80", badge: "veg", popular: false },
+                { name: "Samosa Chaat", price: "£6.95", desc: "Crushed samosas with chickpeas, yoghurt and tangy chutneys.", img: "https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=400&q=80", badge: "veg", popular: false }
+            ],
+            vegstarters: [
+                { name: "Paneer Choice", price: "£8.95", desc: "Paneer 65, Chilli Paneer, Manchurian, Tikka or Pakoda.", img: "https://images.unsplash.com/photo-1596797038530-2c107229654b?w=400&q=80", badge: "veg", popular: false },
+                { name: "Gobi Choice", price: "£8.95", desc: "Gobi 65, Chilli Gobi, Manchurian or Crispy Gobi.", img: "https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=400&q=80", badge: "veg", popular: false },
+                { name: "Mushroom Choice", price: "£8.95", desc: "Chilli Mushroom, Mushroom 65, Pepper or Manchurian.", img: "https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=400&q=80", badge: "veg", popular: false },
+                { name: "Crispy Corn", price: "£7.95", desc: "Golden sweetcorn tossed with garlic, chilli, pepper and curry leaves.", img: "https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=400&q=80", badge: "veg", popular: false },
+                { name: "Vegetable Manchurian", price: "£8.95", desc: "Crispy vegetable dumplings tossed with garlic, chilli and sauce.", img: "https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=400&q=80", badge: "veg", popular: false },
+                { name: "Tandoori Paneer Tikka", price: "£9.95", desc: "Paneer, onion and peppers marinated with yoghurt and Kashmiri chilli.", img: "https://images.unsplash.com/photo-1596797038530-2c107229654b?w=400&q=80", badge: "veg", popular: false },
+                { name: "Bhindi Kurkuri", price: "£8.95", desc: "Crispy okra seasoned with gram flour, chilli, cumin and mango powder.", img: "https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=400&q=80", badge: "veg", popular: false },
+                { name: "Hara Bhara Kebab", price: "£7.95", desc: "Spinach and green pea kebabs, lightly spiced and pan-fried.", img: "https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=400&q=80", badge: "veg", popular: false }
+            ],
+            royalveg: [
+                { name: "Gutti Vankai", price: "£9.95", desc: "Baby aubergines stuffed with peanut, sesame, coconut and Andhra spices.", img: "https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=400&q=80", badge: "veg", popular: false },
+                { name: "Gongura Paneer", price: "£9.95", desc: "Paneer cooked with tangy sorrel leaves, garlic, chilli and Andhra spices.", img: "https://images.unsplash.com/photo-1596797038530-2c107229654b?w=400&q=80", badge: "veg", popular: false },
+                { name: "Paneer Ghee Roast", price: "£9.95", desc: "Paneer tossed in a rich Mangalorean chilli, spice and ghee masala.", img: "https://images.unsplash.com/photo-1596797038530-2c107229654b?w=400&q=80", badge: "veg", popular: false },
+                { name: "Paneer Platter", price: "£12.95", desc: "Paneer tikka, hariyali paneer and malai paneer cooked in the tandoor.", img: "https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=400&q=80", badge: "veg", popular: false },
+                { name: "Chilli Mushroom Pepper Fry", price: "£9.95", desc: "Mushrooms stir-fried with black pepper, curry leaves, garlic and chilli.", img: "https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=400&q=80", badge: "veg", popular: false },
+                { name: "Crispy Lotus Stem", price: "£9.95", desc: "Crispy lotus stem tossed in a sweet, spicy and tangy chilli glaze.", img: "https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=400&q=80", badge: "veg", popular: false },
+                { name: "Malai Broccoli", price: "£9.95", desc: "Broccoli marinated with yoghurt, mustard, chilli and tandoori spices.", img: "https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=400&q=80", badge: "veg", popular: false },
+                { name: "Vegetable of the Day", price: "£9.95", desc: "Chef's daily vegetable special, prepared fresh.", img: "https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=400&q=80", badge: "veg", popular: false }
+            ],
+            vegmains: [
+                { name: "Paneer Butter Masala", price: "£9.95", desc: "Paneer simmered in a creamy tomato, butter and mild spice sauce.", img: "https://images.unsplash.com/photo-1596797038530-2c107229654b?w=400&q=80", badge: "veg", popular: false },
+                { name: "Kadai Paneer", price: "£9.95", desc: "Paneer with peppers, onion, tomato and freshly ground kadai spices.", img: "https://images.unsplash.com/photo-1596797038530-2c107229654b?w=400&q=80", badge: "veg", popular: false },
+                { name: "Palak Paneer", price: "£9.95", desc: "Paneer gently cooked in a smooth spinach, garlic and tomato sauce.", img: "https://images.unsplash.com/photo-1596797038530-2c107229654b?w=400&q=80", badge: "veg", popular: false },
+                { name: "Paneer Tikka Masala", price: "£9.95", desc: "Char-grilled paneer in a rich tomato, onion and cream sauce.", img: "https://images.unsplash.com/photo-1596797038530-2c107229654b?w=400&q=80", badge: "veg", popular: false },
+                { name: "Vegetable Korma", price: "£9.95", desc: "Mixed vegetables cooked with coconut, cashew and aromatic spices.", img: "https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?w=400&q=80", badge: "veg", popular: false },
+                { name: "Vegetable Chettinad", price: "£9.95", desc: "Seasonal vegetables with coconut, black pepper, fennel and curry leaves.", img: "https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?w=400&q=80", badge: "veg", popular: false },
+                { name: "Dal Tadka", price: "£8.95", desc: "Yellow lentils tempered with cumin, garlic, chilli and ghee.", img: "https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?w=400&q=80", badge: "veg", popular: false },
+                { name: "Dal Makhani", price: "£8.95", desc: "Black lentils slow-cooked with tomato, butter and cream.", img: "https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?w=400&q=80", badge: "veg", popular: false },
+                { name: "Chana Masala", price: "£8.95", desc: "Chickpeas cooked with onion, tomato, ginger and Punjabi spices.", img: "https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?w=400&q=80", badge: "veg", popular: false }
+            ],
+            nonvegstarters: [
+                { name: "Chicken Choice", price: "£8.95", desc: "Chicken 65, Chilli, Majestic, Lollipop, Manchurian, Pakoda or Tikka.", img: "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=400&q=80", badge: "nonveg", popular: false },
+                { name: "Fish Choice", price: "£9.95", desc: "Fish Pakoda, Apollo Fish Fry, Fish 65 or Chilli Fish.", img: "https://images.unsplash.com/photo-1544551763-92ab472cad5d?w=400&q=80", badge: "nonveg", popular: false },
+                { name: "Lamb Choice", price: "£9.95", desc: "Lamb Ghee Roast, Chukka, Pepper, Seekh Kebab or Chops.", img: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=400&q=80", badge: "nonveg", popular: false },
+                { name: "Prawn Choice", price: "£10.95", desc: "Pepper, Chilli Garlic, Prawn 65 or Butter Garlic Prawns.", img: "https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=400&q=80", badge: "nonveg", popular: false },
+                { name: "Chicken Tangdi Kebab", price: "£9.95", desc: "Chicken drumsticks marinated with yoghurt, ginger, garlic and spices.", img: "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=400&q=80", badge: "nonveg", popular: false },
+                { name: "Malai Chicken Tikka", price: "£9.95", desc: "Tender chicken marinated with cream, cardamom and mild spices.", img: "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=400&q=80", badge: "nonveg", popular: false },
+                { name: "Lamb Seekh Kebab", price: "£10.95", desc: "Minced lamb skewers seasoned with herbs and cooked over charcoal.", img: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=400&q=80", badge: "nonveg", popular: false }
+            ],
+            royalnonveg: [
+                { name: "Chicken Platter", price: "£16.50", desc: "Chicken tikka, wings, tangdi kebab and house chicken kebab.", img: "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=400&q=80", badge: "nonveg", popular: false },
+                { name: "Bheja Fry", price: "£13.95", desc: "Tender lamb brain cooked with onion, chilli and traditional spices.", img: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=400&q=80", badge: "nonveg", popular: false },
+                { name: "Liver Fry", price: "£8.95", desc: "Spiced liver stir-fried with onion, curry leaves and black pepper.", img: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=400&q=80", badge: "nonveg", popular: false },
+                { name: "Natu Kodi Fry", price: "£9.95", desc: "Country-style chicken fried with chilli, curry leaves and Andhra spices.", img: "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=400&q=80", badge: "nonveg", popular: false },
+                { name: "Pistachio Lamb Chops", price: "£14.95", desc: "Char-grilled lamb chops finished with aromatic spices and pistachio.", img: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=400&q=80", badge: "nonveg", popular: false },
+                { name: "Haleem", price: "£12.95", desc: "Slow-cooked meat, lentils and wheat blended with Hyderabadi spices.", img: "https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?w=400&q=80", badge: "nonveg", popular: false },
+                { name: "Andhra Chicken Curry", price: "£10.95", desc: "Chicken slow-cooked with onion, tomato, curry leaves and Andhra spices.", img: "https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?w=400&q=80", badge: "nonveg", popular: false },
+                { name: "Gongura Chicken", price: "£9.95", desc: "Chicken cooked with tangy sorrel leaves, garlic and green chilli.", img: "https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?w=400&q=80", badge: "nonveg", popular: false },
+                { name: "Tiger Prawns Masala Fry", price: "£14.95", desc: "Tiger prawns tossed in onion, tomato, chilli and curry-leaf masala.", img: "https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=400&q=80", badge: "nonveg", popular: false },
+                { name: "Paya", price: "£12.95", desc: "Slow-cooked lamb trotters in a rich and aromatic spiced gravy.", img: "https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?w=400&q=80", badge: "nonveg", popular: false },
+                { name: "King Fish Fry", price: "£12.95", desc: "King fish marinated with chilli, turmeric, ginger and garlic.", img: "https://images.unsplash.com/photo-1544551763-92ab472cad5d?w=400&q=80", badge: "nonveg", popular: false },
+                { name: "Pomfret Fry", price: "£12.95", desc: "Whole pomfret marinated in coastal spices and fried until crisp.", img: "https://images.unsplash.com/photo-1544551763-92ab472cad5d?w=400&q=80", badge: "nonveg", popular: false },
+                { name: "Lemon Butter Fish", price: "£12.95", desc: "Fish fillet finished with lemon, butter, garlic and fresh herbs.", img: "https://images.unsplash.com/photo-1544551763-92ab472cad5d?w=400&q=80", badge: "nonveg", popular: false },
+                { name: "Grilled Sea Bass", price: "£13.95", desc: "Sea bass grilled with citrus, garlic, herbs and mild Indian spices.", img: "https://images.unsplash.com/photo-1544551763-92ab472cad5d?w=400&q=80", badge: "nonveg", popular: false },
+                { name: "Valcona Garlic Prawns", price: "£14.95", desc: "Prawns cooked in an intense garlic, chilli and butter glaze.", img: "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=400&q=80", badge: "nonveg", popular: false },
+                { name: "Gongura Lamb", price: "£10.95", desc: "Tender lamb cooked with tangy sorrel leaves and Andhra spices.", img: "https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?w=400&q=80", badge: "nonveg", popular: false },
+                { name: "Gongura Prawns", price: "£11.95", desc: "Prawns cooked with gongura leaves, garlic, chilli and coastal spices.", img: "https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=400&q=80", badge: "nonveg", popular: false }
+            ],
+            nonvegmains: [
+                { name: "Chicken Curry Choice", price: "£9.95", desc: "Chicken Tikka Masala, Butter Chicken, Kadai Chicken or Bhuna.", img: "https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?w=400&q=80", badge: "nonveg", popular: false },
+                { name: "Lamb Curry Choice", price: "£10.95", desc: "Lamb Kadai, Telangana Mamsam, Railway Curry or Rogan Josh.", img: "https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?w=400&q=80", badge: "nonveg", popular: false },
+                { name: "Prawn Curry Choice", price: "£10.95", desc: "Prawn Kadai, Masala, Chilli Garlic or Tikka Masala.", img: "https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=400&q=80", badge: "nonveg", popular: false },
+                { name: "King Fish Curry", price: "£12.95", desc: "King fish simmered in a rich onion, tomato, spice and tamarind curry.", img: "https://images.unsplash.com/photo-1544551763-92ab472cad5d?w=400&q=80", badge: "nonveg", popular: false },
+                { name: "Chicken Chettinad", price: "£10.95", desc: "Chicken cooked with coconut, black pepper, fennel and curry leaves.", img: "https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?w=400&q=80", badge: "nonveg", popular: false },
+                { name: "Andhra Mutton Curry", price: "£11.95", desc: "Tender mutton slow-cooked with onion, tomato, pepper and Andhra spices.", img: "https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?w=400&q=80", badge: "nonveg", popular: false },
+                { name: "Mangalore Prawn Curry", price: "£12.95", desc: "Prawns simmered with coconut, coriander, tamarind and curry leaves.", img: "https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=400&q=80", badge: "nonveg", popular: false },
+                { name: "Nellore Fish Pulusu", price: "£12.95", desc: "Fish cooked in a tangy tamarind, raw mango and Andhra chilli gravy.", img: "https://images.unsplash.com/photo-1544551763-92ab472cad5d?w=400&q=80", badge: "nonveg", popular: false }
+            ],
+            biryanis: [
+                { name: "Hyderabadi Chicken Dum Biryani", price: "£8.95", desc: "Marinated chicken and basmati rice dum-cooked with saffron and spices.", img: "https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=400&q=80", badge: "nonveg", popular: false },
+                { name: "Chicken Fry-Piece Biryani", price: "£8.95", desc: "Spiced fried chicken layered with aromatic rice and biryani masala.", img: "https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=400&q=80", badge: "nonveg", popular: false },
+                { name: "Hyderabadi Lamb Dum Biryani", price: "£10.95", desc: "Tender lamb and basmati rice slow-cooked with saffron and spices.", img: "https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=400&q=80", badge: "nonveg", popular: false },
+                { name: "Prawn Biryani", price: "£12.95", desc: "Prawns layered with basmati rice, saffron and coastal spices.", img: "https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=400&q=80", badge: "nonveg", popular: false },
+                { name: "Chicken Tikka Biryani", price: "£10.95", desc: "Fragrant basmati rice layered with marinated chicken tikka.", img: "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=400&q=80", badge: "nonveg", popular: false },
+                { name: "Chicken 65 Biryani", price: "£10.95", desc: "Fragrant basmati rice layered with spicy Chicken 65.", img: "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=400&q=80", badge: "nonveg", popular: false },
+                { name: "Vegetable Dum Biryani", price: "£7.95", desc: "Seasonal vegetables and basmati rice dum-cooked with saffron.", img: "https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=400&q=80", badge: "veg", popular: false },
+                { name: "Paneer Biryani", price: "£8.95", desc: "Spiced paneer and vegetables layered with fragrant basmati rice.", img: "https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=400&q=80", badge: "veg", popular: false },
+                { name: "Family Chicken Biryani", price: "£29.95", desc: "A generous sharing portion of Hyderabadi chicken dum biryani for the table.", img: "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=400&q=80", badge: "nonveg", popular: false },
+                { name: "Family Lamb Biryani", price: "£34.95", desc: "A generous sharing portion of Hyderabadi lamb dum biryani for the table.", img: "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=400&q=80", badge: "nonveg", popular: false }
+            ],
+            ricenoodles: [
+                { name: "Egg Fried Rice / Noodles", price: "£7.95", desc: "Wok-tossed rice or noodles with egg and vegetables.", img: "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=400&q=80", badge: "nonveg", popular: false },
+                { name: "Chicken Fried Rice / Noodles", price: "£8.95", desc: "Wok-tossed rice or noodles with chicken and vegetables.", img: "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=400&q=80", badge: "nonveg", popular: false },
+                { name: "Vegetable Fried Rice / Noodles", price: "£6.95", desc: "Wok-tossed rice or noodles with vegetables and light seasoning.", img: "https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=400&q=80", badge: "veg", popular: false },
+                { name: "Prawn Fried Rice / Noodles", price: "£9.95", desc: "Wok-tossed rice or noodles with prawns and vegetables.", img: "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=400&q=80", badge: "nonveg", popular: false }
+            ],
+            breads: [
+                { name: "Plain Naan", price: "£2.00", desc: "Soft traditional bread freshly baked in the tandoor.", img: "https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=400&q=80", badge: "veg", popular: false },
+                { name: "Butter Naan", price: "£2.50", desc: "Tandoor-baked naan brushed with melted butter.", img: "https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=400&q=80", badge: "veg", popular: false },
+                { name: "Garlic Naan", price: "£3.45", desc: "Fresh naan topped with garlic, butter and coriander.", img: "https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=400&q=80", badge: "veg", popular: false },
+                { name: "Chilli Garlic Naan", price: "£3.45", desc: "Naan finished with garlic, chilli, coriander and butter.", img: "https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=400&q=80", badge: "veg", popular: false },
+                { name: "Cheese Naan", price: "£3.95", desc: "Soft naan filled with melted cheese.", img: "https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=400&q=80", badge: "veg", popular: false },
+                { name: "Tandoori Roti", price: "£2.50", desc: "Wholewheat flatbread baked in the tandoor.", img: "https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=400&q=80", badge: "veg", popular: false },
+                { name: "Chapati (2 Pieces)", price: "£2.95", desc: "Soft wholewheat flatbread cooked on a hot griddle.", img: "https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=400&q=80", badge: "veg", popular: false }
+            ],
+            ricesides: [
+                { name: "Steamed Basmati Rice", price: "£3.50", desc: "Fragrant basmati rice steamed until light and fluffy.", img: "https://images.unsplash.com/photo-1586190848861-99aa4a171e90?w=400&q=80", badge: "veg", popular: false },
+                { name: "Jeera Rice", price: "£4.50", desc: "Basmati rice tempered with cumin seeds and aromatic spices.", img: "https://images.unsplash.com/photo-1586190848861-99aa4a171e90?w=400&q=80", badge: "veg", popular: false },
+                { name: "Pilau Rice", price: "£3.95", desc: "Lightly spiced basmati rice cooked with whole spices.", img: "https://images.unsplash.com/photo-1586190848861-99aa4a171e90?w=400&q=80", badge: "veg", popular: false },
+                { name: "Bhindi Fry", price: "£6.95", desc: "Okra stir-fried with onion, tomato and dry spices.", img: "https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=400&q=80", badge: "veg", popular: false },
+                { name: "Plain Raita", price: "£2.95", desc: "Chilled seasoned yoghurt served as a cooling accompaniment.", img: "https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=400&q=80", badge: "veg", popular: false },
+                { name: "Boondi Raita", price: "£4.50", desc: "Seasoned yoghurt mixed with crisp gram-flour pearls.", img: "https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=400&q=80", badge: "veg", popular: false },
+                { name: "Beetroot Raita", price: "£4.95", desc: "Chilled yoghurt with beetroot and gentle seasoning.", img: "https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=400&q=80", badge: "veg", popular: false },
+                { name: "Green Salad", price: "£3.50", desc: "Lettuce, cucumber, tomato, onion and lemon.", img: "https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=400&q=80", badge: "veg", popular: false }
+            ],
+            desserts: [
+                { name: "Double Ka Meetha", price: "£4.95", desc: "Hyderabadi bread pudding flavoured with saffron, cardamom and nuts.", img: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400&q=80", badge: "veg", popular: false },
+                { name: "Gulab Jamun with Ice Cream", price: "£4.95", desc: "Warm milk dumplings soaked in fragrant cardamom syrup, served with vanilla ice cream.", img: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400&q=80", badge: "veg", popular: false },
+                { name: "Kulfi", price: "£4.95", desc: "Traditional Indian ice cream: malai, mango or pistachio.", img: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400&q=80", badge: "veg", popular: false },
+                { name: "Apricot Delight", price: "£5.95", desc: "Stewed apricots layered with cream, nuts and a delicate hint of cardamom.", img: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400&q=80", badge: "veg", popular: false },
+                { name: "Chocolate Brownie with Ice Cream", price: "£5.95", desc: "Warm chocolate brownie served with vanilla ice cream.", img: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400&q=80", badge: "veg", popular: false },
+                { name: "Ice Cream Selection", price: "£4.95", desc: "Choose from vanilla, chocolate, strawberry or mango.", img: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400&q=80", badge: "veg", popular: false }
+            ]
         },
         gallery: [
             { src: 'gallery/g15.jpg', name: 'The Royal Chilli', large: true, hidden: false },
@@ -1246,11 +460,11 @@
     var SUPABASE_KEY = 'sb_publishable_quwTSUSQLMwVOkcBLjiQZQ_pQ8BbrM3';
     var CAT_PANEL_MAP = {
         'Soups': 'soups', 'Appetisers': 'appetisers',
-        'Veg Starters': 'vegstarters', 'Royal Veg': 'royalveg',
-        'Veg Mains': 'vegmains', 'Veg Combos': 'vegcombos',
-        'Non-Veg Starters': 'nonvegstarters', 'Royal Non-Veg': 'royalnonveg',
-        'Non-Veg Mains': 'nonvegmains', 'Non-Veg Combos': 'nonvegcombos',
-        'Biryanis': 'biryanis', 'Royal Combos': 'royalcombos',
+        'Vegetarian Starters': 'vegstarters', 'Vegetarian Specials': 'royalveg',
+        'Vegetarian Mains': 'vegmains',
+        'Non-Vegetarian Starters': 'nonvegstarters', 'Non-Vegetarian Specials': 'royalnonveg',
+        'Non-Vegetarian Mains': 'nonvegmains',
+        'Biryanis': 'biryanis',
         'Rice & Noodles': 'ricenoodles', 'Breads': 'breads',
         'Rice & Sides': 'ricesides', 'Desserts': 'desserts'
     };
@@ -1325,7 +539,7 @@
     });
 
     DEFAULTS.stats = [
-        {count:110,label:'Total Dishes'},
+        {count:103,label:'Total Dishes'},
         {count:0,label:'Happy Customers'},
         {count:0,label:'Expert Chefs'}
     ];
@@ -1334,7 +548,7 @@
     DEFAULTS.contact.address = '43 Kingsley Road, Hounslow, London, TW3 1PA';
     DEFAULTS.contact.mapEmbed = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2485.593!2d-0.3580133!3d51.4722309!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48760d00575f94db%3A0x374941cb29fce285!2sThe%20Royal%20Chilli!5e0!3m2!1sen!2suk!4v1718000000000!5m2!1sen!2suk';
     DEFAULTS.contact.social = { facebook:'#', instagram:'https://www.instagram.com/the_royal_chilli?igsh=MW12MTVzY2p0ZmUycw==', twitter:'#' };
-    DEFAULTS.footer = { tagline:'Bringing the rich flavours and warmth of authentic Indian cuisine to the heart of London.', copyright:'© 2025 The Royal Chilli. All rights reserved.' };
+    DEFAULTS.footer = { tagline:'Bringing the rich flavours and warmth of authentic Indian cuisine to the heart of London.', copyright:'© 2026 The Royal Chilli. All rights reserved.' };
 
     window.RC_CONTENT = { STORAGE_KEY: STORAGE_KEY, DEFAULTS: DEFAULTS };
 })();
