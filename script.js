@@ -532,13 +532,39 @@ function chooseOrderType(type) {
     document.getElementById('menu')?.scrollIntoView({ behavior: 'smooth' });
 }
 
-// ===== PDF MENU MODAL =====
+// ===== MENU PAGES MODAL =====
+const MENU_PAGE_COUNT = 5;
+let menuPageIndex = 1;
+
+function renderMenuPage() {
+    document.getElementById('menuPageImg').src = 'menu-pages/page-' + menuPageIndex + '.png';
+    document.getElementById('menuPageCount').textContent = '· Page ' + menuPageIndex + ' of ' + MENU_PAGE_COUNT;
+    document.getElementById('menuPageDownload').href = 'menu-pages/page-' + menuPageIndex + '.png';
+    document.querySelectorAll('#menuPageDots .menu-page-dot').forEach((dot, i) => {
+        dot.classList.toggle('active', i === menuPageIndex - 1);
+    });
+}
+
+function goToMenuPage(n) {
+    menuPageIndex = ((n - 1 + MENU_PAGE_COUNT) % MENU_PAGE_COUNT) + 1;
+    renderMenuPage();
+}
+function prevMenuPage() { goToMenuPage(menuPageIndex - 1); }
+function nextMenuPage() { goToMenuPage(menuPageIndex + 1); }
+
 function openMenuPdf() {
     const overlay = document.getElementById('pdfModalOverlay');
-    const frame = document.getElementById('pdfFrame');
-    if (!frame.src || frame.src === window.location.href) {
-        frame.src = 'Royal_Chilli_Dinner_Menu_Print_Ready2.pdf';
+    const dots = document.getElementById('menuPageDots');
+    if (!dots.children.length) {
+        for (let i = 1; i <= MENU_PAGE_COUNT; i++) {
+            const dot = document.createElement('button');
+            dot.className = 'menu-page-dot';
+            dot.setAttribute('aria-label', 'Go to page ' + i);
+            dot.onclick = () => goToMenuPage(i);
+            dots.appendChild(dot);
+        }
     }
+    goToMenuPage(1);
     overlay.classList.add('open');
     document.body.style.overflow = 'hidden';
 }
@@ -548,6 +574,13 @@ function closePdfModal(e) {
     document.getElementById('pdfModalOverlay').classList.remove('open');
     document.body.style.overflow = '';
 }
+
+document.addEventListener('keydown', e => {
+    if (!document.getElementById('pdfModalOverlay')?.classList.contains('open')) return;
+    if (e.key === 'ArrowLeft') prevMenuPage();
+    if (e.key === 'ArrowRight') nextMenuPage();
+    if (e.key === 'Escape') closePdfModal();
+});
 
 // ===== RESERVATION FORM =====
 document.getElementById('resForm')?.addEventListener('submit', async e => {

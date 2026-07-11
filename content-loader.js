@@ -98,7 +98,7 @@
                 { name: "Vegetable Korma", price: "£9.95", desc: "Mixed vegetables cooked with coconut, cashew and aromatic spices.", img: "https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?w=400&q=80", badge: "veg", popular: false },
                 { name: "Vegetable Chettinad", price: "£9.95", desc: "Seasonal vegetables with coconut, black pepper, fennel and curry leaves.", img: "https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?w=400&q=80", badge: "veg", popular: false },
                 { name: "Dal Tadka", price: "£8.95", desc: "Yellow lentils tempered with cumin, garlic, chilli and ghee.", img: "https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?w=400&q=80", badge: "veg", popular: false },
-                { name: "Dal Makhani", price: "£8.95", desc: "Black lentils slow-cooked with tomato, butter and cream.", img: "https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?w=400&q=80", badge: "veg", popular: false },
+                { name: "Dal Makhani", price: "£9.95", desc: "Black lentils slow-cooked with tomato, butter and cream.", img: "https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?w=400&q=80", badge: "veg", popular: false },
                 { name: "Chana Masala", price: "£8.95", desc: "Chickpeas cooked with onion, tomato, ginger and Punjabi spices.", img: "https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?w=400&q=80", badge: "veg", popular: false }
             ],
             nonvegstarters: [
@@ -320,11 +320,11 @@
         });
     }
 
-    function buildDishCard(dish) {
+    function buildDishCard(dish, cat) {
         const pop = dish.popular ? ' popular-dish' : '';
         const popTag = dish.popular ? '<div class="pop-tag">' + (dish.popularTag || 'Popular') + '</div>' : '';
         const price = dish.price ? '<span class="price">' + dish.price + '</span>' : '';
-        const badge = dish.badge ? '<span class="badge ' + dish.badge + '">' + (dish.badge === 'veg' ? '🟢 Veg' : '🔴 Non-Veg') + '</span>' : '';
+        const badge = (dish.badge && cat !== 'desserts') ? '<span class="badge ' + dish.badge + '">' + (dish.badge === 'veg' ? '🟢 Veg' : '🔴 Non-Veg') + '</span>' : '';
         return '<div class="dish-card' + pop + '">' +
             '<div class="dish-body">' + popTag + '<div class="dish-top"><h4>' + dish.name + '</h4>' + price + '</div>' +
             '<p>' + dish.desc + '</p>' + badge + '</div></div>';
@@ -336,7 +336,7 @@
             const panel = document.getElementById('panel-' + cat);
             if (!panel) return;
             const grid = panel.querySelector('.menu-grid');
-            if (grid) grid.innerHTML = menu[cat].map(buildDishCard).join('');
+            if (grid) grid.innerHTML = menu[cat].map(dish => buildDishCard(dish, cat)).join('');
         });
         reinitSteppers();
     }

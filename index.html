@@ -686,19 +686,24 @@
         </div>
     </div>
 
-    <!-- PDF Menu Modal -->
+    <!-- Menu Pages Modal -->
     <div class="pdf-modal-overlay" id="pdfModalOverlay" onclick="closePdfModal(event)">
         <div class="pdf-modal">
             <div class="pdf-modal-header">
-                <span><i class="fas fa-book-open" style="color:var(--gold);margin-right:0.5rem"></i> Our Menu</span>
+                <span><i class="fas fa-book-open" style="color:var(--gold);margin-right:0.5rem"></i> Our Menu <span id="menuPageCount" class="menu-page-count"></span></span>
                 <div style="display:flex;gap:0.75rem;align-items:center">
-                    <a href="Royal_Chilli_Dinner_Menu_Print_Ready2.pdf" download class="pdf-modal-download" title="Download PDF">
+                    <a href="menu-pages/page-1.png" download="Royal-Chilli-Menu.png" class="pdf-modal-download" id="menuPageDownload" title="Download this page">
                         <i class="fas fa-download"></i> Download
                     </a>
                     <button class="pdf-modal-close" onclick="closePdfModal()"><i class="fas fa-times"></i></button>
                 </div>
             </div>
-            <iframe id="pdfFrame" class="pdf-modal-frame" src="" title="Royal Chilli Menu"></iframe>
+            <div class="menu-page-viewer">
+                <button class="menu-page-nav menu-page-prev" onclick="prevMenuPage()" aria-label="Previous page"><i class="fas fa-chevron-left"></i></button>
+                <img id="menuPageImg" class="menu-page-img" src="" alt="Royal Chilli Menu page">
+                <button class="menu-page-nav menu-page-next" onclick="nextMenuPage()" aria-label="Next page"><i class="fas fa-chevron-right"></i></button>
+            </div>
+            <div class="menu-page-dots" id="menuPageDots"></div>
         </div>
     </div>
 
