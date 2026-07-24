@@ -87,17 +87,6 @@
       ]
     },
     {
-      "name": "Live Football",
-      "icon": "fas fa-futbol",
-      "sub": "Match Day Specials",
-      "slides": [
-        {
-          "img": "pptx_images/image3.png",
-          "alt": "Live Football Match Day Specials"
-        }
-      ]
-    },
-    {
       "name": "Signature Dishes",
       "icon": "fas fa-crown",
       "sub": "Chef's Finest Picks",

@@ -37,9 +37,6 @@
                 { img: 'pptx_images/image7.png', alt: 'Happy Hour 4PM-7PM' },
                 { img: 'pptx_images/image8.png', alt: 'Happy Hour Bar Menu' }
             ]},
-            { name: 'Live Football', icon: 'fas fa-futbol', sub: 'Match Day Specials', slides: [
-                { img: 'pptx_images/image3.png', alt: 'Live Football Match Day Specials' }
-            ]},
             { name: 'Signature Dishes', icon: 'fas fa-crown', sub: "Chef's Finest Picks", slides: [
                 { img: 'pptx_images/image6.png', alt: 'Signature Dishes' },
                 { img: 'pptx_images/image9.png', alt: 'Chicken Lamb Dum Biryani' },
